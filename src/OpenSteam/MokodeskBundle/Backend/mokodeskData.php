@@ -1352,8 +1352,8 @@ function getAssignmentPackage($steam, $id)
 
                     $data = http_build_query(Array(
                         "id" => session_id(),
-                        "username" => $_SESSION[ "LMS_USER" ]->get_login(),
-                        "password" => $_SESSION[ "LMS_USER" ]->get_password()
+                        "username" => $loginName,
+                        "password" => $loginPwd
                     ));
 
                     // send the request headers:
@@ -1372,7 +1372,7 @@ function getAssignmentPackage($steam, $id)
                 fclose($fp);
 
                 $action0 = "file-link";
-                $content = "Location: http://".$host.":".$port."/room/".$this->id."#externalSession/".$_SESSION[ "LMS_USER" ]->get_login()."/".session_id();
+                $content = "Location: http://".$host.":".$port."/room/".$item->id."#externalSession/".$loginName."/".session_id();
                 $qtip0 = msg('LINK_TAB');
                 $mimeType = "Link";
                 $hide2 = 1;
