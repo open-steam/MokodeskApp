@@ -161,6 +161,7 @@ module.exports = function(grunt) {
       },
       mokodeskLib: {
           src: [
+              '<%= dirs.components %>jquery/jquery.js',
               '<%= dirs.components %>angular/angular.js',
               '<%= dirs.components %>angular-bootstrap/ui-bootstrap-tpls.js',
               '<%= dirs.components %>angular-translate/angular-translate.js',

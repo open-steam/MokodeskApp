@@ -32,3 +32,135 @@
     background:  -moz-linear-gradient(top, #e0e6ef, #c5d3e6);
     background:  -webkit-gradient(linear, left top, left bottom, from(#e0e6ef), to(#c5d3e6));
  }
+
+.ribbon.ribbon__alpha, .ribbon.ribbon__beta, .ribbon.ribbon__gamma, .ribbon.ribbon__delta {
+     box-shadow: 0px 0px 0px 0.75em rgba(255, 255, 255, 0);
+     color: white;
+     transition: color 0.35s ease-in 0s, box-shadow 0.215s ease-out 0s;
+}
+
+.ribbon.ribbon__alpha:hover, .ribbon.ribbon__beta:hover, .ribbon.ribbon__gamma:hover, .ribbon.ribbon__delta:hover {
+     background: none repeat scroll 0% 0% white;
+     box-shadow: 0px 0px 0px 0.25em rgba(255, 255, 255, 0.4);
+}
+
+.ribbon {
+     font-size: 1.35em;
+     padding: 0.5em;
+     position: absolute;
+     text-decoration: none;
+}
+
+@media (max-width: 44em) {
+  .ribbon { font-size: 1em; }
+}
+
+.ribbon.ribbon--top-left {
+     left: 0.5em;
+     top: 0px;
+}
+
+.ribbon.ribbon--top-right {
+     right: 0.5em;
+     top: 0px;
+}
+
+.ribbon.ribbon--bottom-left {
+     bottom: 0px;
+     left: 0.5em;
+}
+
+.ribbon.ribbon--bottom-right {
+     bottom: 0px;
+     right: 0.5em;
+}
+
+.ribbon.ribbon__alpha {
+     background: linear-gradient(to bottom, #3498DB, #2980B9) repeat scroll 0% 0% transparent;
+}
+
+.ribbon.ribbon__alpha:hover {
+     color: #3498DB;
+}
+
+.ribbon.ribbon__beta {
+     background: linear-gradient(to bottom, #E74C3C, #C0392B) repeat scroll 0% 0% transparent;
+}
+
+.ribbon.ribbon__beta:hover {
+     color: #E74C3C;
+}
+
+.ribbon.ribbon__gamma {
+     background: linear-gradient(to bottom, #2ECC71, #27AE60) repeat scroll 0% 0% transparent;
+}
+
+.ribbon.ribbon__gamma:hover {
+     color: #2ECC71;
+}
+
+.ribbon.ribbon__delta {
+     background: linear-gradient(to bottom, #E67E22, #D35400) repeat scroll 0% 0% transparent;
+}
+
+.ribbon.ribbon__delta:hover {
+     color: #E67E22;
+}
+
+
+div[data-angular-treeview] {
+  /* prevent user selection */
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  /* default */
+  font-family: Tahoma;
+  font-size:13px;
+  color: #555;
+  text-decoration: none;
+}
+
+div[data-tree-model] ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: none;
+  overflow: hidden;
+}
+
+div[data-tree-model] li {
+  position: relative;
+  padding: 0 0 0 20px;
+  line-height: 20px;
+}
+
+div[data-tree-model] li .expanded {
+  padding: 1px 10px;
+  background-image: url("http://cfile23.uf.tistory.com/image/205B973A50C13F4B19D9BD");
+  background-repeat: no-repeat;
+}
+
+div[data-tree-model] li .collapsed {
+  padding: 1px 10px;
+  background-image: url("http://cfile23.uf.tistory.com/image/1459193A50C13F4B1B05FB");
+  background-repeat: no-repeat;
+}
+
+div[data-tree-model] li .normal {
+  padding: 1px 10px;
+  background-image: url("http://cfile23.uf.tistory.com/image/165B663A50C13F4B196CCA");
+  background-repeat: no-repeat;
+}
+
+div[data-tree-model] li i, div[data-tree-model] li span {
+  cursor: pointer;
+}
+
+div[data-tree-model] li .selected {
+  background-color: #aaddff;
+  font-weight: bold;
+  padding: 1px 5px;
+}
