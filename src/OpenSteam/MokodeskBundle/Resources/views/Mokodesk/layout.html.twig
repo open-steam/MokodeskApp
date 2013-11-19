@@ -1,0 +1,29 @@
+<!-- DOCTYPE html-->
+<html>
+<head>
+    <title>{% block title %}Mokodesk{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/opensteammokodesk/css/mokodeskLib.min.css') }}?version={{ version }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/opensteammokodesk/css/mokodesk.min.css') }}?version={{ version }}" />
+    <script type="text/javascript" src="{{ asset('bundles/opensteammokodesk/js/mokodeskLib.min.js') }}?version={{ version }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/opensteammokodesk/js/mokodesk.min.js') }}?version={{ version }}"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="../../assets/js/html5shiv.js"></script>
+    <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    {% block body %}
+
+    {% endblock %}
+
+    {% block javascripts %}
+
+    {% endblock %}
+</body>
+</html>

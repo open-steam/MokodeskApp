@@ -1,0 +1,47 @@
+open_steam_mokodesk_index:
+    pattern:  /
+    defaults: { _controller: OpenSteamMokodeskBundle:Mokodesk:index }
+
+open_steam_mokodesk_login:
+    pattern:  /login/
+    defaults: { _controller: OpenSteamMokodeskBundle:Mokodesk:login }
+
+open_steam_mokodesk_logout:
+    pattern:  /logout/
+    defaults: { _controller: OpenSteamMokodeskBundle:Mokodesk:logout }
+
+open_steam_mokodesk_data:
+    pattern:  /data/
+    defaults: { _controller: OpenSteamMokodeskBundle:Mokodesk:data }
+
+open_steam_mokodesk_folder:
+    pattern:  /folder/
+    defaults: { _controller: OpenSteamMokodeskBundle:Mokodesk:folder }
+
+open_steam_mokodesk_update:
+    pattern:  /update/
+    defaults: { _controller: OpenSteamMokodeskBundle:Mokodesk:update }
+
+open_steam_mokodesk_edit:
+    pattern:  /edit/
+    defaults: { _controller: OpenSteamMokodeskBundle:Mokodesk:edit }
+
+open_steam_mokodesk_getpath:
+    pattern:  /get/path/{path}
+    defaults: { _controller: OpenSteamMokodeskBundle:Mokodesk:getpath }
+    requirements:
+        path: ".+"
+
+open_steam_mokodesk_get:
+    pattern:  /get/{id}
+    defaults: { _controller: OpenSteamMokodeskBundle:Mokodesk:get }
+    requirements:
+        id: \d+
+
+open_steam_mokodesk_thumbnail:
+    pattern:  /thumbnail/{id}/{width}/{height}
+    defaults: { _controller: OpenSteamMokodeskBundle:Mokodesk:thumbnail }
+    requirements:
+        id: \d+
+        width: \d+
+        height: \d+

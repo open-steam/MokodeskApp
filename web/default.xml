@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FlocsConfig>
+        <ServerSettings>
+                <Server type="red5" uri="rtmp://xserve2.ufc.uni-paderborn.de/flocs/" />
+                <Server type="steam" uri="bid-owl.de" />
+        </ServerSettings>
+</FlocsConfig>

@@ -1,0 +1,99 @@
+{% extends 'OpenSteamMokodeskBundle:Mokodesk:layout.html.twig' %}
+
+{% block body %}
+    <style>
+        body {
+      padding-top: 40px;
+      padding-bottom: 40px;
+      background-color: lightblue;
+    }
+
+    .form-signin {
+      max-width: 330px;
+      padding: 15px;
+      margin: 0 auto;
+    }
+    .form-signin .form-signin-heading,
+    .form-signin .checkbox {
+      margin-bottom: 10px;
+    }
+    .form-signin .checkbox {
+      font-weight: normal;
+    }
+    .form-signin .form-control {
+      position: relative;
+      font-size: 16px;
+      height: auto;
+      padding: 10px;
+      -webkit-box-sizing: border-box;
+         -moz-box-sizing: border-box;
+              box-sizing: border-box;
+    }
+    .form-signin .form-control:focus {
+      z-index: 2;
+    }
+    .form-signin input[type="text"] {
+      margin-bottom: -1px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .form-signin input[type="password"] {
+      margin-bottom: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+    </style>
+      {% if data.errorMsg is defined %}
+        <div class="alert alert-danger">{{data.errorMsg}}</div>
+      {% endif %}
+     <div class="container">
+
+      <h2>Bildungsnetz Förderung : Individuell</h2>
+      <img src="{{ asset('bundles/opensteammokodesk/img/MokoDesk_shadow.png') }}">
+      <form class="form-signin" method="POST" action="{{path('open_steam_mokodesk_index')}}">
+        <h4 class="form-signin-heading">Anmeldung zum MokoDesk</h4>
+        <input type="text" class="form-control" name="username" placeholder="Nutzername" autofocus>
+        <input type="password" class="form-control" name="password" placeholder="Passwort">
+        <label>Sprache:</label>
+        <select name="lang">
+            <option value="last">Wie beim letzten Mal</option>
+            <option value="de_lars">LARS</option>
+            <option value="de">MokoDesk (Deutsch)</option>
+            <option value="en">MokoDesk (Englisch)</option>
+            <option value="fr">MokoDesk (Französisch)</option>
+            <option value="debug">debug</option>
+        </select>
+        <label class="checkbox">
+          <input type="checkbox" name="remember" value="remember-me"> Anmeldedaten merken
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Anmelden</button>
+       </form>
+        <br><br><br>
+        <div class="row">
+        <div class="col-md-4 col-md-offset-2">
+            <div class="media">
+                <a href="http://www.bfiev.de/unsere-projekte/jule-internetschule/">
+                  <img title="Weitere Informationen zur JuLe Internetschule" src="{{ asset('bundles/opensteammokodesk/img/julia1.png') }}">
+                </a>
+                <div class="media-body">
+                  <h4 class="media-heading">JuLe Internetschule</h4>
+                  Weitere Informationen...
+                </div>
+              </div>
+        </div>
+        <div class="col-md-4">
+            <div class="media">
+                <a href="http://www.bfiev.de/unsere-projekte/lars-lernen-auf-reisen-schule/">
+                  <img title="Weitere Informationen zu LARS - Lernen auf Reisen-Schule" src="{{ asset('bundles/opensteammokodesk/img/lars.png') }}">
+                </a>
+                <div class="media-body">
+                  <h4 class="media-heading">LARS - Lernen auf Reisen-Schule</h4>
+                  Weitere Informationen...
+                </div>
+              </div>
+        </div>
+        </div>
+
+
+    </div>
+{% endblock %}
