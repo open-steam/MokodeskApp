@@ -1350,6 +1350,12 @@ function getAssignmentPackage($steam, $id)
 
                 if ($fp) {
 
+                    session_name("bidowl_session");
+                    session_start();
+                    $loginName = (isset($_SESSION['user'])) ? ($_SESSION['user']) : null;
+                    $loginPwd = (isset($_SESSION['pass'])) ? ($_SESSION['pass']) : null;
+                    session_write_close();
+
                     $data = http_build_query(Array(
                         "id" => session_id(),
                         "username" => $loginName,
@@ -1372,7 +1378,7 @@ function getAssignmentPackage($steam, $id)
                 fclose($fp);
 
                 $action0 = "file-link";
-                $content = "Location: http://".$host.":".$port."/room/".$item->id."#externalSession/".$loginName."/".session_id();
+                $content = "Location: http://".$host.":".$port."/room/".$item->get_id()."#externalSession/".$loginName."/".session_id();
                 $qtip0 = msg('LINK_TAB');
                 $mimeType = "Link";
                 $hide2 = 1;
