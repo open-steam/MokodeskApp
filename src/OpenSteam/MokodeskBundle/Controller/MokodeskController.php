@@ -70,6 +70,26 @@ class MokodeskController extends Controller
         }
     }
 
+    public function previewAction(Request $request)
+    {
+/*        session_name("bidowl_session");
+        session_start();
+        if (isset($_SESSION["login_name"])) {
+            $loginName = isset($_SESSION["login_name"]) ?  $_SESSION['login_name'] : "";
+            $loginPwd = isset($_SESSION["login_pwd"]) ? $_SESSION['login_pwd'] : "";
+        } else {
+            $loginName = "";
+            $loginPwd = "";
+        }
+        $steam = MokodeskSteam::connect(STEAM_SERVER, STEAM_PORT, $loginName, $loginPwd);
+        if (!$steam || !$steam->get_login_status()) {
+            session_destroy();
+            return new RedirectResponse('/');
+        } else {*/
+            return $this->render('OpenSteamMokodeskBundle:Mokodesk:mokodeskPreview.html.twig', array("version" => MOKODESK_VERSION));
+//        }
+    }
+
     public function loginAction(Request $request)
     {
         include_once dirname(__FILE__) . '/../Backend/mokodeskLogin.php';

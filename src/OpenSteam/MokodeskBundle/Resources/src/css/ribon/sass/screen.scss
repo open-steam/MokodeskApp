@@ -1,0 +1,158 @@
+// Vertical space between ribbon and screen
+$unit-alpha: 0;
+// Horizontal space between ribbon and screen
+$unit-beta: .5em;
+// Padding for the ribbon
+$unit-gamma: .5em;
+// Font-size for the ribbon on big screens
+$unit-delta: 1.35em;
+// Font-size for the ribbon on small screens
+$unit-epsilon: 1em;
+
+/*
+ * Colors
+ */
+$color-alpha: #3498db;
+$color-beta: #2980b9;
+$color-gamma: #e74c3c;
+$color-delta: #c0392b;
+$color-epsilon: #2ecc71;
+$color-zeta: #27ae60;
+$color-eta: #e67e22;
+$color-theta: #d35400;
+$color-iota: #fff;
+
+/*
+ * Lists (used for linear gradient backgrounds)
+ */
+$list-alpha: $color-alpha, $color-beta;
+$list-beta: $color-gamma, $color-delta;
+$list-gamma: $color-epsilon, $color-zeta;
+$list-delta: $color-eta, $color-theta;
+
+/*
+ * Linear gradient with old and new syntax.
+ */
+@mixin bg($direction, $direction_old, $colors) {
+  @include background(
+    linear-gradient($direction_old, $colors)
+  );
+  @include background(
+    linear-gradient($direction, $colors)
+  );
+}
+
+body {
+  margin: 0;
+  background: url(http://s.cdpn.io/1202/bg_zeta_blur.jpg);
+  background-size: cover;
+  font-family: sans-serif;
+}
+
+/*
+ * Basic styles for the ribbon__modifiers
+ */
+%ribbon__epsilon {
+  color: $color-iota;
+  box-shadow: 0 0 0 $unit-beta * 1.5 rgba($color-iota, 0);
+
+  @include transition(
+    color .35s ease-in,
+    box-shadow .215s ease-out
+  );
+
+  &:hover {
+    background: $color-iota;
+    box-shadow:
+      0 0 0 $unit-beta / 2 rgba(darken($color-iota, 0%), .4)
+    ;
+  }
+}
+
+/*
+ * GitHub ribbon base class
+ */
+.ribbon {
+  position: absolute;
+  padding: $unit-gamma;
+  font-size: $unit-delta;
+  text-decoration: none;
+
+  @media (max-width: 44em) {
+    font-size: $unit-epsilon;
+  }
+
+  /*
+   * Position of the ribbon
+   */
+  &.ribbon--top-left {
+    top: $unit-alpha;
+    left: $unit-beta;
+  }
+
+  &.ribbon--top-right {
+    top: $unit-alpha;
+    right: $unit-beta;
+  }
+
+  &.ribbon--bottom-left {
+    bottom: $unit-alpha;
+    left: $unit-beta;
+  }
+
+  &.ribbon--bottom-right {
+    bottom: $unit-alpha;
+    right: $unit-beta;
+  }
+
+  /*
+   * Style for the ribbon
+   */
+  &.ribbon__alpha {
+    @extend %ribbon__epsilon;
+
+    background: $color-alpha;
+
+    @include bg(to bottom, top, $list-alpha);
+
+    &:hover {
+      color: $color-alpha;
+    }
+  }
+
+  &.ribbon__beta {
+    @extend %ribbon__epsilon;
+
+    background: $color-gamma;
+
+    @include bg(to bottom, top, $list-beta);
+
+    &:hover {
+      color: $color-gamma;
+    }
+  }
+
+  &.ribbon__gamma {
+    @extend %ribbon__epsilon;
+
+    background: $color-epsilon;
+
+    @include bg(to bottom, top, $list-gamma);
+
+    &:hover {
+      color: $color-epsilon;
+    }
+  }
+
+  &.ribbon__delta {
+    @extend %ribbon__epsilon;
+
+    background: $color-eta;
+
+    @include bg(to bottom, top, $list-delta);
+
+    &:hover {
+      color: $color-eta;
+    }
+  }
+}
