@@ -1279,6 +1279,16 @@ function getAssignmentPackage($steam, $id)
 			array( '+', 'class', 0x00000930),//documents, images, links, ...
 			)
 	);
+    $inventory_more = $current_folder->get_inventory_filtered(
+        array(
+            array( '-', 'attribute', 'bid:hidden', '==', 'hide_always' ),
+            array( '-', 'attribute', 'bid:hidden', '==', 'true' ),
+            array( '-', 'attribute', 'LARS_HIDDEN', '==', true ),
+            array( '+', 'attribute', 'isWebarena', '==', 1 ),
+            array( '+', 'class', 0x00000002),//container
+            )
+    );
+    $inventory = array_merge($inventory, $inventory_more);
 	$items_array = array();
 	foreach ($inventory as $key => $item){
 		$items_array[$key]["attributes"] = $item->get_attributes(array("bid:hidden", "LARS_HIDDEN", DOC_MIME_TYPE, OBJ_NAME, DOC_EXTERN_URL, OBJ_DESC, OBJ_PATH, OBJ_CREATION_TIME, OBJ_LAST_CHANGED, "LARS_STATE", "LARS_COMMENT", OBJ_TYPE, "LARS_TYPE"), 1);
@@ -1326,8 +1336,50 @@ function getAssignmentPackage($steam, $id)
 //						$action3 = 'changed';
 //						$qtip3 = 'Diese Datei wurde neu erstellt oder verändert seit dem letzten mal';
 //				}
+        if ($item instanceof steam_container) {
+             if ($item->get_attribute('isWebarena') === 1) {
 
-		if (!($item instanceof steam_docextern)){
+                $host = WEBARENA_HOST;
+                $port = WEBARENA_PORT;
+
+                if ($host == "localhost") {
+                    $host = $_SERVER['HTTP_HOST'];
+                }
+
+                $fp = fsockopen($host, $port);
+
+                if ($fp) {
+
+                    $data = http_build_query(Array(
+                        "id" => session_id(),
+                        "username" => $_SESSION[ "LMS_USER" ]->get_login(),
+                        "password" => $_SESSION[ "LMS_USER" ]->get_password()
+                    ));
+
+                    // send the request headers:
+                    fputs($fp, "POST /pushSession HTTP/1.1\r\n");
+                    fputs($fp, "Host: ".$host."\r\n");
+
+                    fputs($fp, "Content-type: application/x-www-form-urlencoded\r\n");
+                    fputs($fp, "Content-length: ". strlen($data) ."\r\n");
+                    fputs($fp, "Connection: close\r\n\r\n");
+                    fputs($fp, $data);
+
+                } else {
+                    throw new Exception("unable to connect to webarena server");
+                }
+
+                fclose($fp);
+
+                $action0 = "file-link";
+                $content = "Location: http://".$host.":".$port."/room/".$this->id."#externalSession/".$_SESSION[ "LMS_USER" ]->get_login()."/".session_id();
+                $qtip0 = msg('LINK_TAB');
+                $mimeType = "Link";
+                $hide2 = 1;
+                $action4 = 'delete';
+                $qtip4 = msg('LINK_DEL');
+            }
+        } else if (!($item instanceof steam_docextern)){
 		switch($attributes["DOC_MIME_TYPE"]){
 		    case "text/html":
 		    case "text/plain":
@@ -1388,10 +1440,18 @@ function getAssignmentPackage($steam, $id)
 			$qtip4 = msg('LINK_DEL');
 		}//end if !docextern
 
-	$name_parts = pathinfo($attributes["OBJ_PATH"]);
-	$name_parts["extension"] = ($mimeType == "Link") ? "link" : $name_parts["extension"];
-	$name_parts["extension"] = ($attributes["DOC_MIME_TYPE"] == "text/html") ? "html" : $name_parts["extension"];
-	$name_parts["extension"] = ($attributes["DOC_MIME_TYPE"] == "text/plain") ? "txt" : $name_parts["extension"];
+        if ($item instanceof steam_document) {
+            $name_parts = pathinfo($attributes["OBJ_PATH"]);
+            $name_parts["extension"] = (isset($name_parts["extension"]) ? $name_parts["extension"] : "");
+            //$name_parts["extension"] = ($mimeType == "Link") ? "link" : $name_parts["extension"];
+            $name_parts["extension"] = ($attributes["DOC_MIME_TYPE"] == "text/html") ? "html" : $name_parts["extension"];
+            $name_parts["extension"] = ($attributes["DOC_MIME_TYPE"] == "text/plain") ? "txt" : $name_parts["extension"];
+        } else if ($item instanceof steam_docextern) {
+            $name_parts["extension"] = "link";
+        } else if ($item instanceof steam_container) {
+            $name_parts["extension"] = "link";
+        }
+
 	$data[] = array(
 			'text'=>$attributes["OBJ_NAME"],
 			'type'=>$mimeType,
@@ -1739,22 +1799,22 @@ function getNewItemsRec($steam, $current_folder, $last_login_time, $data, $folde
 function deleteItem($steam, $id){
 //	include("lars_lang.php");
 	$name = stripslashes($_POST['name']);
-	$irrevocable = $_POST['irrevocable'];
+	$irrevocable = (isset($_POST['irrevocable']) ? $_POST['irrevocable'] : null);
 	try{
 	    $toDelete = steam_factory::get_object($GLOBALS["STEAM"]->get_id(),$id);
 	    if (strcmp($toDelete->get_attribute("OBJ_NAME"), $name) == 0){
 	    	if ($irrevocable){
 		    	if ($toDelete->delete())
-		    		print (json_encode(array(success => true)));
+		    		print (json_encode(array('success' => true)));
 	    	} else{
 		    	if ($toDelete->move($steam->get_current_steam_user()->get_attribute("USER_TRASHBIN")))
-		    		print (json_encode(array(success => true)));
+		    		print (json_encode(array('success' => true)));
 	    	}
 	    }else{
-	    	print (json_encode(array(success => false, message => utf8_encode(msg('FAILURE_DELETE')))));
+	    	print (json_encode(array('success' => false, 'message' => utf8_encode(msg('FAILURE_DELETE')))));
 	    }
     }catch(Exception $e){
-		print (json_encode(array(success => false, message => "steam exception")));
+		print (json_encode(array('success' => false, 'message' => "steam exception")));
 		error_log("00025:".$e->getMessage());
 	}
 	$steam->disconnect();
