@@ -1356,7 +1356,7 @@ function getAssignmentPackage($steam, $id)
                     $loginPwd = (isset($_SESSION['pass'])) ? ($_SESSION['pass']) : null;
                     session_write_close();
 
-                    $data = http_build_query(Array(
+                    $fpdata = http_build_query(Array(
                         "id" => session_id(),
                         "username" => $loginName,
                         "password" => $loginPwd
@@ -1367,9 +1367,9 @@ function getAssignmentPackage($steam, $id)
                     fputs($fp, "Host: ".$host."\r\n");
 
                     fputs($fp, "Content-type: application/x-www-form-urlencoded\r\n");
-                    fputs($fp, "Content-length: ". strlen($data) ."\r\n");
+                    fputs($fp, "Content-length: ". strlen($fpdata) ."\r\n");
                     fputs($fp, "Connection: close\r\n\r\n");
-                    fputs($fp, $data);
+                    fputs($fp, $fpdata);
 
                 } else {
                     throw new Exception("unable to connect to webarena server");
