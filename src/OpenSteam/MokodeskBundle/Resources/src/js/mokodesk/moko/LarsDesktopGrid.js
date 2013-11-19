@@ -516,6 +516,9 @@ Ext.extend(LarsDesktopGrid, Ext.grid.EditorGridPanel, {
 						LarsViewer.QuestionBrowserOpenNode(node2);
 					}
 					break;
+                case 'file-webarena':
+                    LarsViewer.QuestionTabOrBrowserOpen(node2);
+                    break;
 				case 'page-save':
 					window.open("get/"+rec.data.id);
 					break;

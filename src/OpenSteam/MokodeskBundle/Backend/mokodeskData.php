@@ -1377,7 +1377,6 @@ function getAssignmentPackage($steam, $id)
 
                 fclose($fp);
 
-                $action0 = "file-link";
                 $content = "http://".$host.":".$port."/room/".$item->get_id()."#externalSession/".$loginName."/".session_id();
                 $qtip0 = msg('LINK_TAB');
                 $mimeType = "Link";
@@ -1455,7 +1454,9 @@ function getAssignmentPackage($steam, $id)
         } else if ($item instanceof steam_docextern) {
             $name_parts["extension"] = "link";
         } else if ($item instanceof steam_container) {
-            $name_parts["extension"] = "link";
+            if ($item->get_attribute('isWebarena') === 1) {
+                $name_parts["extension"] = "webarena";
+            }
         }
 
 	$data[] = array(
