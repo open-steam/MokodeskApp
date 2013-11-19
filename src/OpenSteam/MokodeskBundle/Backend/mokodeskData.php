@@ -1378,7 +1378,7 @@ function getAssignmentPackage($steam, $id)
                 fclose($fp);
 
                 $action0 = "file-link";
-                $content = "Location: http://".$host.":".$port."/room/".$item->get_id()."#externalSession/".$loginName."/".session_id();
+                $content = "http://".$host.":".$port."/room/".$item->get_id()."#externalSession/".$loginName."/".session_id();
                 $qtip0 = msg('LINK_TAB');
                 $mimeType = "Link";
                 $hide2 = 1;
