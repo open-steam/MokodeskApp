@@ -10,8 +10,6 @@ monolog:
         main:
             type:         fingers_crossed
             action_level: error
-            handler:      nested
-        nested:
             handler:      grouped
         grouped:
             type:    group
