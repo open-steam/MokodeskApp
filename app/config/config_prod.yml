@@ -12,6 +12,20 @@ monolog:
             action_level: error
             handler:      nested
         nested:
+            handler:      grouped
+        grouped:
+            type:    group
+            members: [streamed, buffered]
+        streamed:
             type:  stream
             path:  %kernel.logs_dir%/%kernel.environment%.log
             level: debug
+        buffered:
+            type:    buffer
+            handler: swift
+        swift:
+            type:       swift_mailer
+            from_email: error@mokodesk.bid-owl.de
+            to_email:   nicke@uni-paderborn.de
+            subject:    An Error Occurred!
+            level:      debug

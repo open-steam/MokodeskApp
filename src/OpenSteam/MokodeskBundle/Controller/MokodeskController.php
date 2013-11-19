@@ -26,7 +26,6 @@ class MokodeskController extends Controller
                 $loginName = "";
                 $loginPwd = "";
             }
-            session_write_close();
         }
         $steam = MokodeskSteam::connect(STEAM_SERVER, STEAM_PORT, $loginName, $loginPwd);
         if (!$steam || !$steam->get_login_status()) {
