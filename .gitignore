@@ -9,3 +9,4 @@
 /vendor/
 /bin/
 /composer.phar
+/src/OpenSteam/MokodeskBundle/etc/default.def.php
