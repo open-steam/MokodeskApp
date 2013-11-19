@@ -14700,6 +14700,9 @@ Ext.extend(LarsDesktopGrid, Ext.grid.EditorGridPanel, {
 						LarsViewer.QuestionBrowserOpenNode(node2);
 					}
 					break;
+                case 'file-webarena':
+                    LarsViewer.QuestionTabOrBrowserOpen(node2);
+                    break;
 				case 'page-save':
 					window.open("get/"+rec.data.id);
 					break;
@@ -17833,6 +17836,9 @@ Ext.extend(PackageGrid, Ext.grid.EditorGridPanel, {
 					LarsViewer.QuestionBrowserOpenNode(node2);
 				}
 				break;
+			case 'file-webarena':
+                    LarsViewer.QuestionTabOrBrowserOpen(node2);
+                    break;
 			case 'page-save' :
 				Ext.Msg.confirm(Lars.main.grid.open_link_1,
 						Lars.main.grid.open_link_2, function(btn) {
