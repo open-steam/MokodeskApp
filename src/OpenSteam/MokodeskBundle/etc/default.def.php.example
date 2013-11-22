@@ -3,6 +3,7 @@ require_once dirname(__FILE__) . '/version.def.php';
 define("STEAM_SERVER", "localhost");
 define("STEAM_PORT", 1900);
 
+define("PATH_URL", "http://mokodesk.bid-owl.de.local");
 
 define("MOKODESK_ALLOWED_GROUP_NAME", "mokodesk");
 define("MOKODESK_ALLOWED_CHATGROUP_NAME", "mokochat");
