@@ -15,13 +15,13 @@ UploadCustomImage = function() {
     this.form = new Ext.FormPanel({
         labelAlign:'top',
         fileUpload: true,
-        url: 'lars_upload_file.php',
+        url: 'upload/',
         method: 'post',
         timeout: 1800000,
         id: 'upload-image-form',
 	    keys : LarsViewer.getKeyMap(this.onAdd, this),
         items:[
-	        this.filePath, 
+	        this.filePath,
 	        this.id
 	        ],
         border: false,
@@ -69,7 +69,7 @@ Ext.extend(UploadCustomImage, Ext.Window, {
 				}else{
 					Ext.ux.ToastLars.msg(Lars.msg.failure, Lars.dialog.upload_image.msg_failure+'<br>'+(responseData.name ? responseData.name : " "), 10);
 					this.el.unmask();
-				} 
+				}
             }
             ,failure:function(form, result) {
 				var responseData = {};

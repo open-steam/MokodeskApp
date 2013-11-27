@@ -39,7 +39,7 @@ var larsVoiceChat = {
 		Ext.getCmp('lars-voice-chat').renderMedia(
           {
 			mediaType: 'SWF',
-			url: 'bundles/opensteammokodesk/flash/flocsLars.swf',
+			url: '/bundles/opensteammokodesk/flash/flocsLars.swf',
 			id: 'flocsOne',
            	renderOnResize : false,
 			visibility:'hidden',

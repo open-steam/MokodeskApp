@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
     OpenSteam\MokodeskBundle\Backend\MokodeskSteam;
 
 require_once dirname(__FILE__) . '/../etc/default.def.php';
+require_once dirname(__FILE__) . '/../Backend/mokodeskTools.php';
 
 class MokodeskController extends Controller
 {
@@ -30,6 +31,7 @@ class MokodeskController extends Controller
         $steam = MokodeskSteam::connect(STEAM_SERVER, STEAM_PORT, $loginName, $loginPwd);
         if (!$steam || !$steam->get_login_status()) {
             session_destroy();
+
             return $this->render('OpenSteamMokodeskBundle:Mokodesk:login.html.twig', array("version" => MOKODESK_VERSION));
         } else {
             $_SESSION['user'] = $loginName;
@@ -84,8 +86,10 @@ class MokodeskController extends Controller
         $steam = MokodeskSteam::connect(STEAM_SERVER, STEAM_PORT, $loginName, $loginPwd);
         if (!$steam || !$steam->get_login_status()) {
             session_destroy();
+
             return new RedirectResponse('/');
         } else {*/
+
             return $this->render('OpenSteamMokodeskBundle:Mokodesk:mokodeskPreview.html.twig', array("version" => MOKODESK_VERSION));
 //        }
     }
@@ -101,6 +105,7 @@ class MokodeskController extends Controller
         session_name("bidowl_session");
         session_start();
         session_destroy();
+
         return new RedirectResponse('/');
     }
 
@@ -119,6 +124,12 @@ class MokodeskController extends Controller
     public function updateAction(Request $request)
     {
         include_once dirname(__FILE__) . '/../Backend/mokodeskUpdate.php';
+        exit;
+    }
+
+    public function uploadAction(Request $request)
+    {
+        include_once dirname(__FILE__) . '/../Backend/mokodeskUploadFile.php';
         exit;
     }
 
@@ -143,7 +154,11 @@ class MokodeskController extends Controller
 
         $object = \steam_factory::path_to_object($GLOBALS["STEAM"]->get_id(), $path);
         if ($object instanceof \steam_document) {
-            $object->download();
+            if ($object->get_mimetype() === "text/html") {
+                echo gettexthtmlnew(PATH_URL, $object->get_content(), $object);
+            } else {
+                $object->download(DOWNLOAD_INLINE);
+            }
         }
         exit;
     }
@@ -163,12 +178,17 @@ class MokodeskController extends Controller
 
         $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
         if ($object instanceof \steam_document) {
-            $object->download();
+            if ($object->get_mimetype() === "text/html") {
+                echo gettexthtmlnew(PATH_URL, $object->get_content(), $object);
+            } else {
+                $object->download(DOWNLOAD_INLINE);
+            }
         }
         exit;
     }
 
-    public function thumbnailAction($id, $width, $height) {
+    public function thumbnailAction($id, $width, $height)
+    {
         session_name("bidowl_session");
         session_start();
         $loginName = (isset($_SESSION['user'])) ? ($_SESSION['user']) : "";

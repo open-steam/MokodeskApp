@@ -117,7 +117,7 @@ LarsDesktopNorth = function(){
         id: "navigation-top",
         height: 70,
         region: "north",
-        html: '<div id="mynavbla" style="text-align: right;"><table width="100%"><tr id="nav-top"><td width="60%" ><img style="margin-top: 0px;" src="bundles/opensteammokodesk/img/MokoDesk_shadow.png" /><div style="position: absolute; top:0px; left: 0px"><a href="logout/"><img title="abmelden" src="bundles/opensteammokodesk/img/silk/icons/door.png"></a></div></td>' +
+        html: '<div id="mynavbla" style="text-align: right;"><table width="100%"><tr id="nav-top"><td width="60%" ><img style="margin-top: 0px;" src="/bundles/opensteammokodesk/img/MokoDesk_shadow.png" /><div style="position: absolute; top:0px; left: 0px"><a href="logout/"><img title="abmelden" src="/bundles/opensteammokodesk/img/silk/icons/door.png"></a></div></td>' +
         '<td width="40%"><span id="login-info">' +
         loginInfo +
         '</span></td></tr></table></div>',
