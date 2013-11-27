@@ -62,13 +62,13 @@ require_once dirname(__FILE__) . '/../lib/derive_mimetype.php';
 
 session_name("bidowl_session");
 session_start();
-$loginName = ($_SESSION['user']) ? ($_SESSION['user']) : null;
-$loginPwd = ($_SESSION['pass']) ? ($_SESSION['pass']) : null;
+$loginName = (isset($_SESSION['user'])) ? ($_SESSION['user']) : null;
+$loginPwd = (isset($_SESSION['pass'])) ? ($_SESSION['pass']) : null;
 session_write_close();
-$action = ($_POST['aktion']) ? ($_POST['aktion']) : null;
-$id = ($_POST['id']) ? ($_POST['id']) : null;
-$hidden = ($_POST['bidHidden']) ? ($_POST['bidHidden']) : false;
-$type = ($_POST['larsType']) ? ($_POST['larsType']) : 0;
+$action = (isset($_POST['aktion'])) ? ($_POST['aktion']) : null;
+$id = (isset($_POST['id'])) ? ($_POST['id']) : null;
+$hidden = (isset($_POST['bidHidden'])) ? ($_POST['bidHidden']) : false;
+$type = (isset($_POST['larsType'])) ? ($_POST['larsType']) : 0;
 $steam = OpenSteam\MokodeskBundle\Backend\MokodeskSteam::connect(STEAM_SERVER, STEAM_PORT, $loginName, $loginPwd);
 if (!$steam || !$steam->get_login_status()) {
     echo json_encode(array("success" => false, "name" => "Keine Verbindung"));
@@ -116,7 +116,7 @@ try {
         echo json_encode(array("success" => false, "name" => "Files nicht gesetzt"));
     }
 } catch (Exception $e) {
-    error_log("exception: " . ErrorException::getTrace());
+    error_log("exception: " . $e->getMessage());
     echo json_encode(array("success" => false, "name" => "LoginException"));
 }
 $steam->disconnect();

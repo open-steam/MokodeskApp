@@ -12275,7 +12275,7 @@ task = {};
 var AScgiloc = 'bundles/opensteammokodesk/tools/asciisvg/svgimg.php';
 var AMTcgiloc = "http://www.bid-owl.de/cgi-bin/mimetex.cgi";
 var larsNews = '<font size="3">'
-		+ '<b>Version 1.5.0:<br></b>'
+		+ '<b>Version 1.5.9:<br></b>'
 		+ '<ul><li>- neue Anmeldeseite</li><li>- Virtuelle Tafel hinzugefügt</li><li>- Datenbackend neu geschreiben</li></ul>'
 		+ '<b>Version 1.0.2:<br></b>'
 		+ '<ul><li>- fehlerhafte Links korrigiert</li></ul>'
@@ -20731,7 +20731,7 @@ Ext.extend(UploadCustomImage, Ext.Window, {
         });
     }
 });
-var version = "1.5.3";
+var version = "1.5.9";
 var larsVoiceChat = {
 			title: Lars.main.chat.title,
 			iconCls: 'webcam',

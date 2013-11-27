@@ -610,7 +610,7 @@ function getUpdates($steam, $ids, $lastUpdate, $count, $newIds, $current_folder_
                         case "image/jpg":
                         case "image/jpeg":
                         case "image/png":
-                            $content = '<p style="text-align: center;"><img src="' . PATH_URL . '/tools/get.php?mode=thumbnail&height=100&object=' . $attributes["OBJ_ID"] . '" border="0" /></p>';
+                            $content = '<p style="text-align: center;"><img src="' . PATH_URL . '/thumbnail/' . $attributes["OBJ_ID"] . '/0/100" border="0" /></p>';
                             $qtip0 = 'Dokument hier anzeigen';
                             $mimeType = 'Bild';
                             $action2 = 'page-save';
@@ -625,7 +625,7 @@ function getUpdates($steam, $ids, $lastUpdate, $count, $newIds, $current_folder_
                             break;
 
                         default:
-                            $content = '<a href="' . PATH_URL . '/tools/get.php?object=' . $attributes["OBJ_ID"] . '" title="' . $attributes["OBJ_NAME"] . '">' . $attributes["OBJ_NAME"] . '</a>';
+                            $content = '<a href="' . PATH_URL . '/get/' . $attributes["OBJ_ID"] . '">' . $attributes["OBJ_NAME"] . '</a>';
                             //                        $content = "<i>".$attributes["OBJ_NAME"]."</i> : ".$attributes["OBJ_DESC"];
                             $mimeType = "Download";
                             $action2 = 'page-save';

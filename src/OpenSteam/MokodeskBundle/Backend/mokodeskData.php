@@ -2594,16 +2594,7 @@ function emptyTrash($steam)
 function getUserIcon($steam)
 {
     $name = $_POST['name'];
-    // $user = steam_factory::get_user($steam, $name);
-    // $attributes = $user->get_attribute_names();
-    // if (in_array("OBJ_ICON", $attributes)) {
-    //     $imageId = $user->get_attribute("OBJ_ICON")->get_id();
-    //     $imageUri = '<img src="'.PATH_URL.'/tools/get.php?mode=thumbnail&height=50&object='.$imageId.'" border="0" height="100%" align="left" vspace="5" hspace="5" />';
     $imageUri = '<img src="' . PATH_URL . '/moko/images/chat_bubble.png" border="0" align="left" vspace="5" hspace="5" />';
-    // } else {
-    //      error_log("no image icon");
-    //      $imageUri="";
-    // }
     echo json_encode(array(
         'success' => true,
         'imageUri' => $imageUri
@@ -2626,8 +2617,6 @@ function getCustomImage($steam)
     if (in_array("OBJ_ICON", $attributes)) {
         $imageId = $login_user->get_attribute("OBJ_ICON")->get_id();
         print ('<img src="' . PATH_URL . '/thumbnail/' . $imageId . '/0/100" border="0" height="100%" />'); //TODO: Not working locally
-        //     print ('"tools/get.php?mode=thumbnail&height=100&object='.$imageId.'" border="0" height="100%"'.'<img src="tools/get.php?mode=thumbnail&height=100&object='.$imageId.'" border="0" height="100%" />');
-
     } else {
         print ("Doppelklick um hier ein eigenes Bild anzeigen zu lassen."); // TODO: Sprachen
 
