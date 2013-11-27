@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
     OpenSteam\MokodeskBundle\Backend\MokodeskSteam;
 
 require_once dirname(__FILE__) . '/../etc/default.def.php';
+require_once dirname(__FILE__) . '/../Backend/mokodeskTools.php';
 
 class MokodeskController extends Controller
 {
@@ -153,7 +154,11 @@ class MokodeskController extends Controller
 
         $object = \steam_factory::path_to_object($GLOBALS["STEAM"]->get_id(), $path);
         if ($object instanceof \steam_document) {
-            $object->download();
+            if ($object->get_mimetype() === "text/html") {
+                echo gettexthtmlnew(PATH_URL, $object->get_content(), $object);
+            } else {
+                $object->download(DOWNLOAD_INLINE);
+            }
         }
         exit;
     }
@@ -173,7 +178,11 @@ class MokodeskController extends Controller
 
         $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
         if ($object instanceof \steam_document) {
-            $object->download();
+            if ($object->get_mimetype() === "text/html") {
+                echo gettexthtmlnew(PATH_URL, $object->get_content(), $object);
+            } else {
+                $object->download(DOWNLOAD_INLINE);
+            }
         }
         exit;
     }

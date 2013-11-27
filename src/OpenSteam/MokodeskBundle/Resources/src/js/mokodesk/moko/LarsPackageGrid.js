@@ -75,7 +75,7 @@ PackageGrid = function(parentNode, groupColor) {
 					},
 					scope : this
 				},{
-					iconCls : 'add-page-white',
+					iconCls : 'add-webarena',
 					text : Lars.main.grid.add_webarena_title,
 					tooltip : Lars.main.grid.add_webarena,
 					handler : function() {

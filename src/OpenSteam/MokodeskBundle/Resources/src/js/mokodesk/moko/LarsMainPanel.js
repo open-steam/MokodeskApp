@@ -159,7 +159,7 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 										theme : "advanced",
 										language: Lars.tinyMceLanguage,
 										verify_html : true,
-										content_css: "bundles/opensteammokodesk/css/tinyMCE.css",
+										content_css: "/bundles/opensteammokodesk/css/tinyMCE.css",
 										plugins: "table,emotions,searchreplace,asciimath,asciisvg,media,paste,bid_tooltip",
 										theme_advanced_buttons1 : "fontselect,formatselect,fontsizeselect,bold,italic,underline,sub,sup,separator,justifyleft,justifycenter,justifyright,separator,forecolor,backcolor",
 										theme_advanced_buttons2 : "hr,charmap,separator,emotions,image,media,link,unlink,separator,bullist,numlist,tablecontrols,visualaid,asciimath,asciimathcharmap,asciisvg",
@@ -170,8 +170,8 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 										theme_advanced_statusbar_location : "none",
 										theme_advanced_resizing : false,
 										convert_urls : false, // IMPORTANT!
-									    AScgiloc : 'bundles/opensteammokodesk/tools/asciisvg/svgimg.php',
-									    ASdloc : 'bundles/opensteammokodesk/js/tiny_mce/plugins/asciisvg/js/d.svg',
+									    AScgiloc : '/bundles/opensteammokodesk/tools/asciisvg/svgimg.php',
+									    ASdloc : '/bundles/opensteammokodesk/js/tiny_mce/plugins/asciisvg/js/d.svg',
 										extended_valid_elements : "embed[*]", //TODO
 										file_browser_callback : function fileBrowserCallBack(field_name, url, type, win) {
 														  this.win = new LarsBrowseFileWindow(win.document.forms[0].elements[field_name], node);

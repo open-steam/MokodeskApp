@@ -343,6 +343,14 @@ function getUsersLastLogin($steam, $usersOn, $usersOff, $count, $owner_array_ids
  */
 function getUpdates($steam, $ids, $lastUpdate, $count, $newIds, $current_folder_array_ids = array())
 {
+    /*$output = array();
+    $output['success'] = true;
+    $output['data'] = array();
+    $output = json_encode($output);
+    echo $output;
+    die;*/
+
+    $showHidden = false;
     //    $lastUpdate = $lastUpdate-250;
     $data = array();
     $allIds = json_decode(stripslashes($ids));
@@ -557,7 +565,7 @@ function getUpdates($steam, $ids, $lastUpdate, $count, $newIds, $current_folder_
             $items = array();
 
             foreach ($inventory_packages_array[$key] as $key3 => $item) {
-                if ($item instanceof steam_document || $item instanceof steam_docextern) {
+                if ($item instanceof steam_document || $item instanceof steam_docextern || $item instanceof steam_container) {
                     //$action0 = false;
                     $action1 = false;
                     $action2 = false;
@@ -587,7 +595,45 @@ function getUpdates($steam, $ids, $lastUpdate, $count, $newIds, $current_folder_
                         $action1 = 'comment-edit';
                         $qtip1 = 'Schreibe eine Anmerkung zu diesem Dokument';
                     }
-                    if (!($item instanceof steam_docextern)) {
+                    if ($item instanceof steam_container) {
+                        if ($item->get_attribute('isWebarena') === 1) {
+                            $host = WEBARENA_HOST;
+                            $port = WEBARENA_PORT;
+                            if ($host == "localhost") {
+                                $host = $_SERVER['HTTP_HOST'];
+                            }
+                            $fp = fsockopen($host, $port);
+                            if ($fp) {
+                                session_name("bidowl_session");
+                                session_start();
+                                $loginName = (isset($_SESSION['user'])) ? ($_SESSION['user']) : null;
+                                $loginPwd = (isset($_SESSION['pass'])) ? ($_SESSION['pass']) : null;
+                                session_write_close();
+                                $fpdata = http_build_query(Array(
+                                    "id" => session_id() ,
+                                    "username" => $loginName,
+                                    "password" => $loginPwd
+                                ));
+                                // send the request headers:
+                                fputs($fp, "POST /pushSession HTTP/1.1\r\n");
+                                fputs($fp, "Host: " . $host . "\r\n");
+                                fputs($fp, "Content-type: application/x-www-form-urlencoded\r\n");
+                                fputs($fp, "Content-length: " . strlen($fpdata) . "\r\n");
+                                fputs($fp, "Connection: close\r\n\r\n");
+                                fputs($fp, $fpdata);
+                            } else {
+
+                                throw new Exception("unable to connect to webarena server");
+                            }
+                            fclose($fp);
+                            $content = "http://" . $host . ":" . $port . "/room/" . $item->get_id() . "#externalSession/" . $loginName . "/" . session_id();
+                            $qtip0 = msg('LINK_TAB');
+                            $mimeType = "Link";
+                            $hide2 = 1;
+                            $action4 = 'delete';
+                            $qtip4 = msg('LINK_DEL');
+                        }
+                    } elseif (!($item instanceof steam_docextern)) {
 
                         switch ($attributes["DOC_MIME_TYPE"]) {
                         case "text/html":
@@ -642,13 +688,23 @@ function getUpdates($steam, $ids, $lastUpdate, $count, $newIds, $current_folder_
                         $content = $attributes["DOC_EXTERN_URL"];
                         //                    $content = '<p style="text-align: center;"><a href="'.$attributes["DOC_EXTERN_URL"].'">'.$attributes["DOC_EXTERN_URL"].'</a></p>';
                         $qtip0 = "Diesen Link in einem neuen Fenster öffnen";
-                        $mimeType = "Link";
                         $hide2 = 1;
                         $action4 = 'delete';
                         $qtip4 = 'Diesen Link löschen';
                     } //end if !docextern
-                    $name_parts = pathinfo($attributes["OBJ_PATH"]);
-                    $name_parts["extension"] = ($mimeType == "Link") ? "link" : $name_parts["extension"];
+                    if ($item instanceof steam_document) {
+                        $name_parts = pathinfo($attributes["OBJ_PATH"]);
+                        $name_parts["extension"] = (isset($name_parts["extension"]) ? $name_parts["extension"] : "");
+                        //$name_parts["extension"] = ($mimeType == "Link") ? "link" : $name_parts["extension"];
+                        $name_parts["extension"] = ($attributes["DOC_MIME_TYPE"] == "text/html") ? "html" : $name_parts["extension"];
+                        $name_parts["extension"] = ($attributes["DOC_MIME_TYPE"] == "text/plain") ? "txt" : $name_parts["extension"];
+                    } elseif ($item instanceof steam_docextern) {
+                        $name_parts["extension"] = "link";
+                    } elseif ($item instanceof steam_container) {
+                        if ($item->get_attribute('isWebarena') === 1) {
+                            $name_parts["extension"] = "webarena";
+                        }
+                    }
                     $items[] = array(
                         'text' => $attributes["OBJ_NAME"],
                         'type' => $mimeType,
@@ -698,7 +754,7 @@ function getUpdates($steam, $ids, $lastUpdate, $count, $newIds, $current_folder_
         $idsOld = $ids;
         session_name("bidowl_session");
         session_start();
-        $ids = ($_SESSION['updateIds']) ? ($_SESSION['updateIds']) : $ids;
+        $ids = (isset($_SESSION['updateIds'])) ? ($_SESSION['updateIds']) : $ids;
         $_SESSION['current_folder_array_ids'] = $current_folder_array_ids;
         session_write_close();
         $newIds = false;

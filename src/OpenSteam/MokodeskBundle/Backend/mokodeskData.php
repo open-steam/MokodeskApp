@@ -357,7 +357,7 @@ function newLink($oid)
         exit;
     }
     $url = derive_url($url);
-    $steam_user = $steam->get_current_steam_user();
+    $steam_user = $GLOBALS["STEAM"]->get_current_steam_user();
     if ($oid) {
         $link_folder = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $oid);
     } else {
@@ -365,7 +365,6 @@ function newLink($oid)
     }
     steam_factory::create_docextern($GLOBALS["STEAM"]->get_id(), tidyName($name), $url, $link_folder, tidyDesc($name));
     echo json_encode(array('success' => true));
-    $steam->disconnect();
 }
 
 /**
@@ -1042,7 +1041,7 @@ function updateSubscription($steam, $id)
 
         switch ($fieldValue) {
         case "true":
-            $copy = steam_factory::create_copy($GLOBALS["STEAM"]->get_id(), $desktop_link);
+            $copy = $desktop_link->copy();
             $copy->move($login_user->get_attribute("MOKO_SUBSCRIPTION_CHECK"));
             $success = true;
             break;
@@ -1354,10 +1353,10 @@ function copyIntoPackage($steam, $id)
     $current_folder = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $packageId);
     $object_to_copy = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
     // copy document
-    $copy = steam_factory::create_copy($GLOBALS["STEAM"]->get_id(), $object_to_copy);
+    $copy = $object_to_copy->copy();
     $copy->move($current_folder);
     // copy embedded pictures
-    if (!($copy instanceof steam_document)) {
+    if (!($copy instanceof steam_document) || $copy->get_mimetype() !== "text/html") {
         echo json_encode(array(
             'success' => true,
             'newId' => $copy->get_id()
@@ -1380,7 +1379,7 @@ function copyIntoPackage($steam, $id)
             $baseFileName = tidyName(basename($treffer[1][$index]));
             $original_image_id = $original_image->get_id();
             $original_image_object = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $original_image_id);
-            $copy_image = steam_factory::create_copy($GLOBALS["STEAM"]->get_id(), $original_image_object);
+            $copy_image = $original_image_object->copy();
             $copy_image->move($current_folder);
             $copy_image->set_attribute("OBJ_NAME", $baseFileName);
             $newContent = str_replace($treffer[0][$index], 'src="' . $baseFileName . '"', $newContent);
@@ -1432,8 +1431,8 @@ function copyPackage($steam, $id)
         exit;
     }
     // copy document
-    $copy1 = steam_factory::create_copy($GLOBALS["STEAM"]->get_id(), $object_to_copy);
-    $copy2 = steam_factory::create_copy($GLOBALS["STEAM"]->get_id(), $object_to_copy);
+    $copy1 = $object_to_copy->copy();
+    $copy2 = $object_to_copy->copy();
     $steam_user_target = $target_folder->get_environment()->get_environment()->get_creator();
     if ($steam_user_target->get_attribute("USER_FIRSTNAME")) {
         $folderName = $steam_user_target->get_attribute("USER_FIRSTNAME") . " " . $steam_user_target->get_attribute("USER_FULLNAME");
@@ -1519,7 +1518,7 @@ function copyFolder($steam, $id)
         exit;
     }
     // copy document
-    $copy1 = steam_factory::create_copy($GLOBALS["STEAM"]->get_id(), $object_to_copy);
+    $copy1 = $object_to_copy->copy();
     $copy_inventory_1 = $copy1->get_inventory();
     $current_path = $object_to_copy->get_path() . "/";
 
@@ -1567,7 +1566,7 @@ function copyFile($steam, $id)
         exit;
     }
     // copy document
-    $copy1 = steam_factory::create_copy($GLOBALS["STEAM"]->get_id(), $object_to_copy);
+    $copy1 = $object_to_copy->copy();
     $copy1->move($target_folder);
     echo json_encode(array(
         'success' => true,
@@ -1593,7 +1592,7 @@ function copyFilePackage($steam, $id)
     $file_to_copy = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $sourceId);
     $file_desc = $file_to_copy->get_attribute(OBJ_DESC) ? $file_to_copy->get_attribute(OBJ_DESC) : $file_to_copy->get_attribute(OBJ_NAME);
     $file_name = pathinfo($file_desc);
-    $file_copy = steam_factory::create_copy($GLOBALS["STEAM"]->get_id(), $file_to_copy);
+    $file_copy = $file_to_copy->copy();
     $file_copy->set_attribute("OBJ_DESC", $file_desc);
     $target_folder = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $targetId);
     $archiv_folder = $steam->get_current_steam_user()->get_attribute("LARS_ARCHIV");
@@ -1606,7 +1605,7 @@ function copyFilePackage($steam, $id)
     // copy document
     $copy1 = steam_factory::create_container($GLOBALS["STEAM"]->get_id(), $file_name['filename'], $archiv_folder, $file_name['filename']);
     $file_copy->move($copy1);
-    $copy2 = steam_factory::create_copy($GLOBALS["STEAM"]->get_id(), $copy1);
+    $copy2 = $copy1->copy();
     $steam_user_target = $target_folder->get_environment()->get_environment()->get_creator();
     $folderName = $steam_user_target->get_attribute("USER_FIRSTNAME") . " " . $steam_user_target->get_attribute("USER_FULLNAME");
     $inventory = $archiv_folder->get_inventory();
@@ -1837,6 +1836,7 @@ function getAssignmentPackage($steam, $id)
     //    $last_login_time = $steam->get_current_steam_user()->get_attribute(USER_LAST_LOGIN_LARS);
     // get folder for the new assignment package
     $current_folder = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
+    $data = array();
     // create new Assignment container
     $inventory = $current_folder->get_inventory_filtered(array(
         array(

@@ -20,7 +20,7 @@ var larsVoiceChatEnabled = true;
 var packageNodeToCopy = false;
 var fileRecordToCopy = false;
 task = {};
-var AScgiloc = 'bundles/opensteammokodesk/tools/asciisvg/svgimg.php';
+var AScgiloc = '/bundles/opensteammokodesk/tools/asciisvg/svgimg.php';
 var AMTcgiloc = "http://www.bid-owl.de/cgi-bin/mimetex.cgi";
 var larsNews = '<font size="3">'
 		+ '<b>Version 1.5.9:<br></b>'
@@ -241,7 +241,7 @@ Ext.onReady(function() {
 						edit : false,
 						layout : "fit",
 						autoScroll : true,
-						defaultSrc : 'bundles/opensteammokodesk/MokoDeskHelp/index.htm',
+						defaultSrc : '/bundles/opensteammokodesk/MokoDeskHelp/index.htm',
 						listeners : {
 							domready : LarsViewer.LinkInterceptorIFrame
 						}

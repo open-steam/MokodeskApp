@@ -65,7 +65,7 @@ Ext.extend(LarsWebarenaWindow, Ext.Window, {
                     newNode.parentElement = this.node.parentElement;
                     newNode.id = newID;
                     newNode.text = name;
-                    Ext.getCmp('main-tabs').fireEvent('schuelerEditTab', newNode);
+                    Ext.getCmp(this.node.id + "Grid").store.load();
                     }
                 else if (responseData.success == false){
                     Ext.ux.ToastLars.msg(Lars.msg.failure, responseData.name, 5);

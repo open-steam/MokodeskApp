@@ -12232,7 +12232,7 @@ var larsVoiceChatEnabled = true;
 var packageNodeToCopy = false;
 var fileRecordToCopy = false;
 task = {};
-var AScgiloc = 'bundles/opensteammokodesk/tools/asciisvg/svgimg.php';
+var AScgiloc = '/bundles/opensteammokodesk/tools/asciisvg/svgimg.php';
 var AMTcgiloc = "http://www.bid-owl.de/cgi-bin/mimetex.cgi";
 var larsNews = '<font size="3">'
 		+ '<b>Version 1.5.9:<br></b>'
@@ -12453,7 +12453,7 @@ Ext.onReady(function() {
 						edit : false,
 						layout : "fit",
 						autoScroll : true,
-						defaultSrc : 'bundles/opensteammokodesk/MokoDeskHelp/index.htm',
+						defaultSrc : '/bundles/opensteammokodesk/MokoDeskHelp/index.htm',
 						listeners : {
 							domready : LarsViewer.LinkInterceptorIFrame
 						}
@@ -14922,7 +14922,7 @@ LarsDesktopNorth = function(){
         id: "navigation-top",
         height: 70,
         region: "north",
-        html: '<div id="mynavbla" style="text-align: right;"><table width="100%"><tr id="nav-top"><td width="60%" ><img style="margin-top: 0px;" src="bundles/opensteammokodesk/img/MokoDesk_shadow.png" /><div style="position: absolute; top:0px; left: 0px"><a href="logout/"><img title="abmelden" src="bundles/opensteammokodesk/img/silk/icons/door.png"></a></div></td>' +
+        html: '<div id="mynavbla" style="text-align: right;"><table width="100%"><tr id="nav-top"><td width="60%" ><img style="margin-top: 0px;" src="/bundles/opensteammokodesk/img/MokoDesk_shadow.png" /><div style="position: absolute; top:0px; left: 0px"><a href="logout/"><img title="abmelden" src="/bundles/opensteammokodesk/img/silk/icons/door.png"></a></div></td>' +
         '<td width="40%"><span id="login-info">' +
         loginInfo +
         '</span></td></tr></table></div>',
@@ -16231,7 +16231,7 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 										theme : "advanced",
 										language: Lars.tinyMceLanguage,
 										verify_html : true,
-										content_css: "bundles/opensteammokodesk/css/tinyMCE.css",
+										content_css: "/bundles/opensteammokodesk/css/tinyMCE.css",
 										plugins: "table,emotions,searchreplace,asciimath,asciisvg,media,paste,bid_tooltip",
 										theme_advanced_buttons1 : "fontselect,formatselect,fontsizeselect,bold,italic,underline,sub,sup,separator,justifyleft,justifycenter,justifyright,separator,forecolor,backcolor",
 										theme_advanced_buttons2 : "hr,charmap,separator,emotions,image,media,link,unlink,separator,bullist,numlist,tablecontrols,visualaid,asciimath,asciimathcharmap,asciisvg",
@@ -16242,8 +16242,8 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 										theme_advanced_statusbar_location : "none",
 										theme_advanced_resizing : false,
 										convert_urls : false, // IMPORTANT!
-									    AScgiloc : 'bundles/opensteammokodesk/tools/asciisvg/svgimg.php',
-									    ASdloc : 'bundles/opensteammokodesk/js/tiny_mce/plugins/asciisvg/js/d.svg',
+									    AScgiloc : '/bundles/opensteammokodesk/tools/asciisvg/svgimg.php',
+									    ASdloc : '/bundles/opensteammokodesk/js/tiny_mce/plugins/asciisvg/js/d.svg',
 										extended_valid_elements : "embed[*]", //TODO
 										file_browser_callback : function fileBrowserCallBack(field_name, url, type, win) {
 														  this.win = new LarsBrowseFileWindow(win.document.forms[0].elements[field_name], node);
@@ -16769,7 +16769,7 @@ Ext.extend(LarsWebarenaWindow, Ext.Window, {
                     newNode.parentElement = this.node.parentElement;
                     newNode.id = newID;
                     newNode.text = name;
-                    Ext.getCmp('main-tabs').fireEvent('schuelerEditTab', newNode);
+                    Ext.getCmp(this.node.id + "Grid").store.load();
                     }
                 else if (responseData.success == false){
                     Ext.ux.ToastLars.msg(Lars.msg.failure, responseData.name, 5);
@@ -17236,7 +17236,7 @@ PackageGrid = function(parentNode, groupColor) {
 					},
 					scope : this
 				},{
-					iconCls : 'add-page-white',
+					iconCls : 'add-webarena',
 					text : Lars.main.grid.add_webarena_title,
 					tooltip : Lars.main.grid.add_webarena,
 					handler : function() {
@@ -20733,7 +20733,7 @@ var larsVoiceChat = {
 		Ext.getCmp('lars-voice-chat').renderMedia(
           {
 			mediaType: 'SWF',
-			url: 'bundles/opensteammokodesk/flash/flocsLars.swf',
+			url: '/bundles/opensteammokodesk/flash/flocsLars.swf',
 			id: 'flocsOne',
            	renderOnResize : false,
 			visibility:'hidden',
