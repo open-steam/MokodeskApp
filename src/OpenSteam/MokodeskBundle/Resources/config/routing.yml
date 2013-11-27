@@ -26,6 +26,10 @@ open_steam_mokodesk_update:
     pattern:  /update/
     defaults: { _controller: OpenSteamMokodeskBundle:Mokodesk:update }
 
+open_steam_mokodesk_upload_file:
+    pattern:  /upload/
+    defaults: { _controller: OpenSteamMokodeskBundle:Mokodesk:upload }
+
 open_steam_mokodesk_edit:
     pattern:  /edit/
     defaults: { _controller: OpenSteamMokodeskBundle:Mokodesk:edit }

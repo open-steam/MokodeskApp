@@ -378,12 +378,12 @@ function getResources($steam, $id)
             } elseif ($items_array[$key]["bid:collectiontype"] === "gallery") {
                 $iconCls = "gallery";
             } elseif ($items_array[$key]["bid:doctype"] === "portal") {
-                $qtip = "http://" . $configServerIp . "" . $item->get_path();
-                $lars_ref = "http://" . $configServerIp . "/modules/portal2/index.php?object=" . $item->get_id() . "&access=3&doctype=contentframe";
+                $qtip = "http://" . BID_URL . "/explorer/Index/" . $item->get_id();
+                $lars_ref = "http://" . BID_URL . "/explorer/Index/" . $item->get_id();
                 $iconCls = "portal";
             } elseif ($items_array[$key]["OBJ_TYPE"] === "container_portal_bid") {
-                $qtip = "http://" . $configServerIp . "" . $item->get_path();
-                $lars_ref = "http://" . $configServerIp . "/modules/portal/index.php?object=" . $item->get_id() . "&access=3&doctype=portal";
+                $qtip = "http://" . BID_URL . "/explorer/Index/" . $item->get_id();
+                $lars_ref = "http://" . BID_URL . "/explorer/Index/" . $item->get_id();
                 $iconCls = "portal";
             } elseif ($items_array[$key]["bid:doctype"] === "questionary") {
                 $iconCls = "questionary";
@@ -406,8 +406,8 @@ function getResources($steam, $id)
                 $lars_ref = '';
             }
             if ($iconCls == "sequence" || $iconCls == "gallery" || $iconCls == "cluster" || $iconCls == "questionary" || $iconCls == "folder_closed_index") {
-                $qtip = "http://" . $configServerIp . "" . $item->get_path();
-                $lars_ref = "http://" . $configServerIp . "/index.php?object=" . $item->get_id();
+                $qtip = "http://" . BID_URL . "/explorer/Index/" . $item->get_id();
+                $lars_ref = "http://" . BID_URL . "/explorer/Index/" . $item->get_id();
             }
             $arr[] = array(
                 "text" => tidyDesc($items_array[$key][OBJ_DESC]) ? tidyDesc($items_array[$key][OBJ_DESC]) : $items_array[$key][OBJ_NAME],
@@ -495,7 +495,7 @@ function getResourcesLinks($steam, $id)
                     $lars_ref = "";
                 } else {
                     //                    $qtip =  "http://".$configServerIp."".$link_object->get_path(); //TODO: Fehlerhaften aufruf bei bbobsin beheben
-                    $lars_ref = "http://" . $configServerIp . "/index.php?object=" . $link_object->get_id();
+                    $lars_ref = "http://" . BID_URL . "/explorer/Index/" . $link_object->get_id();
                 }
             } else {
                 $qtip = '';

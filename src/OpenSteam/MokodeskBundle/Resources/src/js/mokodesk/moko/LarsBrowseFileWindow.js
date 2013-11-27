@@ -30,7 +30,7 @@ LarsBrowseFileWindow = function(browseField, node) {
         labelAlign:'top',
         fileUpload: true,
 //        timeout: 600,
-        url: 'lars_upload_file.php',
+        url: 'upload/',
         method: 'post',
         id: 'upload-form',
 	    keys : LarsViewer.getKeyMap(this.onAdd, this),
@@ -90,7 +90,7 @@ Ext.extend(LarsBrowseFileWindow, Ext.Window, {
 				}else{
 					Ext.ux.ToastLars.msg(Lars.msg.failure, Lars.dialog.browseFile.msg_failure+'<br>'+(responseData.name ? responseData.name : " ... "), 10);
 					this.el.unmask();
-				} 
+				}
             }
             ,failure:function(form, result) {
 				var responseData = {};
@@ -103,5 +103,5 @@ Ext.extend(LarsBrowseFileWindow, Ext.Window, {
             },
             scope: this
         });
-    } 
+    }
 });

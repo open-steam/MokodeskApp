@@ -85,18 +85,21 @@ $idUser = (isset($_POST['idUser'])) ? ($_POST['idUser']) : null;
 try {
     $steam = OpenSteam\MokodeskBundle\Backend\MokodeskSteam::connect(STEAM_SERVER, STEAM_PORT, $loginName, $loginPwd);
 } catch (Exception $e) {
-    echo json_encode(array(
-        'success' => false
-    ));
+    echo json_encode(
+        array(
+            'success' => false
+        )
+    );
     error_log("get_current_steam_user Exception");
     exit;
 }
 if (!$steam || !$steam->get_login_status()) {
-    echo json_encode(array(
-        'success' => false,
-        'name' => "Du bist nicht mehr auf dem Server eingeloggt!"
-    ));
-    //        ErrorException::getTrace();
+    echo json_encode(
+        array(
+            'success' => false,
+            'name' => "Du bist nicht mehr auf dem Server eingeloggt!"
+        )
+    );
     exit();
 }
 
@@ -539,7 +542,7 @@ function getUpdates($steam, $ids, $lastUpdate, $count, $newIds, $current_folder_
                 $attributes = $inventory_items_attributes[$key][$key2];
                 $attributes["OBJ_ID"] = $item->get_id();
                 $attributes["OBJ_AUTHOR"] = $inventory_items_creator_name[$key][$key2];
-                $attributes["LARS_CONTENT"] = '<div class="dflt">' . _get_texthtmlnew(PATH_URL, stripslashes($inventory_items_content[$key][$key2]), $item) . '</div>';
+                $attributes["LARS_CONTENT"] = '<div class="dflt">' . gettexthtmlnew(PATH_URL, stripslashes($inventory_items_content[$key][$key2]), $item) . '</div>';
                 $items[] = array(
                     'id' => $attributes["OBJ_ID"],
                     'OBJ_NAME' => $attributes["OBJ_NAME"],
@@ -590,7 +593,7 @@ function getUpdates($steam, $ids, $lastUpdate, $count, $newIds, $current_folder_
                         case "text/html":
                         case "text/plain":
                             $content = $inventory_items_content[$key][$key3];
-                            $content = strip_tags(_get_texthtmlnew(PATH_URL, stripslashes($content) , $item));
+                            $content = strip_tags(gettexthtmlnew(PATH_URL, stripslashes($content), $item));
                             $mimeType = "Text";
                             $qtip0 = 'Dokument hier anzeigen';
                             $action2 = 'editPage';

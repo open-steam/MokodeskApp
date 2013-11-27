@@ -30,6 +30,7 @@ class MokodeskController extends Controller
         $steam = MokodeskSteam::connect(STEAM_SERVER, STEAM_PORT, $loginName, $loginPwd);
         if (!$steam || !$steam->get_login_status()) {
             session_destroy();
+
             return $this->render('OpenSteamMokodeskBundle:Mokodesk:login.html.twig', array("version" => MOKODESK_VERSION));
         } else {
             $_SESSION['user'] = $loginName;
@@ -84,8 +85,10 @@ class MokodeskController extends Controller
         $steam = MokodeskSteam::connect(STEAM_SERVER, STEAM_PORT, $loginName, $loginPwd);
         if (!$steam || !$steam->get_login_status()) {
             session_destroy();
+
             return new RedirectResponse('/');
         } else {*/
+
             return $this->render('OpenSteamMokodeskBundle:Mokodesk:mokodeskPreview.html.twig', array("version" => MOKODESK_VERSION));
 //        }
     }
@@ -101,6 +104,7 @@ class MokodeskController extends Controller
         session_name("bidowl_session");
         session_start();
         session_destroy();
+
         return new RedirectResponse('/');
     }
 
@@ -119,6 +123,12 @@ class MokodeskController extends Controller
     public function updateAction(Request $request)
     {
         include_once dirname(__FILE__) . '/../Backend/mokodeskUpdate.php';
+        exit;
+    }
+
+    public function uploadAction(Request $request)
+    {
+        include_once dirname(__FILE__) . '/../Backend/mokodeskUploadFile.php';
         exit;
     }
 
@@ -168,7 +178,8 @@ class MokodeskController extends Controller
         exit;
     }
 
-    public function thumbnailAction($id, $width, $height) {
+    public function thumbnailAction($id, $width, $height)
+    {
         session_name("bidowl_session");
         session_start();
         $loginName = (isset($_SESSION['user'])) ? ($_SESSION['user']) : "";

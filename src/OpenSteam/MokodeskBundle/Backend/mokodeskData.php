@@ -644,7 +644,7 @@ function getView($steam, $id)
     $object = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
     if ($object instanceof steam_document) {
         $content = $object->get_content();
-        $content = _get_texthtmlnew(PATH_URL, $content, $object);
+        $content = gettexthtmlnew(PATH_URL, $content, $object);
         echo json_encode(array(
             'success' => true,
             'html' => $content
@@ -775,7 +775,7 @@ function getDiscussion($steam, $id)
             ));
             $attributes["OBJ_ID"] = $item->get_id();
             $attributes["OBJ_AUTHOR"] = $item->get_creator()->get_name();
-            $attributes["LARS_CONTENT"] = '<div class="dflt">' . _get_texthtmlnew(PATH_URL, stripslashes($item->get_content()), $item) . '</div>';
+            $attributes["LARS_CONTENT"] = '<div class="dflt">' . gettexthtmlnew(PATH_URL, stripslashes($item->get_content()), $item) . '</div>';
             //            if ($item instanceof steam_document && $attributes[DOC_MIME_TYPE] === "text/html") {
             $data[] = array(
                 'id' => $attributes["OBJ_ID"],
@@ -1391,7 +1391,7 @@ function copyIntoPackage($steam, $id)
         $copy->set_attribute("OBJ_DESC", $copy->get_attribute("OBJ_NAME"));
     }
 
-    $newContent = _get_texthtmlnew(PATH_URL, $newContent, $copy);
+    $newContent = gettexthtmlnew(PATH_URL, $newContent, $copy);
     echo json_encode(array(
         'success' => true,
         'newId' => $copy->get_id() ,
@@ -2014,10 +2014,7 @@ function getAssignmentPackage($steam, $id)
             case "text/html":
             case "text/plain":
                 $content = $item->get_content();
-                //                $content = $items_array[$key]["content"];
-                //                        print $content;
                 $content = "HTML-Text";
-                //                        $content = strip_tags(_get_texthtmlnew(PATH_URL, stripslashes($content), $item));
                 $mimeType = "Text";
                 $qtip0 = msg('SHOW_HERE');
                 $action2 = 'editPage';
@@ -2036,8 +2033,6 @@ function getAssignmentPackage($steam, $id)
             case "image/png":
                 $content = '<p style="text-align: center;"><img src="' . PATH_URL . '/thumbnail/' . $attributes["OBJ_ID"] . '/0/100" border="0" /></p>';
                 $qtip0 = msg('SHOW_HERE');
-                //                        $content = _get_texthtmlnew(PATH_URL,'<p><img src="'.$attributes[OBJ_PATH].'" border="0" /></p>', $item);
-                //                        $mimeType = $attributes["DOC_MIME_TYPE"];
                 $mimeType = 'Bild';
                 $action2 = 'page-save';
                 $qtip2 = msg('PIC_FULL_SIZE');
@@ -2052,9 +2047,7 @@ function getAssignmentPackage($steam, $id)
 
             default:
                 $content = '<a href="' . PATH_URL . '/get/' . $attributes["OBJ_ID"] . '" title="' . $attributes["OBJ_NAME"] . '">' . $attributes["OBJ_NAME"] . '</a>';
-                //                        $content = "<i>".$attributes["OBJ_NAME"]."</i> : ".$attributes["OBJ_DESC"];
                 $mimeType = "Download";
-                //                $action2 = ($attributes["DOC_MIME_TYPE"] != 'application/pdf') ? 'page-save' : "pdf";
                 $action2 = 'page-save';
                 $qtip2 = msg('DOC_DOWNLOAD');
                 $hide2 = 1;
@@ -2068,7 +2061,6 @@ function getAssignmentPackage($steam, $id)
 
         } else {
             $content = $attributes["DOC_EXTERN_URL"];
-            //                    $content = '<p style="text-align: center;"><a href="'.$attributes["DOC_EXTERN_URL"].'">'.$attributes["DOC_EXTERN_URL"].'</a></p>';
             $qtip0 = msg('LINK_TAB');
             $mimeType = "Link";
             $hide2 = 1;
@@ -2424,9 +2416,6 @@ function getNewItemsRec($steam, $current_folder, $last_login_time, $data, $folde
             case "text/html":
             case "text/plain":
                 $content = "HTML-Text";
-                //                        $content = $item->get_content();
-                //                        $content = _get_texthtmlnew(PATH_URL, stripslashes($content), $item);
-                //                        $content = strip_tags($content);
                 $mimeType = "Text";
                 $qtip0 = msg('SHOW_HERE');
                 $action2 = 'editPage';
@@ -2446,8 +2435,6 @@ function getNewItemsRec($steam, $current_folder, $last_login_time, $data, $folde
             case "image/tiff":
                 $content = '<p style="text-align: center;"><img src="' . PATH_URL . '/thumbnail/' . $attributes["OBJ_ID"] . '/0/100" border="0" /></p>';
                 $qtip0 = msg('SHOW_HERE');
-                //                        $content = _get_texthtmlnew(PATH_URL,'<p><img src="'.$attributes[OBJ_PATH].'" border="0" /></p>', $item);
-                //                        $mimeType = $attributes["DOC_MIME_TYPE"];
                 $mimeType = 'Bild';
                 $action2 = 'page-save';
                 $qtip2 = msg('PIC_FULL_SIZE');
@@ -2462,9 +2449,7 @@ function getNewItemsRec($steam, $current_folder, $last_login_time, $data, $folde
 
             default:
                 $content = '<a href="' . PATH_URL . '/get/' . $attributes["OBJ_ID"] . '" title="' . $attributes["OBJ_NAME"] . '">' . $attributes["OBJ_NAME"] . '</a>';
-                //                        $content = "<i>".$attributes["OBJ_NAME"]."</i> : ".$attributes["OBJ_DESC"];
                 $mimeType = "Download";
-                //                $action2 = ($attributes["DOC_MIME_TYPE"] != 'application/pdf') ? 'page-save' : "pdf";
                 $action2 = 'page-save';
                 $qtip2 = msg('DOC_DOWNLOAD');
                 $hide2 = 1;
@@ -2472,11 +2457,10 @@ function getNewItemsRec($steam, $current_folder, $last_login_time, $data, $folde
                 $qtip4 = msg('DOC_DEL');
 
                 break;
-            } //end switch
+            }
 
         } else {
             $content = $attributes["DOC_EXTERN_URL"];
-            //                    $content = '<p style="text-align: center;"><a href="'.$attributes["DOC_EXTERN_URL"].'">'.$attributes["DOC_EXTERN_URL"].'</a></p>';
             $qtip0 = msg('LINK_TAB');
             $mimeType = "Link";
             $hide2 = 1;

@@ -29,7 +29,7 @@ UploadWindow = function(node, type, desc) {
     this.form = new Ext.FormPanel({
         labelAlign:'top',
         fileUpload: true,
-        url: 'lars_upload_file.php',
+        url: 'upload/',
         method: 'post',
         id: 'upload-form',
 	    keys : LarsViewer.getKeyMap(this.onAdd, this),
@@ -82,7 +82,7 @@ Ext.extend(UploadWindow, Ext.Window, {
 				}else{
 					Ext.ux.ToastLars.msg(Lars.msg.failure, Lars.dialog.upload_file.msg_failure+'<br>'+(responseData.name ? responseData.name : " "), 10);
 					this.el.unmask();
-				} 
+				}
             }
             ,failure:function(form, result) {
 				var responseData = {};
