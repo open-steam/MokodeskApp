@@ -596,7 +596,7 @@ function getUpdates($steam, $ids, $lastUpdate, $count, $newIds, $current_folder_
                         $qtip1 = 'Schreibe eine Anmerkung zu diesem Dokument';
                     }
                     if ($item instanceof steam_container) {
-                        if ($item->get_attribute('isWebarena') === 1) {
+                        if ($item->get_attribute('OBJ_TYPE') === 'container_webarena') {
                             $host = WEBARENA_HOST;
                             $port = WEBARENA_PORT;
                             if ($host == "localhost") {
@@ -701,7 +701,7 @@ function getUpdates($steam, $ids, $lastUpdate, $count, $newIds, $current_folder_
                     } elseif ($item instanceof steam_docextern) {
                         $name_parts["extension"] = "link";
                     } elseif ($item instanceof steam_container) {
-                        if ($item->get_attribute('isWebarena') === 1) {
+                        if ($item->get_attribute('OBJ_TYPE') === "container_webarena") {
                             $name_parts["extension"] = "webarena";
                         }
                     }

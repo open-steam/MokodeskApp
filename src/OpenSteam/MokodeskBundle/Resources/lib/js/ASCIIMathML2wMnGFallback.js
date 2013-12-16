@@ -44,8 +44,8 @@ FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
 (at http://www.gnu.org/licences/lgpl.html) for more details.
 */
 
-var AMTcgiloc = "cgi-bin/mimetex.cgi"; //path to CGI script that
-var AScgiloc = 'tools/asciisvg/svgimg.php'; //path to CGI script
+var AMTcgiloc = "/cgi-bin/mimetex.cgi"; //path to CGI script that
+var AScgiloc = '/bundles/opensteammokodesk/tools/asciisvg/svgimg.php'; //path to CGI script
 						//for editor graphs IMG fallback
 var mathcolor = "blue";        // change it to "" (to inherit) or another color
 var mathfontsize = "1em";      // change to e.g. 1.2em for larger math

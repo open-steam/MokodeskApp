@@ -903,7 +903,7 @@ function newWebarena($steam, $id)
         exit;
     }
     $newMessageObject = steam_factory::create_container($GLOBALS["STEAM"]->get_id(), tidyName($name), $current_folder, tidyDesc($name));
-    $newMessageObject->set_attribute("isWebarena", 1);
+    $newMessageObject->set_attribute("OBJ_TYPE", "container_webarena");
     $newID = $newMessageObject->get_id();
     echo json_encode(array(
         'success' => true,
@@ -1892,9 +1892,9 @@ function getAssignmentPackage($steam, $id)
         array(
             '+',
             'attribute',
-            'isWebarena',
+            'OBJ_TYPE',
             '==',
-            1
+            'container_webarena'
         ) ,
         array(
             '+',
@@ -1971,7 +1971,7 @@ function getAssignmentPackage($steam, $id)
         //                        $qtip3 = 'Diese Datei wurde neu erstellt oder verändert seit dem letzten mal';
         //                }
         if ($item instanceof steam_container) {
-            if ($item->get_attribute('isWebarena') === 1) {
+            if ($item->get_attribute('OBJ_TYPE') === 'container_webarena') {
                 $host = WEBARENA_HOST;
                 $port = WEBARENA_PORT;
                 if ($host == "localhost") {
@@ -2076,7 +2076,7 @@ function getAssignmentPackage($steam, $id)
         } elseif ($item instanceof steam_docextern) {
             $name_parts["extension"] = "link";
         } elseif ($item instanceof steam_container) {
-            if ($item->get_attribute('isWebarena') === 1) {
+            if ($item->get_attribute('OBJ_TYPE') === "container_webarena") {
                 $name_parts["extension"] = "webarena";
             }
         }

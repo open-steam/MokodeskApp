@@ -65,7 +65,7 @@ function gettexthtmlnew($webserverUrl, $content, $object)
                           <script type="text/javascript" src="/bundles/opensteammokodesk/js/tiny_mce/plugins/asciisvg/js/ASCIIsvgPIMin.js"></script>
                           <script type="text/javascript">
                           var AScgiloc = "/bundles/opensteammokodesk/tools/asciisvg/svgimg.php";
-                          var AMTcgiloc = "http://www.bid-owl.de/cgi-bin/mimetex.cgi";
+                          var AMTcgiloc = "/cgi-bin/mimetex.cgi";
                           </script>';
     }
     if (strpos($content, '<acronym')) {
