@@ -21,7 +21,7 @@ var packageNodeToCopy = false;
 var fileRecordToCopy = false;
 task = {};
 var AScgiloc = '/bundles/opensteammokodesk/tools/asciisvg/svgimg.php';
-var AMTcgiloc = "http://www.bid-owl.de/cgi-bin/mimetex.cgi";
+var AMTcgiloc = "/cgi-bin/mimetex.cgi";
 var larsNews = '<font size="3">'
 		+ '<b>Version 1.5.9:<br></b>'
 		+ '<ul><li>- neue Anmeldeseite</li><li>- Virtuelle Tafel hinzugefügt</li><li>- Datenbackend neu geschreiben</li></ul>'
