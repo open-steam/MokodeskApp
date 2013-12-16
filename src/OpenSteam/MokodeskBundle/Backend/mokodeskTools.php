@@ -54,10 +54,10 @@
 function gettexthtmlnew($webserverUrl, $content, $object)
 {
     $current_path = substr($object->get_path(), 0, strrpos($object->get_path(), "/")) . "/";
-    $content = preg_replace('/link href="(?!http)([a-z0-9.-_\/]*)"/iU', 'link href="' . $webserverUrl . '/tools/get.php?object=' . $current_path . '$1"', $content);
-    $content = preg_replace('/src="\/(?!mokodesk\/tiny_mce)([a-z0-9. \-\%_\/]+)"/iU', 'src="' . $webserverUrl . '/tools/get.php?object=$1"', $content);
-    $content = preg_replace('/src="(?!\/|http)([a-z0-9.\- _\/]+)"/iU', 'src="' . $webserverUrl . '/tools/get.php?object=' . $current_path . '$1"', $content);
-    $content = preg_replace('/code="([a-z0-9.\-_\/]*)"/iU', 'src="' . $webserverUrl . '/tools/get.php?object=' . $current_path . '$1"', $content);
+    $content = preg_replace('/link href="(?!http)([a-z0-9.-_\/]*)"/iU', 'link href="' . PATH_URL . '/get/path' . $current_path . '$1"', $content);
+    $content = preg_replace('/src="\/(?!mokodesk\/tiny_mce)([a-z0-9. \-\%_\/]+)"/iU', 'src="' . PATH_URL . '/get/path/$1"', $content);
+    $content = preg_replace('/src="(?!\/|http)([a-z0-9.\- _\/]+)"/iU', 'src="' . PATH_URL . '/get/path' . $current_path . '$1"', $content);
+    $content = preg_replace('/code="([a-z0-9.\-_\/]*)"/iU', 'src="' . PATH_URL . '/get/path' . $current_path . '$1"', $content);
     $addition_math = "";
     $addition_anno = "";
     if (strpos($content, '<span class="AM') || strpos($content, 'image/svg+xml')) {
