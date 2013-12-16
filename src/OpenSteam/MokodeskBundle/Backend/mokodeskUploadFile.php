@@ -111,7 +111,7 @@ try {
         if ($action === "image") {
             $steam->get_current_steam_user()->set_attribute("OBJ_ICON", $newDocument);
         }
-        echo json_encode(array('success' => true, 'fileName' => PATH_URL . "/get/" . $newDocument->get_id()));
+        echo json_encode(array('success' => true, 'fileName' => PATH_URL . "/get/path" . $newDocument->get_path()));
     } elseif (!isset($_FILES["file"]) || $_FILES["file"]["name"] != "") {
         echo json_encode(array("success" => false, "name" => "Files nicht gesetzt"));
     }

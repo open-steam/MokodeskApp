@@ -125,7 +125,7 @@ function setContentHtml($steam, $id)
     $access_write = $document->check_access_write($steam->get_current_steam_user());
     //$access_read = $document->check_access_read($steam->get_current_steam_user());
     $content = stripslashes($content);
-    $content = preg_replace('#src="' . PATH_URL . '/tools/get.php\?object=([a-z0-9.\- _\/]*)"#iU', 'src="$1"', $content);
+    $content = preg_replace('#src="' . PATH_URL . '/get/path([a-z0-9.\- _\/]*)"#iU', 'src="$1"', $content);
     $current_path = substr($document->get_path(), 0, strrpos($document->get_path(), "/")) . "/";
     $content = preg_replace('#' . $current_path . '#iU', '', $content);
     if (!$access_write) {
@@ -141,11 +141,11 @@ function setContentHtml($steam, $id)
     $serverContent = $document->get_content();
     $serverContent = $serverContent ? $serverContent : "";
     $serverContent = stripslashes($serverContent);
-    $serverContent = preg_replace('#src="' . PATH_URL . '/tools/get.php\?object=([a-z0-9.\- _\/]*)"#iU', 'src="$1"', $serverContent);
+    $serverContent = preg_replace('#src="' . PATH_URL . '/get/path([a-z0-9.\- _\/]*)"#iU', 'src="$1"', $serverContent);
     $origContent = stripslashes($origContent);
-    $origContent = preg_replace('#src="' . PATH_URL . '/tools/get.php\?object=([a-z0-9.\- _\/]*)"#iU', 'src="$1"', $origContent);
+    $origContent = preg_replace('#src="' . PATH_URL . '/get/path([a-z0-9.\- _\/]*)"#iU', 'src="$1"', $origContent);
     $origContent = preg_replace('#' . $current_path . '#iU', '', $origContent);
-    if ($origContent == $serverContent) {
+    if ($origContent === $serverContent) {
         $result = $document->set_content($content);
         echo json_encode(array(
             'success' => true,
@@ -264,7 +264,7 @@ function getHtml($steam, $id)
         $content = stripslashes($content);
         //        $content = preg_replace('/src="\/([a-z0-9.\-\%_\/]*)"/iU', 'src="' . PATH_URL . '/tools/get.php?object=$1"', $content);
         //        $content = preg_replace('/src="+(?!http)([a-z0-9.\-_\/]*)"/iU', 'src="' . PATH_URL . '/tools/get.php?object=' . $current_path . '$1"', $content);
-        $content = preg_replace('/src="([a-z0-9.\- _\/]*)"/iU', 'src="get/path/' . $current_path . '$1"', $content);
+        $content = preg_replace('/src="([a-z0-9.\- _\/]*)"/iU', 'src="' . PATH_URL . '/get/path' . $current_path . '$1"', $content);
         //        $content = preg_replace('#src="([a-z0-9.\-_\/]*)'.$current_path.'([a-z0-9.\-_\/]*)"#iU', 'src="' . PATH_URL . '/tools/get.php?object=$1' . $current_path . '$1"', $content);
         echo json_encode(array(
             'success' => true,
