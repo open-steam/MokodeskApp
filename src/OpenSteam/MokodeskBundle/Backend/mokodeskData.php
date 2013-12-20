@@ -1283,10 +1283,10 @@ function getSchuelerTopics($steam, $id, $folder = false, $color = false)
         }
         //            }
         $data[] = array(
-            'qtip' => $qtipParent,
+            'qtip' => (isset($qtipParent) ? $qtipParent : ""),
             'text' => tidyDesc($itemDesc) ,
             'origName' => $itemName,
-            'stateCls' => $stateParent,
+            'stateCls' => (isset($stateParent) ? $stateParent : ""),
             'iconCls' => (count($children) > 0) ? "comments" : "comments",
             'id' => $item->get_id() ,
             'allowDrag' => false,
