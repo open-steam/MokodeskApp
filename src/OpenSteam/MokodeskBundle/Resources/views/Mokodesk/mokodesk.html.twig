@@ -4,6 +4,9 @@
   <title>MokoDesk</title>
     <link rel="stylesheet" type="text/css" href="bundles/opensteammokodesk/css/mokodeskExtLib.min.css" />
     <link rel="stylesheet" type="text/css" href="bundles/opensteammokodesk/css/mokodeskExt.min.css" />
+    {% if customHead %}
+    {{ customHead }}
+    {% endif %}
 </head>
 <body scroll="no" id="docs">
 <div id="loading-mask" style=""></div>

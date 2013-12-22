@@ -32,7 +32,7 @@ class MokodeskController extends Controller
         if (!$steam || !$steam->get_login_status()) {
             session_destroy();
 
-            return $this->render('OpenSteamMokodeskBundle:Mokodesk:login.html.twig', array("version" => MOKODESK_VERSION));
+            return $this->render('OpenSteamMokodeskBundle:Mokodesk:login.html.twig', array("version" => MOKODESK_VERSION, "customHead" => (defined("CONF_CUSTOM_HEAD") ? CONF_CUSTOM_HEAD : "")));
         } else {
             $_SESSION['user'] = $loginName;
             $_SESSION['pass'] = $loginPwd;
@@ -67,7 +67,7 @@ class MokodeskController extends Controller
             if ($request->getMethod() == 'POST') {
                 return new RedirectResponse('/');
             } else {
-                return $this->render('OpenSteamMokodeskBundle:Mokodesk:mokodesk.html.twig', array("mainjs" => $included_js[$_SESSION['lang']], "version" => MOKODESK_VERSION));
+                return $this->render('OpenSteamMokodeskBundle:Mokodesk:mokodesk.html.twig', array("mainjs" => $included_js[$_SESSION['lang']], "version" => MOKODESK_VERSION, "customHead" => (defined("CONF_CUSTOM_HEAD") ? CONF_CUSTOM_HEAD : "")));
             }
         }
     }

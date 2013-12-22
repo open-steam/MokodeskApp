@@ -2,10 +2,6 @@ open_steam_mokodesk_index:
     pattern:  /
     defaults: { _controller: OpenSteamMokodeskBundle:Mokodesk:index }
 
-open_steam_mokodesk_preview:
-    pattern:  /preview/
-    defaults: { _controller: OpenSteamMokodeskBundle:Mokodesk:preview }
-
 open_steam_mokodesk_login:
     pattern:  /login/
     defaults: { _controller: OpenSteamMokodeskBundle:Mokodesk:login }
