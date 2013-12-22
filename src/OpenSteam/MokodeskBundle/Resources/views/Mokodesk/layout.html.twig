@@ -17,9 +17,7 @@
     <![endif]-->
 
     {% if customHead %}
-    {% verbatim %}
-    {{ customHead }}
-    {% endverbatim %}
+    {{ customHead|raw }}
     {% endif %}
 </head>
 <body>
