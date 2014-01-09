@@ -250,7 +250,7 @@ function getUsersLastLogin($steam, $usersOn, $usersOff, $count, $owner_array_ids
     } else {
 
         foreach ($desktops_links_array_ids as $key => $id) {
-            if ($owner_array_ids[$key]) {
+            if (isset($owner_array_ids[$key]) && $owner_array_ids[$key]) {
                 $owner_array[$key] = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $owner_array_ids[$key], CLASS_USER);
                 $desktops_links_array[$key] = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id, CLASS_LINK);
             }
