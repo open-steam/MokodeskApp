@@ -264,14 +264,14 @@ function getUsersLastLogin($steam, $usersOn, $usersOff, $count, $owner_array_ids
     $login_times_array = array();
 
     foreach ($desktops_links_array_ids as $key => $item) {
-        if ((isset($is_readable) && $is_readable[$key]) || $owner_array_ids[$key]) {
+        if ((isset($is_readable[$key]) && $is_readable[$key]) || isset($owner_array_ids[$key]) && $owner_array_ids[$key]) {
             $login_times_array[$key] = $owner_array[$key]->get_attribute('USER_LAST_LOGIN_LARS', 1);
         }
     }
     $result = $steam->buffer_flush();
 
     foreach ($desktops_links_array_ids as $key => $item) {
-        if ((isset($is_readable) && $is_readable[$key]) || $owner_array_ids[$key]) {
+        if ((isset($is_readable[$key]) && $is_readable[$key]) || isset($owner_array_ids[$key]) && $owner_array_ids[$key]) {
             $login_times_array[$key] = $result[$login_times_array[$key]];
             $is_online_array[$key] = ($now > $login_times_array[$key] + 60) ? false : true;
             //            error_log($owner_array_ids[$key]."-".$now.":::".($login_times_array[$key] + 120).":".$count);
