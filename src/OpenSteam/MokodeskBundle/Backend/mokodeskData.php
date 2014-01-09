@@ -2505,7 +2505,7 @@ function getNewItemsRec($steam, $current_folder, $last_login_time, $data, $folde
             'qtip4' => $qtip4 ? $qtip4 : "",
             'qtip5' => $qtip5 ? $qtip5 : "",
             'hide1' => $action1 ? 0 : 1,
-            'hide2' => $hide2 ? 1 : 0,
+            'hide2' => (isset($hide2) && $hide2) ? 1 : 0,
             'hide3' => $action3 ? 0 : 1,
             'hide4' => $action4 ? 0 : 1,
             'hide5' => $qtip5 ? 0 : 1
