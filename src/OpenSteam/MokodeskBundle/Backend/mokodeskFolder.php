@@ -510,7 +510,7 @@ function getResourcesLinks($steam, $id)
                 "mimeType" => $item->get_attribute("DOC_MIME_TYPE") ,
                 "iconCls" => $iconCls,
                 "lars_ref" => $lars_ref,
-                "qtip" => $qtip,
+                "qtip" => isset($qtip) ? $qtip : "",
                 "allowDrop" => false
                 //                "draggable"=>!$leaf
                 //                "OBJ_KEYWORDS"=>$item->get_attribute(OBJ_NAME),
