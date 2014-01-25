@@ -43,4 +43,4 @@
 /**
  * Description for define
  */
-define("MOKODESK_VERSION", "1.5.9");
+define("MOKODESK_VERSION", "1.5.23");
