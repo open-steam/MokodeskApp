@@ -2809,7 +2809,7 @@ function updateGroup($steam, $id)
 
                     break;
                 }
-                if (!$object_to_link) {
+                if (!isset($object_to_link)) {
                     $new_lars_room = steam_factory::create_room($GLOBALS["STEAM"]->get_id(), $group_object->get_groupname() . "", $group_workroom, $group_object->get_groupname() . "");
                     $new_lars_room->set_attribute("OBJ_TYPE", "LARS_DESKTOP");
                     $object_to_link = $new_lars_room;
