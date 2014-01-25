@@ -23,6 +23,8 @@ task = {};
 var AScgiloc = '/bundles/opensteammokodesk/tools/asciisvg/svgimg.php';
 var AMTcgiloc = "/cgi-bin/mimetex.cgi";
 var larsNews = '<font size="3">'
+		+ '<b>Version 1.5.23:<br></b>'
+		+ '<ul><li>- div. Fehlerkorrekturen</li></ul>'
 		+ '<b>Version 1.5.9:<br></b>'
 		+ '<ul><li>- neue Anmeldeseite</li><li>- Virtuelle Tafel hinzugefügt</li><li>- Datenbackend neu geschreiben</li></ul>'
 		+ '<b>Version 1.0.2:<br></b>'
