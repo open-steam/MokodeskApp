@@ -9,6 +9,7 @@
 /vendor/
 /bin/
 /composer.phar
+/composer.lock
 /src/OpenSteam/MokodeskBundle/etc/default.def.php
 /src/OpenSteam/MokodeskBundle/Resources/public/tools/asciisvg/imgs/*
 !/src/OpenSteam/MokodeskBundle/Resources/public/tools/asciisvg/imgs/.gitkeep
