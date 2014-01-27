@@ -2907,7 +2907,7 @@ function getGroupsTree($steam, $id)
     $arr = array();
     $id = ($_POST['node']) ? ($_POST['node']) : null;
     if ($id == "source") {
-        $subGroups = steam_factory::get_top_groups($GLOBALS["STEAM"]->get_id());
+        $subGroups = \OpenSteam\Modules\GroupsModule::getInstance($GLOBALS["STEAM"]->get_id())->getTopGroups();
     } else {
         $master_group = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
         $subGroups = $master_group->get_subgroups();
