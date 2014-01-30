@@ -446,7 +446,12 @@ function getUpdates($steam, $ids, $lastUpdate, $count, $newIds, $current_folder_
             $inventory_packages_array[$key] = $result[$inventory_packages_array[$key]];
         }
     }
-    $result = $steam->buffer_flush();
+
+    try {
+        $result = $steam->buffer_flush();
+    } catch (Exception $e) { // no read access!!! Update not working
+        return;
+    }
 
     foreach ($allIds as $key => $id) {
         if (substr($id, 0, 1) == "d" && $current_folder_discussion_array[$key] instanceof steam_container) {

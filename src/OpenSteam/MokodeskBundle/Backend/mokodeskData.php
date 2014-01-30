@@ -725,38 +725,43 @@ function getDiscussion($steam, $id)
     if (in_array("FOLDER_DISCUSSION", $attribute_names)) {
         $discussion_folder = $current_folder->get_attribute("FOLDER_DISCUSSION");
         if ($limit + 0) {
-            $inventory = $discussion_folder->get_inventory_filtered(array(
-                //                    array( '+', 'attribute', 'OBJ_TYPE', 'prefix', 'steam_document' ),
-                array(
-                    '+',
-                    'attribute',
-                    'DOC_MIME_TYPE',
-                    'prefix',
-                    "text/html"
-                )
-            ) , array(
-                array(
-                    '>',
-                    'attribute',
-                    'DOC_LAST_MODIFIED'
-                )
-            ) , $start + 0, $limit + 0);
-            // [Mon Feb 16 13:46:38 2009] [error] [client 131.234.252.2] PHP Fatal error:  Uncaught exception 'steam_exception' with message 'Error during data transfer. COAL_ERROR : args[0]=16 args[1]=Access denied for user /kernel/proxy.pike(363033/PSTAT_SAVE_OK)(/kernel/proxy.pike(363033/PSTAT_SAVE_OK)) accessing /kernel/proxy.pike(494819/PSTAT_SAVE_OK) using 1 called by /kernel/securesocket()\nNo READ access on "Meine_Mitteilungen" for /kernel/proxy.pike(363033/PSTAT_SAVE_OK) (0)' in /var/www/lars/PHPsTeam/get_current_steam_user.class.php:690\nStack trace:\n#0 /var/www/lars/PHPsTeam/get_current_steam_user.class.php(599): get_current_steam_user->send_command(Array)\n#1 /var/www/lars/PHPsTeam/get_current_steam_user.class.php(970): get_current_steam_user->command(Object(steam_request))\n#2 /var/www/lars/PHPsTeam/steam_object.class.php(584): get_current_steam_user->predefined_command(Object(steam_room), 'get_inventory_f...', Array, false)\n#3 /var/www/lars/PHPsTeam/steam_container.class.php(313): steam_object->steam_command(Object(steam_room), 'get_inventory_f...', Array, false)\n#4 /var/www/lars/lars_json.php(431): steam_container->get_inventory in /var/www/lars/PHPsTeam/get_current_steam_user.class.php on line 690, referer: http://www.bid-owl.de/lars/lars2/index.html
-            // [Wed Feb 18 13:44:46 2009] [error] [client 80.66.15.17] PHP Fatal error:  Uncaught exception 'steam_exception' with message 'Error during data transfer. COAL_ERROR : args[0]=16 args[1]=Access denied for user /kernel/proxy.pike(5282/PSTAT_SAVE_OK)(/kernel/proxy.pike(5282/PSTAT_SAVE_OK)) accessing /kernel/proxy.pike(494819/PSTAT_SAVE_OK) using 1 called by /kernel/securesocket()\nNo READ access on "Meine_Mitteilungen" for /kernel/proxy.pike(5282/PSTAT_SAVE_OK) (0)' in /var/www/lars/PHPsTeam/get_current_steam_user.class.php:690\nStack trace:\n#0 /var/www/lars/PHPsTeam/get_current_steam_user.class.php(599): get_current_steam_user->send_command(Array)\n#1 /var/www/lars/PHPsTeam/get_current_steam_user.class.php(970): get_current_steam_user->command(Object(steam_request))\n#2 /var/www/lars/PHPsTeam/steam_object.class.php(584): get_current_steam_user->predefined_command(Object(steam_room), 'get_inventory_f...', Array, false)\n#3 /var/www/lars/PHPsTeam/steam_container.class.php(313): steam_object->steam_command(Object(steam_room), 'get_inventory_f...', Array, false)\n#4 /var/www/lars/lars_json.php(431): steam_container->get_inventory_filte in /var/www/lars/PHPsTeam/get_current_steam_user.class.php on line 690, referer: http://www.bid-owl.de/lars/lars2/index.html
-            // Leserechte sind das Problem!
-            $inventory_to_count = $discussion_folder->get_inventory_filtered(array(
-                //                    array( '+', 'attribute', 'OBJ_TYPE', 'prefix', 'steam_document' ),
-                array(
-                    '+',
-                    'attribute',
-                    'DOC_MIME_TYPE',
-                    'prefix',
-                    "text/html"
-                )
-            ));
-            //            $inventory = $inventory_paged['objects'];
-            //    public function get_inventory_paginated ( $pFilters = array(), $pSort = array(), $pOffset = 0, $pLength = 0, $pBuffer = FALSE )
-            //    public function get_inventory_filtered ( $pFilters = array(), $pSort = array(), $pOffset = 0, $pLength = 0, $pBuffer = FALSE )
+            try {
+                $inventory = $discussion_folder->get_inventory_filtered(array(
+                    //                    array( '+', 'attribute', 'OBJ_TYPE', 'prefix', 'steam_document' ),
+                    array(
+                        '+',
+                        'attribute',
+                        'DOC_MIME_TYPE',
+                        'prefix',
+                        "text/html"
+                    )
+                ) , array(
+                    array(
+                        '>',
+                        'attribute',
+                        'DOC_LAST_MODIFIED'
+                    )
+                ) , $start + 0, $limit + 0);
+                // [Mon Feb 16 13:46:38 2009] [error] [client 131.234.252.2] PHP Fatal error:  Uncaught exception 'steam_exception' with message 'Error during data transfer. COAL_ERROR : args[0]=16 args[1]=Access denied for user /kernel/proxy.pike(363033/PSTAT_SAVE_OK)(/kernel/proxy.pike(363033/PSTAT_SAVE_OK)) accessing /kernel/proxy.pike(494819/PSTAT_SAVE_OK) using 1 called by /kernel/securesocket()\nNo READ access on "Meine_Mitteilungen" for /kernel/proxy.pike(363033/PSTAT_SAVE_OK) (0)' in /var/www/lars/PHPsTeam/get_current_steam_user.class.php:690\nStack trace:\n#0 /var/www/lars/PHPsTeam/get_current_steam_user.class.php(599): get_current_steam_user->send_command(Array)\n#1 /var/www/lars/PHPsTeam/get_current_steam_user.class.php(970): get_current_steam_user->command(Object(steam_request))\n#2 /var/www/lars/PHPsTeam/steam_object.class.php(584): get_current_steam_user->predefined_command(Object(steam_room), 'get_inventory_f...', Array, false)\n#3 /var/www/lars/PHPsTeam/steam_container.class.php(313): steam_object->steam_command(Object(steam_room), 'get_inventory_f...', Array, false)\n#4 /var/www/lars/lars_json.php(431): steam_container->get_inventory in /var/www/lars/PHPsTeam/get_current_steam_user.class.php on line 690, referer: http://www.bid-owl.de/lars/lars2/index.html
+                // [Wed Feb 18 13:44:46 2009] [error] [client 80.66.15.17] PHP Fatal error:  Uncaught exception 'steam_exception' with message 'Error during data transfer. COAL_ERROR : args[0]=16 args[1]=Access denied for user /kernel/proxy.pike(5282/PSTAT_SAVE_OK)(/kernel/proxy.pike(5282/PSTAT_SAVE_OK)) accessing /kernel/proxy.pike(494819/PSTAT_SAVE_OK) using 1 called by /kernel/securesocket()\nNo READ access on "Meine_Mitteilungen" for /kernel/proxy.pike(5282/PSTAT_SAVE_OK) (0)' in /var/www/lars/PHPsTeam/get_current_steam_user.class.php:690\nStack trace:\n#0 /var/www/lars/PHPsTeam/get_current_steam_user.class.php(599): get_current_steam_user->send_command(Array)\n#1 /var/www/lars/PHPsTeam/get_current_steam_user.class.php(970): get_current_steam_user->command(Object(steam_request))\n#2 /var/www/lars/PHPsTeam/steam_object.class.php(584): get_current_steam_user->predefined_command(Object(steam_room), 'get_inventory_f...', Array, false)\n#3 /var/www/lars/PHPsTeam/steam_container.class.php(313): steam_object->steam_command(Object(steam_room), 'get_inventory_f...', Array, false)\n#4 /var/www/lars/lars_json.php(431): steam_container->get_inventory_filte in /var/www/lars/PHPsTeam/get_current_steam_user.class.php on line 690, referer: http://www.bid-owl.de/lars/lars2/index.html
+                // Leserechte sind das Problem!
+                $inventory_to_count = $discussion_folder->get_inventory_filtered(array(
+                    //                    array( '+', 'attribute', 'OBJ_TYPE', 'prefix', 'steam_document' ),
+                    array(
+                        '+',
+                        'attribute',
+                        'DOC_MIME_TYPE',
+                        'prefix',
+                        "text/html"
+                    )
+                ));
+                //            $inventory = $inventory_paged['objects'];
+                //    public function get_inventory_paginated ( $pFilters = array(), $pSort = array(), $pOffset = 0, $pLength = 0, $pBuffer = FALSE )
+                //    public function get_inventory_filtered ( $pFilters = array(), $pSort = array(), $pOffset = 0, $pLength = 0, $pBuffer = FALSE )
+            } catch (Exception $e) { // no read access !!
+                $inventory = array();
+                $inventory_to_count = 0;
+            }
 
         } else {
             $inventory = $discussion_folder->get_inventory();
