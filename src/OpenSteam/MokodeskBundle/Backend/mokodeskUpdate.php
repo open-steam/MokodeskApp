@@ -407,7 +407,13 @@ function getUpdates($steam, $ids, $lastUpdate, $count, $newIds, $current_folder_
             ), array(), 0, 0, 1);
         }
     }
-    $result = $steam->buffer_flush();
+
+    try {
+        $result = $steam->buffer_flush();
+    } catch (Exception $e) { // no read access!!! Update not working
+        return;
+    }
+
     $inventory_discussion_array = array();
 
     foreach ($allIds as $key => $id) {
