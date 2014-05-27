@@ -1354,7 +1354,7 @@ function newAssignmentPackage($steam, $id)
 function copyIntoPackage($steam, $id)
 {
     //     name and description for the new package
-    $packageId = $_POST['folderId'];
+    $packageId = intval($_POST['folderId']);
     $current_folder = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $packageId);
     $object_to_copy = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
     // copy document
