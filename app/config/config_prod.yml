@@ -13,17 +13,18 @@ monolog:
             handler:      grouped
         grouped:
             type:    group
-            members: [streamed, buffered]
+            members: [streamed]
+#            members: [streamed, buffered]
         streamed:
             type:  stream
             path:  %kernel.logs_dir%/%kernel.environment%.log
             level: error
-        buffered:
-            type:    buffer
-            handler: swift
-        swift:
-            type:       swift_mailer
-            from_email: error@mokodesk.bid-owl.de
-            to_email:   nicke@uni-paderborn.de
-            subject:    An Error Occurred!
-            level:      error
+#        buffered:
+#            type:    buffer
+#            handler: swift
+#        swift:
+#            type:       swift_mailer
+#            from_email: error@mokodesk.bid-owl.de
+#            to_email:   nicke@uni-paderborn.de
+#            subject:    An Error Occurred!
+#            level:      error
