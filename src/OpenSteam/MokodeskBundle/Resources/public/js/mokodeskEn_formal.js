@@ -12475,7 +12475,7 @@ var fileRecordToCopy = false;
 task = {};
 var AScgiloc = '/bundles/opensteammokodesk/tools/asciisvg/svgimg.php';
 var AMTcgiloc = "/cgi-bin/mimetex.cgi";
-var larsNews = '<font size="3">' + '<b>Version 1.5.23:<br></b>' + '<ul><li>- div. Fehlerkorrekturen</li></ul>' + '<b>Version 1.5.9:<br></b>' + '<ul><li>- neue Anmeldeseite</li><li>- Virtuelle Tafel hinzugefügt</li><li>- Datenbackend neu geschreiben</li></ul>' + '<b>Version 1.0.2:<br></b>' + '<ul><li>- fehlerhafte Links korrigiert</li></ul>' + '<b>Version 1.0.1:<br></b>' + '<ul><li>- Textannotationen für den Editor</li>' + '<li>- Fehlerbehandlung verbessert</li>' + '<li>- Fehlende Sprachdateien hinzugefügt</li>' + '<li>- Fehlerkorrekturen beim Datenabgleich</li>' + '<li>- Quellcode umstrukturiert</li></ul>' + '<b>Version 0.986:<br></b>' + '<ul><li>- Französisch.<br>' + '<b>Version 0.983:<br></b>' + '<ul><li>- Fehlerkorrekturen.<br>' + '<b>Version 0.972:<br></b>' + '<ul><li>- Neuer Login zum MokoDesk.<br>' + '<b>Version 0.970:<br></b>' + '<ul><li>- Englischer MokoDesk verfügbar.<br>' + '<b>Version 0.969:<br></b>' + '<ul><li>- Benachrichtigungen für "Eigene Mitteilungen" werden erst ausgeblendet, wenn mit dem Mauszeiger über die Nachricht bewegt wurde.<br>' + '<li>- Benachrichtigungen werden nicht angezeigt, wenn die "Eigenen Mitteilungen" geöffnet sind.<br>' + '<b>Version 0.967:<br></b>' + '<li>- Überarbeitung der Benachrichtigung bei neuen Mitteilungen auf der eigenen Seite.<br>' + '<b>Version 0.955:<br></b>' + '<li>- Überarbeitung der Oberfläche. Neue Icons auf der Hauptseite.<br>' + '<li>- Zwischen neuen Dokumenten und Nachrichten auf dem eigenen MokoDesk und anderen MokoDesks wird unterschieden<br>' + '<li>- Es werden nicht mehr standardmäßig Dokumente aller eingebundenen Schreibtische angezeigt. Hierzu muss der eigebundene Schreibtisch in einem Dialog ausgewählt werden. (Zusätzliches Icon unter "Andere MokoDesks")<br>' + '<li>- Weitere Änderungen sind demnächst in der Hilfe zu finden<br>' + '</ul>';
+var larsNews = '<font size="3">' + '<b>Version 1.5.31:<br></b>' + '<ul><li>- Umstellung auf sichere Verbindung (https)</li></ul><b>Version 1.5.23:<br></b>' + '<ul><li>- div. Fehlerkorrekturen</li></ul>' + '<b>Version 1.5.9:<br></b>' + '<ul><li>- neue Anmeldeseite</li><li>- Virtuelle Tafel hinzugefügt</li><li>- Datenbackend neu geschreiben</li></ul>' + '<b>Version 1.0.2:<br></b>' + '<ul><li>- fehlerhafte Links korrigiert</li></ul>' + '<b>Version 1.0.1:<br></b>' + '<ul><li>- Textannotationen für den Editor</li>' + '<li>- Fehlerbehandlung verbessert</li>' + '<li>- Fehlende Sprachdateien hinzugefügt</li>' + '<li>- Fehlerkorrekturen beim Datenabgleich</li>' + '<li>- Quellcode umstrukturiert</li></ul>' + '<b>Version 0.986:<br></b>' + '<ul><li>- Französisch.<br>' + '<b>Version 0.983:<br></b>' + '<ul><li>- Fehlerkorrekturen.<br>' + '<b>Version 0.972:<br></b>' + '<ul><li>- Neuer Login zum MokoDesk.<br>' + '<b>Version 0.970:<br></b>' + '<ul><li>- Englischer MokoDesk verfügbar.<br>' + '<b>Version 0.969:<br></b>' + '<ul><li>- Benachrichtigungen für "Eigene Mitteilungen" werden erst ausgeblendet, wenn mit dem Mauszeiger über die Nachricht bewegt wurde.<br>' + '<li>- Benachrichtigungen werden nicht angezeigt, wenn die "Eigenen Mitteilungen" geöffnet sind.<br>' + '<b>Version 0.967:<br></b>' + '<li>- Überarbeitung der Benachrichtigung bei neuen Mitteilungen auf der eigenen Seite.<br>' + '<b>Version 0.955:<br></b>' + '<li>- Überarbeitung der Oberfläche. Neue Icons auf der Hauptseite.<br>' + '<li>- Zwischen neuen Dokumenten und Nachrichten auf dem eigenen MokoDesk und anderen MokoDesks wird unterschieden<br>' + '<li>- Es werden nicht mehr standardmäßig Dokumente aller eingebundenen Schreibtische angezeigt. Hierzu muss der eigebundene Schreibtisch in einem Dialog ausgewählt werden. (Zusätzliches Icon unter "Andere MokoDesks")<br>' + '<li>- Weitere Änderungen sind demnächst in der Hilfe zu finden<br>' + '</ul>';
 
 Ext.onReady(function() {
     Ext.QuickTips.init();
@@ -12531,12 +12531,12 @@ Ext.onReady(function() {
             });
         };
         this.doLoginBid.defer(10, this);
-        var checkBrowser = function() {
+        /*var checkBrowser = function() {
             if ((!Ext.isGecko2 && !Ext.isGecko3) || (Ext.isSafari || Ext.isSafari2 || Ext.isSafari3)) {
                 Ext.ux.ToastLars.msg('<font color="#DD0000">' + Lars.msg.attention, Lars.msg.attention_firefox, 7);
             }
         }
-        checkBrowser.defer(1000, this);
+        checkBrowser.defer(1000, this);*/
 
         var win = new Ext.Window({
             id: 'login-window',
