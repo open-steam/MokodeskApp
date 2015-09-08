@@ -66,102 +66,116 @@
          }
     */
 
-(function(){
+(function() {
 
-   var ux = Ext.ux.Media;
+    var ux = Ext.ux.Media;
 
-    ux.Flash = Ext.extend( ux, {
+    ux.Flash = Ext.extend(ux, {
         constructor: function() {
             ux.Flash.superclass.constructor.apply(this, arguments);
         },
 
-        SWFObject      : null,
+        SWFObject: null,
 
-        varsName       :'flashVars',
+        varsName: 'flashVars',
 
-        hideMode       : 'nosize',
+        hideMode: 'nosize',
 
         mediaType: Ext.apply({
-              tag      : 'object'
-             ,cls      : 'x-media x-media-swf'
-             ,type     : 'application/x-shockwave-flash'
-             ,loop     : null
-             ,scripting: "sameDomain"
-             ,start    : true
-             ,unsupportedText : {cn:['The Adobe Flash Player{0}is required.',{tag:'br'},{tag:'a',cn:[{tag:'img',src:'http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif'}],href:'http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash',target:'_flash'}]}
-             ,params   : {
-                  movie     : "@url"
-                 ,play      : "@start"
-                 ,loop      : "@loop"
-//                 ,menu      : "@controls"
-                 ,quality   : "high"
-                 ,bgcolor   : "#FFFFFF"
-//                 ,wmode     : "opaque"
-                 ,allowscriptaccess : "@scripting"
-//                 ,allowfullscreen : false
-//                 ,allownetworking : 'all'
-                }
-             },Ext.isIE?
-                    {classid :"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000",
-                     codebase:"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"
-                    }:
-                    {data     : "@url"}),
+            tag: 'object',
+            cls: 'x-media x-media-swf',
+            type: 'application/x-shockwave-flash',
+            loop: null,
+            scripting: "sameDomain",
+            start: true,
+            unsupportedText: {
+                cn: ['The Adobe Flash Player{0}is required.', {
+                    tag: 'br'
+                }, {
+                    tag: 'a',
+                    cn: [{
+                        tag: 'img',
+                        src: '/bundles/opensteammokodesk/images/get_flash_player.gif'
+                    }],
+                    href: 'http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash',
+                    target: '_flash'
+                }]
+            },
+            params: {
+                movie: "@url",
+                play: "@start",
+                loop: "@loop"
+                    //                 ,menu      : "@controls"
+                    ,
+                quality: "high",
+                bgcolor: "#FFFFFF"
+                    //                 ,wmode     : "opaque"
+                    ,
+                allowscriptaccess: "@scripting"
+                    //                 ,allowfullscreen : false
+                    //                 ,allownetworking : 'all'
+            }
+        }, Ext.isIE ? {
+            classid: "clsid:D27CDB6E-AE6D-11cf-96B8-444553540000",
+            codebase: "http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"
+        } : {
+            data: "@url"
+        }),
 
-        getMediaType: function(){
-             return this.mediaType;
+        getMediaType: function() {
+            return this.mediaType;
         },
         // private (called once by initComponent)
-        initMedia : function(){
+        initMedia: function() {
 
-            var mc = Ext.apply({}, this.mediaCfg||{});
-            var requiredVersion = (this.requiredVersion = mc.requiredVersion || this.requiredVersion|| false ) ;
-            var hasFlash  = !!(this.playerVersion = this.detectVersion());
-            var hasRequired = hasFlash && (requiredVersion?this.assertVersion(requiredVersion):true);
+            var mc = Ext.apply({}, this.mediaCfg || {});
+            var requiredVersion = (this.requiredVersion = mc.requiredVersion || this.requiredVersion || false);
+            var hasFlash = !!(this.playerVersion = this.detectVersion());
+            var hasRequired = hasFlash && (requiredVersion ? this.assertVersion(requiredVersion) : true);
 
-            var unsupportedText = this.assert(mc.unsupportedText || this.unsupportedText || (this.getMediaType()||{}).unsupportedText,null);
-            if(unsupportedText){
-                 unsupportedText = Ext.DomHelper.markup(unsupportedText);
-                 unsupportedText = mc.unsupportedText = String.format(unsupportedText,
-                     (requiredVersion?' '+requiredVersion+' ':' '),
-                     (this.playerVersion?' '+this.playerVersion+' ':' Not installed.'));
+            var unsupportedText = this.assert(mc.unsupportedText || this.unsupportedText || (this.getMediaType() || {}).unsupportedText, null);
+            if (unsupportedText) {
+                unsupportedText = Ext.DomHelper.markup(unsupportedText);
+                unsupportedText = mc.unsupportedText = String.format(unsupportedText, (requiredVersion ? ' ' + requiredVersion + ' ' : ' '), (this.playerVersion ? ' ' + this.playerVersion + ' ' : ' Not installed.'));
             }
 
-            if(!hasRequired ){
+            if (!hasRequired) {
                 this.autoMask = false;
 
                 //Version check for the Flash Player that has the ability to start Player Product Install (6.0r65)
                 var canInstall = hasFlash && this.assertVersion('6.0.65');
 
-                if(canInstall && mc.installUrl){
+                if (canInstall && mc.installUrl) {
 
-                       mc =  mc.installDescriptor || {
-                             tag      : 'object'
-                            ,cls      : 'x-media x-media-swf x-media-swfinstaller'
-                            ,id       : 'SWFInstaller'
-                            ,type     : 'application/x-shockwave-flash'
-                            ,data     : "@url"
-                            ,url              : mc.installUrl
+                    mc = mc.installDescriptor || {
+                        tag: 'object',
+                        cls: 'x-media x-media-swf x-media-swfinstaller',
+                        id: 'SWFInstaller',
+                        type: 'application/x-shockwave-flash',
+                        data: "@url",
+                        url: mc.installUrl
                             //The dimensions of playerProductInstall.swf must be at least 310 x 138 pixels,
-                            ,width            : (/%$/.test(mc.width)) ? mc.width : ((parseInt(mc.width,10) || 0) < 310 ? 310 :mc.width)
-                            ,height           : (/%$/.test(mc.height))? mc.height :((parseInt(mc.height,10) || 0) < 138 ? 138 :mc.height)
-                            ,loop             : false
-                            ,start            : true
-                            ,unsupportedText  : unsupportedText
-                            ,params:{
-                                      quality          : "high"
-                                     ,movie            : '@url'
-                                     ,allowscriptacess : "always"
-                                     ,align            : "middle"
-                                     ,bgcolor          : "#3A6EA5"
-                                     ,pluginspage      : mc.pluginsPage || this.pluginsPage || "http://www.adobe.com/go/getflashplayer"
-                                   }
-                        };
-                        mc.params[this.varsName] = "MMredirectURL="+( mc.installRedirect || window.location)+
-                                            "&MMplayerType="+(Ext.isIE?"ActiveX":"Plugin")+
-                                            "&MMdoctitle="+(document.title = document.title.slice(0, 47) + " - Flash Player Installation");
+                            ,
+                        width: (/%$/.test(mc.width)) ? mc.width : ((parseInt(mc.width, 10) || 0) < 310 ? 310 : mc.width),
+                        height: (/%$/.test(mc.height)) ? mc.height : ((parseInt(mc.height, 10) || 0) < 138 ? 138 : mc.height),
+                        loop: false,
+                        start: true,
+                        unsupportedText: unsupportedText,
+                        params: {
+                            quality: "high",
+                            movie: '@url',
+                            allowscriptacess: "always",
+                            align: "middle",
+                            bgcolor: "#3A6EA5",
+                            pluginspage: mc.pluginsPage || this.pluginsPage || "http://www.adobe.com/go/getflashplayer"
+                        }
+                    };
+                    mc.params[this.varsName] = "MMredirectURL=" + (mc.installRedirect || window.location) +
+                        "&MMplayerType=" + (Ext.isIE ? "ActiveX" : "Plugin") +
+                        "&MMdoctitle=" + (document.title = document.title.slice(0, 47) + " - Flash Player Installation");
                 } else {
                     //Let superclass handle with unsupportedText property
-                    mc.mediaType=null;
+                    mc.mediaType = null;
                 }
             }
 
@@ -184,19 +198,21 @@
             *  ActionScript ExternalInterface definition.
             */
 
-            if(mc.eventSynch){
+            if (mc.eventSynch) {
                 mc.params || (mc.params = {});
                 var vars = mc.params[this.varsName] || (mc.params[this.varsName] = {});
-                if(typeof vars === 'string'){ vars = Ext.urlDecode(vars,true); }
+                if (typeof vars === 'string') {
+                    vars = Ext.urlDecode(vars, true);
+                }
                 var eventVars = (mc.eventSynch === true ? {
-                         allowedDomain  : vars.allowedDomain || document.location.hostname
-                        ,elementID      : mc.id || (mc.id = Ext.id())
-                        ,eventHandler   : 'Ext.ux.Media.Flash.eventSynch'
-                        }: mc.eventSynch );
+                    allowedDomain: vars.allowedDomain || document.location.hostname,
+                    elementID: mc.id || (mc.id = Ext.id()),
+                    eventHandler: 'Ext.ux.Media.Flash.eventSynch'
+                } : mc.eventSynch);
 
-                Ext.apply(mc.params,{
-                     allowscriptaccess  : 'always'
-                })[this.varsName] = Ext.applyIf(vars,eventVars);
+                Ext.apply(mc.params, {
+                    allowscriptaccess: 'always'
+                })[this.varsName] = Ext.applyIf(vars, eventVars);
             }
 
             delete mc.requiredVersion;
@@ -209,27 +225,27 @@
             mc.mediaType = "SWF";
             this.mediaCfg = mc;
 
-            if(this.events){
+            if (this.events) {
                 this.addEvents(
-                     /**
-                     * @event flashinit
-                     * Fires when the Flash Object reports an initialized state via a public callback function.
-                     * this callback must implemented to be useful.  Example:
-                     *
-                     * //YouTube Global ready handler
-                       var onYouTubePlayerReady = function(playerId) {
+                    /**
+                    * @event flashinit
+                    * Fires when the Flash Object reports an initialized state via a public callback function.
+                    * this callback must implemented to be useful.  Example:
+                    *
+                    * //YouTube Global ready handler
+                      var onYouTubePlayerReady = function(playerId) {
 
-                           //Search for a ux.Flash-managed player.
-                           var flashComp, el = Ext.get(playerId);
-                           if(flashComp = (el?el.ownerCt:null)){
-                              flashComp.onFlashInit();
-                           }
+                          //Search for a ux.Flash-managed player.
+                          var flashComp, el = Ext.get(playerId);
+                          if(flashComp = (el?el.ownerCt:null)){
+                             flashComp.onFlashInit();
+                          }
 
-                       };
-                     *
-                     * @param {Ext.ux.Flash} this
-                     * @param {Element} the SWFObject interface
-                     */
+                      };
+                    *
+                    * @param {Ext.ux.Flash} this
+                    * @param {Element} the SWFObject interface
+                    */
                     'flashinit',
 
                     /**
@@ -240,7 +256,7 @@
                      * @param args {string} the arguments string
                      */
                     'fscommand'
-               );
+                );
             }
             ux.Flash.superclass.initMedia.call(this);
 
@@ -248,104 +264,113 @@
 
 
         /*
-        * Asserts the desired version against the installed Flash Object version.
-        * Acceptable parameter formats for versionMap:
-        *
-        *  '9.0.40' (string)
-        *   9  or 9.1  (number)
-        *   [9,0,43]  (array)
-        *
-        *  Returns true if the desired version is => installed version
-        *  and false for all other conditions
-        */
-        ,assertVersion : function(versionMap){
+         * Asserts the desired version against the installed Flash Object version.
+         * Acceptable parameter formats for versionMap:
+         *
+         *  '9.0.40' (string)
+         *   9  or 9.1  (number)
+         *   [9,0,43]  (array)
+         *
+         *  Returns true if the desired version is => installed version
+         *  and false for all other conditions
+         */
+        ,
+        assertVersion: function(versionMap) {
 
             var compare;
             versionMap || (versionMap = []);
 
-            if(Ext.isArray(versionMap)){
+            if (Ext.isArray(versionMap)) {
                 compare = versionMap;
             } else {
                 compare = String(versionMap).split('.');
             }
-            compare = (compare.concat([0,0,0,0])).slice(0,3); //normalize
+            compare = (compare.concat([0, 0, 0, 0])).slice(0, 3); //normalize
 
             var tpv;
-            if(!(tpv = this.playerVersion || (this.playerVersion = this.detectVersion()) )){ return false; }
+            if (!(tpv = this.playerVersion || (this.playerVersion = this.detectVersion()))) {
+                return false;
+            }
 
             if (tpv.major > parseFloat(compare[0])) {
-                        return true;
+                return true;
             } else if (tpv.major == parseFloat(compare[0])) {
-                   if (tpv.minor > parseFloat(compare[1]))
-                            {return true;}
-                   else if (tpv.minor == parseFloat(compare[1])) {
-                        if (tpv.rev >= parseFloat(compare[2])) { return true;}
-                        }
-                   }
+                if (tpv.minor > parseFloat(compare[1])) {
+                    return true;
+                } else if (tpv.minor == parseFloat(compare[1])) {
+                    if (tpv.rev >= parseFloat(compare[2])) {
+                        return true;
+                    }
+                }
+            }
             return false;
         },
         /*
-        * Flash version detection function
-        * Modifed version of the detection strategy of SWFObject library : http://blog.deconcept.com/swfobject/
-        * returns a {major,minor,rev} version object or
-        * false if Flash is not installed or detection failed.
-        */
-        detectVersion : function(){
-            if(this.mediaVersion){
-                return this.mediaVersion;
-            }
-            var version=false;
-            var formatVersion = function(version){
-              return version && !!version.length?
-                {major:version[0] !== null? parseInt(version[0],10): 0
-                ,minor:version[1] !== null? parseInt(version[1],10): 0
-                ,rev  :version[2] !== null? parseInt(version[2],10): 0
-                ,toString : function(){return this.major+'.'+this.minor+'.'+this.rev;}
-                }:false;
-            };
-            var sfo= null;
-            if(Ext.isIE){
-
-                try{
-                    sfo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash.7");
-                }catch(e){
-                    try {
-                        sfo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash.6");
-                        version = [6,0,21];
-                        // error if player version < 6.0.47 (thanks to Michael Williams @ Adobe for this solution)
-                        sfo.allowscriptaccess = "always";
-                    } catch(ex) {
-                        if(version && version[0] === 6)
-                            {return formatVersion(version); }
+         * Flash version detection function
+         * Modifed version of the detection strategy of SWFObject library : http://blog.deconcept.com/swfobject/
+         * returns a {major,minor,rev} version object or
+         * false if Flash is not installed or detection failed.
+         */
+        detectVersion: function() {
+                if (this.mediaVersion) {
+                    return this.mediaVersion;
+                }
+                var version = false;
+                var formatVersion = function(version) {
+                    return version && !!version.length ? {
+                        major: version[0] !== null ? parseInt(version[0], 10) : 0,
+                        minor: version[1] !== null ? parseInt(version[1], 10) : 0,
+                        rev: version[2] !== null ? parseInt(version[2], 10) : 0,
+                        toString: function() {
+                            return this.major + '.' + this.minor + '.' + this.rev;
                         }
+                    } : false;
+                };
+                var sfo = null;
+                if (Ext.isIE) {
+
                     try {
-                        sfo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash");
-                    } catch(ex1) {}
+                        sfo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash.7");
+                    } catch (e) {
+                        try {
+                            sfo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash.6");
+                            version = [6, 0, 21];
+                            // error if player version < 6.0.47 (thanks to Michael Williams @ Adobe for this solution)
+                            sfo.allowscriptaccess = "always";
+                        } catch (ex) {
+                            if (version && version[0] === 6) {
+                                return formatVersion(version);
+                            }
+                        }
+                        try {
+                            sfo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash");
+                        } catch (ex1) {}
+                    }
+                    if (sfo) {
+                        version = sfo.GetVariable("$version").split(" ")[1].split(",");
+                    }
+                } else if (navigator.plugins && navigator.mimeTypes.length) {
+                    sfo = navigator.plugins["Shockwave Flash"];
+                    if (sfo && sfo.description) {
+                        version = sfo.description.replace(/([a-zA-Z]|\s)+/, "").replace(/(\s+r|\s+b[0-9]+)/, ".").split(".");
+                    }
                 }
-                if (sfo) {
-                    version = sfo.GetVariable("$version").split(" ")[1].split(",");
-                }
-             }else if(navigator.plugins && navigator.mimeTypes.length){
-                sfo = navigator.plugins["Shockwave Flash"];
-                if(sfo && sfo.description) {
-                    version = sfo.description.replace(/([a-zA-Z]|\s)+/, "").replace(/(\s+r|\s+b[0-9]+)/, ".").split(".");
-                }
+                return (this.mediaVersion = formatVersion(version));
+
             }
-            return (this.mediaVersion = formatVersion(version));
+            //Private
+            ,
+        _applyFixes: function() {
+            var o;
+            // Fix streaming media troubles for IE
+            // IE has issues with loose references when removing an <object>
+            // before the onload event fires (all <object>s should have readyState == 4 after browsers onload)
 
-        }
-        //Private
-        ,_applyFixes : function() {
-            var o ;
-             // Fix streaming media troubles for IE
-             // IE has issues with loose references when removing an <object>
-             // before the onload event fires (all <object>s should have readyState == 4 after browsers onload)
+            // Advice: do not attempt to remove the Component before onload has fired on IE/Win.
 
-             // Advice: do not attempt to remove the Component before onload has fired on IE/Win.
-
-            if(Ext.isIE && Ext.isWindows && (o =this.SWFObject)){
+            if (Ext.isIE && Ext.isWindows && (o = this.SWFObject)) {
                 o.style.display = 'none'; //hide it regardless of state
-                if(o.readyState == 4){
+                if (o.readyState == 4) {
                     for (var x in o) {
                         if (typeof o[x] == 'function') {
                             o[x] = null;
@@ -355,69 +380,71 @@
 
             }
 
-        }
-        ,onAfterMedia : function(ct){
+        },
+        onAfterMedia: function(ct) {
 
-              ux.Flash.superclass.onAfterMedia.apply(this,arguments);
-              this.SWFObject = this.getInterface();
-              if(this.mediaObject){
-                  var id = this.mediaObject.id;
-                  if(Ext.isIE ){
+            ux.Flash.superclass.onAfterMedia.apply(this, arguments);
+            this.SWFObject = this.getInterface();
+            if (this.mediaObject) {
+                var id = this.mediaObject.id;
+                if (Ext.isIE) {
 
                     //fscommand bindings
                     //implement a fsCommand event interface since its not supported on IE when writing innerHTML
 
-                    if(!(Ext.query('script[for='+id+']').length)){
-                      writeScript('var c;if(c=Ext.getCmp("'+this.id+'")){c.onfsCommand.apply(c,arguments);}',
-                                  {event:"FSCommand", htmlFor:id});
+                    if (!(Ext.query('script[for=' + id + ']').length)) {
+                        writeScript('var c;if(c=Ext.getCmp("' + this.id + '")){c.onfsCommand.apply(c,arguments);}', {
+                            event: "FSCommand",
+                            htmlFor: id
+                        });
                     }
-                  }else{
-                      window[id+'_DoFSCommand'] || (window[id+'_DoFSCommand']= this.onfsCommand.createDelegate(this));
+                } else {
+                    window[id + '_DoFSCommand'] || (window[id + '_DoFSCommand'] = this.onfsCommand.createDelegate(this));
 
-                  }
+                }
 
-              }
+            }
 
-         },
+        },
         //Remove (safely) an existing mediaObject from the Component.
-        clearMedia  : function(){
+        clearMedia: function() {
 
-           //de-register fscommand hooks
-           if(this.mediaObject){
-               var id = this.mediaObject.id;
-               if(Ext.isIE){
-                    Ext.select('script[for='+id+']',true).remove();
-               } else {
-                    window[id+'_DoFSCommand']= null;
-                    delete window[id+'_DoFSCommand'];
-               }
-               this._applyFixes();
-           }
+            //de-register fscommand hooks
+            if (this.mediaObject) {
+                var id = this.mediaObject.id;
+                if (Ext.isIE) {
+                    Ext.select('script[for=' + id + ']', true).remove();
+                } else {
+                    window[id + '_DoFSCommand'] = null;
+                    delete window[id + '_DoFSCommand'];
+                }
+                this._applyFixes();
+            }
 
-           ux.Flash.superclass.clearMedia.call(this);
-           this.SWFObject = null;
+            ux.Flash.superclass.clearMedia.call(this);
+            this.SWFObject = null;
         },
 
-        getSWFObject : function() {
+        getSWFObject: function() {
             return this.getInterface();
         },
 
 
         //http://www.northcode.com/blog.php/2007/09/11/FSCommand-and-getURL-Bug-in-Flash-Player-9
-        onfsCommand : function( command, args){
+        onfsCommand: function(command, args) {
 
-            if(this.events){
-                this.fireEvent('fscommand', this, command ,args );
+            if (this.events) {
+                this.fireEvent('fscommand', this, command, args);
             }
 
         },
 
         //Use Flash's SetVariable method if available
         //returns false if the function is not supported.
-        setVariable : function(vName, value){
+        setVariable: function(vName, value) {
             var fo = this.getInterface();
-            if(fo && typeof fo.SetVariable != 'undefined'){
-                fo.SetVariable(vName,value);
+            if (fo && typeof fo.SetVariable != 'undefined') {
+                fo.SetVariable(vName, value);
                 return true;
             }
             return false;
@@ -426,9 +453,9 @@
 
         //Use Flash's SetVariable method if available
         //returns false if the function is not supported.
-        getVariable : function(vName){
+        getVariable: function(vName) {
             var fo = this.getInterface();
-            if(fo && typeof fo.GetVariable != 'undefined'){
+            if (fo && typeof fo.GetVariable != 'undefined') {
                 return fo.GetVariable(vName);
             }
             return undefined;
@@ -438,11 +465,13 @@
         /* this function is designed to be used when a player object notifies the browser
          * if its initialization state
          */
-        onFlashInit  :  function(){
+        onFlashInit: function() {
 
 
-            if(this.mediaMask && this.autoMask){this.mediaMask.hide();}
-            this.fireEvent.defer(10,this,['flashinit',this, this.getInterface()]);
+            if (this.mediaMask && this.autoMask) {
+                this.mediaMask.hide();
+            }
+            this.fireEvent.defer(10, this, ['flashinit', this, this.getInterface()]);
 
         },
         /**
@@ -451,72 +480,78 @@
          * @method _handleSWFEvent
          * @private
          */
-        _handleSWFEvent: function(event)
-        {
-            var type = event.type||event||false;
-            if(type){
-                 if(this.events && !this.events[String(type)])
-                     { this.addEvents(String(type));}
+        _handleSWFEvent: function(event) {
+            var type = event.type || event || false;
+            if (type) {
+                if (this.events && !this.events[String(type)]) {
+                    this.addEvents(String(type));
+                }
 
-                 return this.fireEvent.apply(this, [String(type), this].concat(Array.prototype.slice.call(arguments,0)));
+                return this.fireEvent.apply(this, [String(type), this].concat(Array.prototype.slice.call(arguments, 0)));
             }
         }
 
     });
     // Class Method to handle defined Flash interface events
-    ux.Flash.eventSynch = function(elementID, event /* additional arguments optional */ ){
-            var SWF = Ext.get(elementID);
-            if(SWF && SWF.ownerCt){
-                return SWF.ownerCt._handleSWFEvent.apply(SWF.ownerCt, Array.prototype.slice.call(arguments,1));
-            }
-        };
+    ux.Flash.eventSynch = function(elementID, event /* additional arguments optional */ ) {
+        var SWF = Ext.get(elementID);
+        if (SWF && SWF.ownerCt) {
+            return SWF.ownerCt._handleSWFEvent.apply(SWF.ownerCt, Array.prototype.slice.call(arguments, 1));
+        }
+    };
 
     /* Generic Flash BoxComponent */
-   Ext.ux.FlashComponent = Ext.extend(Ext.ux.MediaComponent,{
-           ctype : "Ext.ux.FlashComponent",
-           getId : function(){
-                 return this.id || (this.id = "flash-comp" + (++Ext.Component.AUTO_ID));
-           }
+    Ext.ux.FlashComponent = Ext.extend(Ext.ux.MediaComponent, {
+        ctype: "Ext.ux.FlashComponent",
+        getId: function() {
+            return this.id || (this.id = "flash-comp" + (++Ext.Component.AUTO_ID));
+        }
 
-   });
+    });
 
-   //Inherit the Media.Flash class interface
-   Ext.apply(Ext.ux.FlashComponent.prototype, ux.Flash.prototype);
-   Ext.reg('uxflash', Ext.ux.FlashComponent);
+    //Inherit the Media.Flash class interface
+    Ext.apply(Ext.ux.FlashComponent.prototype, ux.Flash.prototype);
+    Ext.reg('uxflash', Ext.ux.FlashComponent);
 
-   ux.Panel.Flash = Ext.extend(ux.Panel,{
-          ctype : "Ext.ux.Media.Panel.Flash"
-   });
+    ux.Panel.Flash = Ext.extend(ux.Panel, {
+        ctype: "Ext.ux.Media.Panel.Flash"
+    });
 
-   Ext.apply(ux.Panel.Flash.prototype, ux.Flash.prototype);
+    Ext.apply(ux.Panel.Flash.prototype, ux.Flash.prototype);
 
-   Ext.reg('flashpanel', Ext.ux.MediaPanel.Flash = Ext.ux.FlashPanel = ux.Panel.Flash);
-   Ext.reg('uxflashpanel', ux.Panel.Flash);
+    Ext.reg('flashpanel', Ext.ux.MediaPanel.Flash = Ext.ux.FlashPanel = ux.Panel.Flash);
+    Ext.reg('uxflashpanel', ux.Panel.Flash);
 
-   Ext.ux.FlashWindow = (ux.Window.Flash = Ext.extend(ux.Window, {ctype : "Ext.ux.FlashWindow", animCollpase:true}));
-   Ext.apply(ux.Window.Flash.prototype, ux.Flash.prototype);
+    Ext.ux.FlashWindow = (ux.Window.Flash = Ext.extend(ux.Window, {
+        ctype: "Ext.ux.FlashWindow",
+        animCollpase: true
+    }));
+    Ext.apply(ux.Window.Flash.prototype, ux.Flash.prototype);
 
-   var writeScript = function(block, attributes) {
-        attributes = Ext.apply({},attributes||{},{type :"text/javascript",text:block});
+    var writeScript = function(block, attributes) {
+        attributes = Ext.apply({}, attributes || {}, {
+            type: "text/javascript",
+            text: block
+        });
 
-         try{
-            var head,script, doc= document;
-            if(doc && doc.getElementsByTagName){
-                if(!(head = doc.getElementsByTagName("head")[0] )){
+        try {
+            var head, script, doc = document;
+            if (doc && doc.getElementsByTagName) {
+                if (!(head = doc.getElementsByTagName("head")[0])) {
 
-                    head =doc.createElement("head");
+                    head = doc.createElement("head");
                     doc.getElementsByTagName("html")[0].appendChild(head);
                 }
-                if(head && (script = doc.createElement("script"))){
-                    for(var attrib in attributes){
-                          if(attributes.hasOwnProperty(attrib) && attrib in script){
-                              script[attrib] = attributes[attrib];
-                          }
+                if (head && (script = doc.createElement("script"))) {
+                    for (var attrib in attributes) {
+                        if (attributes.hasOwnProperty(attrib) && attrib in script) {
+                            script[attrib] = attributes[attrib];
+                        }
                     }
                     return !!head.appendChild(script);
                 }
             }
-         }catch(ex){}
-         return false;
+        } catch (ex) {}
+        return false;
     }
 })();

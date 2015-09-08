@@ -991,6 +991,9 @@ function getDesktopAbo($steam, $id)
     foreach ($inventory3 as $key => $subscribed_desktop) {
         if ($subscribed_desktop instanceof steam_link) {
             $subscribed_desktop_objects[$key] = $result[$subscribed_desktop_objects[$key]];
+            if (!$subscribed_desktop_objects[$key] instanceof steam_object) {
+                continue;
+            }
             $subscribed_ids[] = $subscribed_desktop_objects[$key]->get_id();
         }
     }

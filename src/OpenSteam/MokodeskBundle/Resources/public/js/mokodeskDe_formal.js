@@ -1,6 +1,6 @@
-/*! MokodeskBundle - v1.5.0 - 2014-01-25
+/*! MokodeskBundle - v1.5.0 - 2015-09-08
 * http://www.coactum.de
-* Copyright (c) 2014 ; Licensed  */
+* Copyright (c) 2015 ; Licensed  */
 Ext={version:"2.2.1"};window["undefined"]=window["undefined"];Ext.apply=function(d,e,b){if(b){Ext.apply(d,b)}if(d&&e&&typeof e=="object"){for(var a in e){d[a]=e[a]}}return d};(function(){var idSeed=0;var ua=navigator.userAgent.toLowerCase();var isStrict=document.compatMode=="CSS1Compat",isOpera=ua.indexOf("opera")>-1,isChrome=ua.indexOf("chrome")>-1,isSafari=!isChrome&&(/webkit|khtml/).test(ua),isSafari3=isSafari&&ua.indexOf("webkit/5")!=-1,isIE=!isOpera&&ua.indexOf("msie")>-1,isIE7=!isOpera&&ua.indexOf("msie 7")>-1,isIE8=!isOpera&&ua.indexOf("msie 8")>-1,isGecko=!isSafari&&!isChrome&&ua.indexOf("gecko")>-1,isGecko3=isGecko&&ua.indexOf("rv:1.9")>-1,isBorderBox=isIE&&!isStrict,isWindows=(ua.indexOf("windows")!=-1||ua.indexOf("win32")!=-1),isMac=(ua.indexOf("macintosh")!=-1||ua.indexOf("mac os x")!=-1),isAir=(ua.indexOf("adobeair")!=-1),isLinux=(ua.indexOf("linux")!=-1),isSecure=window.location.href.toLowerCase().indexOf("https")===0;if(isIE&&!isIE7){try{document.execCommand("BackgroundImageCache",false,true)}catch(e){}}Ext.apply(Ext,{isStrict:isStrict,isSecure:isSecure,isReady:false,enableGarbageCollector:true,enableListenerCollection:false,SSL_SECURE_URL:"javascript:false",BLANK_IMAGE_URL:"http://extjs.com/s.gif",emptyFn:function(){},applyIf:function(o,c){if(o&&c){for(var p in c){if(typeof o[p]=="undefined"){o[p]=c[p]}}}return o},addBehaviors:function(o){if(!Ext.isReady){Ext.onReady(function(){Ext.addBehaviors(o)});return}var cache={};for(var b in o){var parts=b.split("@");if(parts[1]){var s=parts[0];if(!cache[s]){cache[s]=Ext.select(s)}cache[s].on(parts[1],o[b])}}cache=null},id:function(el,prefix){prefix=prefix||"ext-gen";el=Ext.getDom(el);var id=prefix+(++idSeed);return el?(el.id?el.id:(el.id=id)):id},extend:function(){var io=function(o){for(var m in o){this[m]=o[m]}};var oc=Object.prototype.constructor;return function(sb,sp,overrides){if(typeof sp=="object"){overrides=sp;sp=sb;sb=overrides.constructor!=oc?overrides.constructor:function(){sp.apply(this,arguments)}}var F=function(){},sbp,spp=sp.prototype;F.prototype=spp;sbp=sb.prototype=new F();sbp.constructor=sb;sb.superclass=spp;if(spp.constructor==oc){spp.constructor=sp}sb.override=function(o){Ext.override(sb,o)};sbp.override=io;Ext.override(sb,overrides);sb.extend=function(o){Ext.extend(sb,o)};return sb}}(),override:function(origclass,overrides){if(overrides){var p=origclass.prototype;for(var method in overrides){p[method]=overrides[method]}if(Ext.isIE&&overrides.toString!=origclass.toString){p.toString=overrides.toString}}},namespace:function(){var a=arguments,o=null,i,j,d,rt;for(i=0;i<a.length;++i){d=a[i].split(".");rt=d[0];eval("if (typeof "+rt+' == "undefined"){'+rt+" = {};} o = "+rt+";");for(j=1;j<d.length;++j){o[d[j]]=o[d[j]]||{};o=o[d[j]]}}},urlEncode:function(o){if(!o){return""}var buf=[];for(var key in o){var ov=o[key],k=encodeURIComponent(key);var type=typeof ov;if(type=="undefined"){buf.push(k,"=&")}else{if(type!="function"&&type!="object"){buf.push(k,"=",encodeURIComponent(ov),"&")}else{if(Ext.isDate(ov)){var s=Ext.encode(ov).replace(/"/g,"");buf.push(k,"=",s,"&")}else{if(Ext.isArray(ov)){if(ov.length){for(var i=0,len=ov.length;i<len;i++){buf.push(k,"=",encodeURIComponent(ov[i]===undefined?"":ov[i]),"&")}}else{buf.push(k,"=&")}}}}}}buf.pop();return buf.join("")},urlDecode:function(string,overwrite){if(!string||!string.length){return{}}var obj={};var pairs=string.split("&");var pair,name,value;for(var i=0,len=pairs.length;i<len;i++){pair=pairs[i].split("=");name=decodeURIComponent(pair[0]);value=decodeURIComponent(pair[1]);if(overwrite!==true){if(typeof obj[name]=="undefined"){obj[name]=value}else{if(typeof obj[name]=="string"){obj[name]=[obj[name]];obj[name].push(value)}else{obj[name].push(value)}}}else{obj[name]=value}}return obj},each:function(array,fn,scope){if(typeof array.length=="undefined"||typeof array=="string"){array=[array]}for(var i=0,len=array.length;i<len;i++){if(fn.call(scope||array[i],array[i],i,array)===false){return i}}},combine:function(){var as=arguments,l=as.length,r=[];for(var i=0;i<l;i++){var a=as[i];if(Ext.isArray(a)){r=r.concat(a)}else{if(a.length!==undefined&&!a.substr){r=r.concat(Array.prototype.slice.call(a,0))}else{r.push(a)}}}return r},escapeRe:function(s){return s.replace(/([.*+?^${}()|[\]\/\\])/g,"\\$1")},callback:function(cb,scope,args,delay){if(typeof cb=="function"){if(delay){cb.defer(delay,scope,args||[])}else{cb.apply(scope,args||[])}}},getDom:function(el){if(!el||!document){return null}return el.dom?el.dom:(typeof el=="string"?document.getElementById(el):el)},getDoc:function(){return Ext.get(document)},getBody:function(){return Ext.get(document.body||document.documentElement)},getCmp:function(id){return Ext.ComponentMgr.get(id)},num:function(v,defaultValue){if(typeof v!="number"||isNaN(v)){return defaultValue}return v},destroy:function(){for(var i=0,a=arguments,len=a.length;i<len;i++){var as=a[i];if(as){if(typeof as.destroy=="function"){as.destroy()}else{if(as.dom){as.removeAllListeners();as.remove()}}}}},removeNode:isIE?function(){var d;return function(n){if(n&&n.tagName!="BODY"){d=d||document.createElement("div");d.appendChild(n);d.innerHTML=""}}}():function(n){if(n&&n.parentNode&&n.tagName!="BODY"){n.parentNode.removeChild(n)}},type:function(o){if(o===undefined||o===null){return false}if(o.htmlElement){return"element"}var t=typeof o;if(t=="object"&&o.nodeName){switch(o.nodeType){case 1:return"element";case 3:return(/\S/).test(o.nodeValue)?"textnode":"whitespace"}}if(t=="object"||t=="function"){switch(o.constructor){case Array:return"array";case RegExp:return"regexp";case Date:return"date"}if(typeof o.length=="number"&&typeof o.item=="function"){return"nodelist"}}return t},isEmpty:function(v,allowBlank){return v===null||v===undefined||(!allowBlank?v==="":false)},value:function(v,defaultValue,allowBlank){return Ext.isEmpty(v,allowBlank)?defaultValue:v},isArray:function(v){return v&&typeof v.length=="number"&&typeof v.splice=="function"},isDate:function(v){return v&&typeof v.getFullYear=="function"},isOpera:isOpera,isChrome:isChrome,isSafari:isSafari,isSafari3:isSafari3,isSafari2:isSafari&&!isSafari3,isIE:isIE,isIE6:isIE&&!isIE7&&!isIE8,isIE7:isIE7,isIE8:isIE8,isGecko:isGecko,isGecko2:isGecko&&!isGecko3,isGecko3:isGecko3,isBorderBox:isBorderBox,isLinux:isLinux,isWindows:isWindows,isMac:isMac,isAir:isAir,useShims:((isIE&&!isIE7)||(isMac&&isGecko&&!isGecko3))});Ext.ns=Ext.namespace})();Ext.ns("Ext","Ext.util","Ext.grid","Ext.dd","Ext.tree","Ext.data","Ext.form","Ext.menu","Ext.state","Ext.lib","Ext.layout","Ext.app","Ext.ux");Ext.apply(Function.prototype,{createCallback:function(){var a=arguments;var b=this;return function(){return b.apply(window,a)}},createDelegate:function(c,b,a){var d=this;return function(){var f=b||arguments;if(a===true){f=Array.prototype.slice.call(arguments,0);f=f.concat(b)}else{if(typeof a=="number"){f=Array.prototype.slice.call(arguments,0);var e=[a,0].concat(b);Array.prototype.splice.apply(f,e)}}return d.apply(c||window,f)}},defer:function(c,e,b,a){var d=this.createDelegate(e,b,a);if(c){return setTimeout(d,c)}d();return 0},createSequence:function(b,a){if(typeof b!="function"){return this}var c=this;return function(){var d=c.apply(this||window,arguments);b.apply(a||this||window,arguments);return d}},createInterceptor:function(b,a){if(typeof b!="function"){return this}var c=this;return function(){b.target=this;b.method=c;if(b.apply(a||this||window,arguments)===false){return}return c.apply(this||window,arguments)}}});Ext.applyIf(String,{escape:function(a){return a.replace(/('|\\)/g,"\\$1")},leftPad:function(d,b,c){var a=new String(d);if(!c){c=" "}while(a.length<b){a=c+a}return a.toString()},format:function(b){var a=Array.prototype.slice.call(arguments,1);return b.replace(/\{(\d+)\}/g,function(c,d){return a[d]})}});String.prototype.toggle=function(b,a){return this==b?a:b};String.prototype.trim=function(){var a=/^\s+|\s+$/g;return function(){return this.replace(a,"")}}();Ext.applyIf(Number.prototype,{constrain:function(b,a){return Math.min(Math.max(this,b),a)}});Ext.applyIf(Array.prototype,{indexOf:function(c){for(var b=0,a=this.length;b<a;b++){if(this[b]==c){return b}}return -1},remove:function(b){var a=this.indexOf(b);if(a!=-1){this.splice(a,1)}return this}});Date.prototype.getElapsed=function(a){return Math.abs((a||new Date()).getTime()-this.getTime())};(function(){var b;Ext.lib.Dom={getViewWidth:function(e){return e?this.getDocumentWidth():this.getViewportWidth()},getViewHeight:function(e){return e?this.getDocumentHeight():this.getViewportHeight()},getDocumentHeight:function(){var e=(document.compatMode!="CSS1Compat")?document.body.scrollHeight:document.documentElement.scrollHeight;return Math.max(e,this.getViewportHeight())},getDocumentWidth:function(){var e=(document.compatMode!="CSS1Compat")?document.body.scrollWidth:document.documentElement.scrollWidth;return Math.max(e,this.getViewportWidth())},getViewportHeight:function(){if(Ext.isIE){return Ext.isStrict?document.documentElement.clientHeight:document.body.clientHeight}else{return self.innerHeight}},getViewportWidth:function(){if(Ext.isIE){return Ext.isStrict?document.documentElement.clientWidth:document.body.clientWidth}else{return self.innerWidth}},isAncestor:function(f,g){f=Ext.getDom(f);g=Ext.getDom(g);if(!f||!g){return false}if(f.contains&&!Ext.isSafari){return f.contains(g)}else{if(f.compareDocumentPosition){return !!(f.compareDocumentPosition(g)&16)}else{var e=g.parentNode;while(e){if(e==f){return true}else{if(!e.tagName||e.tagName.toUpperCase()=="HTML"){return false}}e=e.parentNode}return false}}},getRegion:function(e){return Ext.lib.Region.getRegion(e)},getY:function(e){return this.getXY(e)[1]},getX:function(e){return this.getXY(e)[0]},getXY:function(g){var f,k,m,n,j=(document.body||document.documentElement);g=Ext.getDom(g);if(g==j){return[0,0]}if(g.getBoundingClientRect){m=g.getBoundingClientRect();n=c(document).getScroll();return[m.left+n.left,m.top+n.top]}var o=0,l=0;f=g;var e=c(g).getStyle("position")=="absolute";while(f){o+=f.offsetLeft;l+=f.offsetTop;if(!e&&c(f).getStyle("position")=="absolute"){e=true}if(Ext.isGecko){k=c(f);var q=parseInt(k.getStyle("borderTopWidth"),10)||0;var h=parseInt(k.getStyle("borderLeftWidth"),10)||0;o+=h;l+=q;if(f!=g&&k.getStyle("overflow")!="visible"){o+=h;l+=q}}f=f.offsetParent}if(Ext.isSafari&&e){o-=j.offsetLeft;l-=j.offsetTop}if(Ext.isGecko&&!e){var i=c(j);o+=parseInt(i.getStyle("borderLeftWidth"),10)||0;l+=parseInt(i.getStyle("borderTopWidth"),10)||0}f=g.parentNode;while(f&&f!=j){if(!Ext.isOpera||(f.tagName!="TR"&&c(f).getStyle("display")!="inline")){o-=f.scrollLeft;l-=f.scrollTop}f=f.parentNode}return[o,l]},setXY:function(e,f){e=Ext.fly(e,"_setXY");e.position();var g=e.translatePoints(f);if(f[0]!==false){e.dom.style.left=g.left+"px"}if(f[1]!==false){e.dom.style.top=g.top+"px"}},setX:function(f,e){this.setXY(f,[e,false])},setY:function(e,f){this.setXY(e,[false,f])}};Ext.lib.Event=function(){var f=false;var g=[];var k=[];var i=0;var h=[];var e=0;var j=null;return{POLL_RETRYS:200,POLL_INTERVAL:20,EL:0,TYPE:1,FN:2,WFN:3,OBJ:3,ADJ_SCOPE:4,_interval:null,startInterval:function(){if(!this._interval){var l=this;var m=function(){l._tryPreloadAttach()};this._interval=setInterval(m,this.POLL_INTERVAL)}},onAvailable:function(n,l,o,m){h.push({id:n,fn:l,obj:o,override:m,checkReady:false});i=this.POLL_RETRYS;this.startInterval()},addListener:function(q,m,p){q=Ext.getDom(q);if(!q||!p){return false}if("unload"==m){k[k.length]=[q,m,p];return true}var o=function(r){return typeof Ext!="undefined"?p(Ext.lib.Event.getEvent(r)):false};var l=[q,m,p,o];var n=g.length;g[n]=l;this.doAdd(q,m,o,false);return true},removeListener:function(s,o,r){var q,n;s=Ext.getDom(s);if(!r){return this.purgeElement(s,false,o)}if("unload"==o){for(q=0,n=k.length;q<n;q++){var m=k[q];if(m&&m[0]==s&&m[1]==o&&m[2]==r){k.splice(q,1);return true}}return false}var l=null;var p=arguments[3];if("undefined"==typeof p){p=this._getCacheIndex(s,o,r)}if(p>=0){l=g[p]}if(!s||!l){return false}this.doRemove(s,o,l[this.WFN],false);delete g[p][this.WFN];delete g[p][this.FN];g.splice(p,1);return true},getTarget:function(n,m){n=n.browserEvent||n;var l=n.target||n.srcElement;return this.resolveTextNode(l)},resolveTextNode:function(l){if(Ext.isSafari&&l&&3==l.nodeType){return l.parentNode}else{return l}},getPageX:function(m){m=m.browserEvent||m;var l=m.pageX;if(!l&&0!==l){l=m.clientX||0;if(Ext.isIE){l+=this.getScroll()[1]}}return l},getPageY:function(l){l=l.browserEvent||l;var m=l.pageY;if(!m&&0!==m){m=l.clientY||0;if(Ext.isIE){m+=this.getScroll()[0]}}return m},getXY:function(l){l=l.browserEvent||l;return[this.getPageX(l),this.getPageY(l)]},getRelatedTarget:function(m){m=m.browserEvent||m;var l=m.relatedTarget;if(!l){if(m.type=="mouseout"){l=m.toElement}else{if(m.type=="mouseover"){l=m.fromElement}}}return this.resolveTextNode(l)},getTime:function(n){n=n.browserEvent||n;if(!n.time){var m=new Date().getTime();try{n.time=m}catch(l){this.lastError=l;return m}}return n.time},stopEvent:function(l){this.stopPropagation(l);this.preventDefault(l)},stopPropagation:function(l){l=l.browserEvent||l;if(l.stopPropagation){l.stopPropagation()}else{l.cancelBubble=true}},preventDefault:function(l){l=l.browserEvent||l;if(l.preventDefault){l.preventDefault()}else{l.returnValue=false}},getEvent:function(m){var l=m||window.event;if(!l){var n=this.getEvent.caller;while(n){l=n.arguments[0];if(l&&Event==l.constructor){break}n=n.caller}}return l},getCharCode:function(l){l=l.browserEvent||l;return l.charCode||l.keyCode||0},_getCacheIndex:function(q,n,p){for(var o=0,m=g.length;o<m;++o){var l=g[o];if(l&&l[this.FN]==p&&l[this.EL]==q&&l[this.TYPE]==n){return o}}return -1},elCache:{},getEl:function(l){return document.getElementById(l)},clearCache:function(){},_load:function(m){f=true;var l=Ext.lib.Event;if(Ext.isIE){l.doRemove(window,"load",l._load)}},_tryPreloadAttach:function(){if(this.locked){return false}this.locked=true;var r=!f;if(!r){r=(i>0)}var q=[];for(var m=0,l=h.length;m<l;++m){var p=h[m];if(p){var o=this.getEl(p.id);if(o){if(!p.checkReady||f||o.nextSibling||(document&&document.body)){var n=o;if(p.override){if(p.override===true){n=p.obj}else{n=p.override}}p.fn.call(n,p.obj);h[m]=null}}else{q.push(p)}}}i=(q.length===0)?0:i-1;if(r){this.startInterval()}else{clearInterval(this._interval);this._interval=null}this.locked=false;return true},purgeElement:function(q,r,o){var s=this.getListeners(q,o);if(s){for(var p=0,m=s.length;p<m;++p){var n=s[p];this.removeListener(q,n.type,n.fn)}}if(r&&q&&q.childNodes){for(p=0,m=q.childNodes.length;p<m;++p){this.purgeElement(q.childNodes[p],r,o)}}},getListeners:function(n,s){var q=[],m;if(!s){m=[g,k]}else{if(s=="unload"){m=[k]}else{m=[g]}}for(var p=0;p<m.length;++p){var u=m[p];if(u&&u.length>0){for(var r=0,t=u.length;r<t;++r){var o=u[r];if(o&&o[this.EL]===n&&(!s||s===o[this.TYPE])){q.push({type:o[this.TYPE],fn:o[this.FN],obj:o[this.OBJ],adjust:o[this.ADJ_SCOPE],index:r})}}}}return(q.length)?q:null},_unload:function(t){var s=Ext.lib.Event,q,p,n,m,o;for(q=0,m=k.length;q<m;++q){n=k[q];if(n){var r=window;if(n[s.ADJ_SCOPE]){if(n[s.ADJ_SCOPE]===true){r=n[s.OBJ]}else{r=n[s.ADJ_SCOPE]}}n[s.FN].call(r,s.getEvent(t),n[s.OBJ]);k[q]=null;n=null;r=null}}k=null;if(g&&g.length>0){p=g.length;while(p){o=p-1;n=g[o];if(n){s.removeListener(n[s.EL],n[s.TYPE],n[s.FN],o)}p=p-1}n=null;s.clearCache()}s.doRemove(window,"unload",s._unload)},getScroll:function(){var l=document.documentElement,m=document.body;if(l&&(l.scrollTop||l.scrollLeft)){return[l.scrollTop,l.scrollLeft]}else{if(m){return[m.scrollTop,m.scrollLeft]}else{return[0,0]}}},doAdd:function(){if(window.addEventListener){return function(o,m,n,l){o.addEventListener(m,n,(l))}}else{if(window.attachEvent){return function(o,m,n,l){o.attachEvent("on"+m,n)}}else{return function(){}}}}(),doRemove:function(){if(window.removeEventListener){return function(o,m,n,l){o.removeEventListener(m,n,(l))}}else{if(window.detachEvent){return function(n,l,m){n.detachEvent("on"+l,m)}}else{return function(){}}}}()}}();var d=Ext.lib.Event;d.on=d.addListener;d.un=d.removeListener;if(document&&document.body){d._load()}else{d.doAdd(window,"load",d._load)}d.doAdd(window,"unload",d._unload);d._tryPreloadAttach();Ext.lib.Ajax={request:function(l,j,e,k,f){if(f){var g=f.headers;if(g){for(var i in g){if(g.hasOwnProperty(i)){this.initHeader(i,g[i],false)}}}if(f.xmlData){if(!g||!g["Content-Type"]){this.initHeader("Content-Type","text/xml",false)}l=(l?l:(f.method?f.method:"POST"));k=f.xmlData}else{if(f.jsonData){if(!g||!g["Content-Type"]){this.initHeader("Content-Type","application/json",false)}l=(l?l:(f.method?f.method:"POST"));k=typeof f.jsonData=="object"?Ext.encode(f.jsonData):f.jsonData}}}return this.asyncRequest(l,j,e,k)},serializeForm:function(f){if(typeof f=="string"){f=(document.getElementById(f)||document.forms[f])}var g,e,h,l,m="",o=false;for(var n=0;n<f.elements.length;n++){g=f.elements[n];l=f.elements[n].disabled;e=f.elements[n].name;h=f.elements[n].value;if(!l&&e){switch(g.type){case"select-one":case"select-multiple":for(var k=0;k<g.options.length;k++){if(g.options[k].selected){if(Ext.isIE){m+=encodeURIComponent(e)+"="+encodeURIComponent(g.options[k].attributes.value.specified?g.options[k].value:g.options[k].text)+"&"}else{m+=encodeURIComponent(e)+"="+encodeURIComponent(g.options[k].hasAttribute("value")?g.options[k].value:g.options[k].text)+"&"}}}break;case"radio":case"checkbox":if(g.checked){m+=encodeURIComponent(e)+"="+encodeURIComponent(h)+"&"}break;case"file":case undefined:case"reset":case"button":break;case"submit":if(o==false){m+=encodeURIComponent(e)+"="+encodeURIComponent(h)+"&";o=true}break;default:m+=encodeURIComponent(e)+"="+encodeURIComponent(h)+"&";break}}}m=m.substr(0,m.length-1);return m},headers:{},hasHeaders:false,useDefaultHeader:true,defaultPostHeader:"application/x-www-form-urlencoded; charset=UTF-8",useDefaultXhrHeader:true,defaultXhrHeader:"XMLHttpRequest",hasDefaultHeaders:true,defaultHeaders:{},poll:{},timeout:{},pollInterval:50,transactionId:0,setProgId:function(e){this.activeX.unshift(e)},setDefaultPostHeader:function(e){this.useDefaultHeader=e},setDefaultXhrHeader:function(e){this.useDefaultXhrHeader=e},setPollingInterval:function(e){if(typeof e=="number"&&isFinite(e)){this.pollInterval=e}},createXhrObject:function(k){var j,f;try{f=new XMLHttpRequest();j={conn:f,tId:k}}catch(h){for(var g=0;g<this.activeX.length;++g){try{f=new ActiveXObject(this.activeX[g]);j={conn:f,tId:k};break}catch(h){}}}finally{return j}},getConnectionObject:function(){var g;var h=this.transactionId;try{g=this.createXhrObject(h);if(g){this.transactionId++}}catch(f){}finally{return g}},asyncRequest:function(i,f,h,e){var g=this.getConnectionObject();if(!g){return null}else{g.conn.open(i,f,true);if(this.useDefaultXhrHeader){if(!this.defaultHeaders["X-Requested-With"]){this.initHeader("X-Requested-With",this.defaultXhrHeader,true)}}if(e&&this.useDefaultHeader&&(!this.hasHeaders||!this.headers["Content-Type"])){this.initHeader("Content-Type",this.defaultPostHeader)}if(this.hasDefaultHeaders||this.hasHeaders){this.setHeader(g)}this.handleReadyState(g,h);g.conn.send(e||null);return g}},handleReadyState:function(f,g){var e=this;if(g&&g.timeout){this.timeout[f.tId]=window.setTimeout(function(){e.abort(f,g,true)},g.timeout)}this.poll[f.tId]=window.setInterval(function(){if(f.conn&&f.conn.readyState==4){window.clearInterval(e.poll[f.tId]);delete e.poll[f.tId];if(g&&g.timeout){window.clearTimeout(e.timeout[f.tId]);delete e.timeout[f.tId]}e.handleTransactionResponse(f,g)}},this.pollInterval)},handleTransactionResponse:function(j,k,f){if(!k){this.releaseObject(j);return}var h,g;try{if(j.conn.status!==undefined&&j.conn.status!=0){h=j.conn.status}else{h=13030}}catch(i){h=13030}if((h>=200&&h<300)||(Ext.isIE&&h==1223)){g=this.createResponseObject(j,k.argument);if(k.success){if(!k.scope){k.success(g)}else{k.success.apply(k.scope,[g])}}}else{switch(h){case 12002:case 12029:case 12030:case 12031:case 12152:case 13030:g=this.createExceptionObject(j.tId,k.argument,(f?f:false));if(k.failure){if(!k.scope){k.failure(g)}else{k.failure.apply(k.scope,[g])}}break;default:g=this.createResponseObject(j,k.argument);if(k.failure){if(!k.scope){k.failure(g)}else{k.failure.apply(k.scope,[g])}}}}this.releaseObject(j);g=null},createResponseObject:function(f,m){var j={};var p={};try{var h=f.conn.getAllResponseHeaders();var l=h.split("\n");for(var k=0;k<l.length;k++){var g=l[k].indexOf(":");if(g!=-1){p[l[k].substring(0,g)]=l[k].substring(g+2)}}}catch(n){}j.tId=f.tId;j.status=f.conn.status;j.statusText=f.conn.statusText;j.getResponseHeader=p;j.getAllResponseHeaders=h;j.responseText=f.conn.responseText;j.responseXML=f.conn.responseXML;if(typeof m!==undefined){j.argument=m}return j},createExceptionObject:function(l,h,e){var j=0;var k="communication failure";var g=-1;var f="transaction aborted";var i={};i.tId=l;if(e){i.status=g;i.statusText=f}else{i.status=j;i.statusText=k}if(h){i.argument=h}return i},initHeader:function(e,h,g){var f=(g)?this.defaultHeaders:this.headers;if(f[e]===undefined){f[e]=h}else{f[e]=h+","+f[e]}if(g){this.hasDefaultHeaders=true}else{this.hasHeaders=true}},setHeader:function(e){if(this.hasDefaultHeaders){for(var f in this.defaultHeaders){if(this.defaultHeaders.hasOwnProperty(f)){e.conn.setRequestHeader(f,this.defaultHeaders[f])}}}if(this.hasHeaders){for(var f in this.headers){if(this.headers.hasOwnProperty(f)){e.conn.setRequestHeader(f,this.headers[f])}}this.headers={};this.hasHeaders=false}},resetDefaultHeaders:function(){delete this.defaultHeaders;this.defaultHeaders={};this.hasDefaultHeaders=false},abort:function(f,g,e){if(this.isCallInProgress(f)){f.conn.abort();window.clearInterval(this.poll[f.tId]);delete this.poll[f.tId];if(e){delete this.timeout[f.tId]}this.handleTransactionResponse(f,g,true);return true}else{return false}},isCallInProgress:function(e){if(e.conn){return e.conn.readyState!=4&&e.conn.readyState!=0}else{return false}},releaseObject:function(e){e.conn=null;e=null},activeX:["MSXML2.XMLHTTP.3.0","MSXML2.XMLHTTP","Microsoft.XMLHTTP"]};Ext.lib.Region=function(g,h,e,f){this.top=g;this[1]=g;this.right=h;this.bottom=e;this.left=f;this[0]=f};Ext.lib.Region.prototype={contains:function(e){return(e.left>=this.left&&e.right<=this.right&&e.top>=this.top&&e.bottom<=this.bottom)},getArea:function(){return((this.bottom-this.top)*(this.right-this.left))},intersect:function(i){var g=Math.max(this.top,i.top);var h=Math.min(this.right,i.right);var e=Math.min(this.bottom,i.bottom);var f=Math.max(this.left,i.left);if(e>=g&&h>=f){return new Ext.lib.Region(g,h,e,f)}else{return null}},union:function(i){var g=Math.min(this.top,i.top);var h=Math.max(this.right,i.right);var e=Math.max(this.bottom,i.bottom);var f=Math.min(this.left,i.left);return new Ext.lib.Region(g,h,e,f)},constrainTo:function(e){this.top=this.top.constrain(e.top,e.bottom);this.bottom=this.bottom.constrain(e.top,e.bottom);this.left=this.left.constrain(e.left,e.right);this.right=this.right.constrain(e.left,e.right);return this},adjust:function(g,f,e,h){this.top+=g;this.left+=f;this.right+=h;this.bottom+=e;return this}};Ext.lib.Region.getRegion=function(h){var j=Ext.lib.Dom.getXY(h);var g=j[1];var i=j[0]+h.offsetWidth;var e=j[1]+h.offsetHeight;var f=j[0];return new Ext.lib.Region(g,i,e,f)};Ext.lib.Point=function(e,f){if(Ext.isArray(e)){f=e[1];e=e[0]}this.x=this.right=this.left=this[0]=e;this.y=this.top=this.bottom=this[1]=f};Ext.lib.Point.prototype=new Ext.lib.Region();Ext.lib.Anim={scroll:function(h,f,i,j,e,g){return this.run(h,f,i,j,e,g,Ext.lib.Scroll)},motion:function(h,f,i,j,e,g){return this.run(h,f,i,j,e,g,Ext.lib.Motion)},color:function(h,f,i,j,e,g){return this.run(h,f,i,j,e,g,Ext.lib.ColorAnim)},run:function(i,f,k,l,e,h,g){g=g||Ext.lib.AnimBase;if(typeof l=="string"){l=Ext.lib.Easing[l]}var j=new g(i,f,k,l);j.animateX(function(){Ext.callback(e,h)});return j}};function c(e){if(!b){b=new Ext.Element.Flyweight()}b.dom=e;return b}if(Ext.isIE){function a(){var e=Function.prototype;delete e.createSequence;delete e.defer;delete e.createDelegate;delete e.createCallback;delete e.createInterceptor;window.detachEvent("onunload",a)}window.attachEvent("onunload",a)}Ext.lib.AnimBase=function(f,e,g,h){if(f){this.init(f,e,g,h)}};Ext.lib.AnimBase.prototype={toString:function(){var e=this.getEl();var f=e.id||e.tagName;return("Anim "+f)},patterns:{noNegatives:/width|height|opacity|padding/i,offsetAttribute:/^((width|height)|(top|left))$/,defaultUnit:/width|height|top$|bottom$|left$|right$/i,offsetUnit:/\d+(em|%|en|ex|pt|in|cm|mm|pc)$/i},doMethod:function(e,g,f){return this.method(this.currentFrame,g,f-g,this.totalFrames)},setAttribute:function(e,g,f){if(this.patterns.noNegatives.test(e)){g=(g>0)?g:0}Ext.fly(this.getEl(),"_anim").setStyle(e,g+f)},getAttribute:function(e){var g=this.getEl();var i=c(g).getStyle(e);if(i!=="auto"&&!this.patterns.offsetUnit.test(i)){return parseFloat(i)}var f=this.patterns.offsetAttribute.exec(e)||[];var j=!!(f[3]);var h=!!(f[2]);if(h||(c(g).getStyle("position")=="absolute"&&j)){i=g["offset"+f[0].charAt(0).toUpperCase()+f[0].substr(1)]}else{i=0}return i},getDefaultUnit:function(e){if(this.patterns.defaultUnit.test(e)){return"px"}return""},animateX:function(h,e){var g=function(){this.onComplete.removeListener(g);if(typeof h=="function"){h.call(e||this,this)}};this.onComplete.addListener(g,this);this.animate()},setRuntimeAttribute:function(f){var l;var g;var h=this.attributes;this.runtimeAttributes[f]={};var k=function(i){return(typeof i!=="undefined")};if(!k(h[f]["to"])&&!k(h[f]["by"])){return false}l=(k(h[f]["from"]))?h[f]["from"]:this.getAttribute(f);if(k(h[f]["to"])){g=h[f]["to"]}else{if(k(h[f]["by"])){if(l.constructor==Array){g=[];for(var j=0,e=l.length;j<e;++j){g[j]=l[j]+h[f]["by"][j]}}else{g=l+h[f]["by"]}}}this.runtimeAttributes[f].start=l;this.runtimeAttributes[f].end=g;this.runtimeAttributes[f].unit=(k(h[f].unit))?h[f]["unit"]:this.getDefaultUnit(f)},init:function(g,l,k,e){var f=false;var h=null;var j=0;g=Ext.getDom(g);this.attributes=l||{};this.duration=k||1;this.method=e||Ext.lib.Easing.easeNone;this.useSeconds=true;this.currentFrame=0;this.totalFrames=Ext.lib.AnimMgr.fps;this.getEl=function(){return g};this.isAnimated=function(){return f};this.getStartTime=function(){return h};this.runtimeAttributes={};this.animate=function(){if(this.isAnimated()){return false}this.currentFrame=0;this.totalFrames=(this.useSeconds)?Math.ceil(Ext.lib.AnimMgr.fps*this.duration):this.duration;Ext.lib.AnimMgr.registerElement(this)};this.stop=function(o){if(o){this.currentFrame=this.totalFrames;this._onTween.fire()}Ext.lib.AnimMgr.stop(this)};var n=function(){this.onStart.fire();this.runtimeAttributes={};for(var o in this.attributes){this.setRuntimeAttribute(o)}f=true;j=0;h=new Date()};var m=function(){var q={duration:new Date()-this.getStartTime(),currentFrame:this.currentFrame};q.toString=function(){return("duration: "+q.duration+", currentFrame: "+q.currentFrame)};this.onTween.fire(q);var p=this.runtimeAttributes;for(var o in p){this.setAttribute(o,this.doMethod(o,p[o].start,p[o].end),p[o].unit)}j+=1};var i=function(){var o=(new Date()-h)/1000;var p={duration:o,frames:j,fps:j/o};p.toString=function(){return("duration: "+p.duration+", frames: "+p.frames+", fps: "+p.fps)};f=false;j=0;this.onComplete.fire(p)};this._onStart=new Ext.util.Event(this);this.onStart=new Ext.util.Event(this);this.onTween=new Ext.util.Event(this);this._onTween=new Ext.util.Event(this);this.onComplete=new Ext.util.Event(this);this._onComplete=new Ext.util.Event(this);this._onStart.addListener(n);this._onTween.addListener(m);this._onComplete.addListener(i)}};Ext.lib.AnimMgr=new function(){var g=null;var f=[];var e=0;this.fps=1000;this.delay=1;this.registerElement=function(j){f[f.length]=j;e+=1;j._onStart.fire();this.start()};this.unRegister=function(k,j){k._onComplete.fire();j=j||i(k);if(j!=-1){f.splice(j,1)}e-=1;if(e<=0){this.stop()}};this.start=function(){if(g===null){g=setInterval(this.run,this.delay)}};this.stop=function(l){if(!l){clearInterval(g);for(var k=0,j=f.length;k<j;++k){if(f[0].isAnimated()){this.unRegister(f[0],0)}}f=[];g=null;e=0}else{this.unRegister(l)}};this.run=function(){for(var l=0,j=f.length;l<j;++l){var k=f[l];if(!k||!k.isAnimated()){continue}if(k.currentFrame<k.totalFrames||k.totalFrames===null){k.currentFrame+=1;if(k.useSeconds){h(k)}k._onTween.fire()}else{Ext.lib.AnimMgr.stop(k,l)}}};var i=function(l){for(var k=0,j=f.length;k<j;++k){if(f[k]==l){return k}}return -1};var h=function(k){var n=k.totalFrames;var m=k.currentFrame;var l=(k.currentFrame*k.duration*1000/k.totalFrames);var j=(new Date()-k.getStartTime());var o=0;if(j<k.duration*1000){o=Math.round((j/l-1)*k.currentFrame)}else{o=n-(m+1)}if(o>0&&isFinite(o)){if(k.currentFrame+o>=n){o=n-(m+1)}k.currentFrame+=o}}};Ext.lib.Bezier=new function(){this.getPosition=function(k,h){var l=k.length;var g=[];for(var f=0;f<l;++f){g[f]=[k[f][0],k[f][1]]}for(var e=1;e<l;++e){for(f=0;f<l-e;++f){g[f][0]=(1-h)*g[f][0]+h*g[parseInt(f+1,10)][0];g[f][1]=(1-h)*g[f][1]+h*g[parseInt(f+1,10)][1]}}return[g[0][0],g[0][1]]}};(function(){Ext.lib.ColorAnim=function(i,h,j,k){Ext.lib.ColorAnim.superclass.constructor.call(this,i,h,j,k)};Ext.extend(Ext.lib.ColorAnim,Ext.lib.AnimBase);var f=Ext.lib;var g=f.ColorAnim.superclass;var e=f.ColorAnim.prototype;e.toString=function(){var h=this.getEl();var i=h.id||h.tagName;return("ColorAnim "+i)};e.patterns.color=/color$/i;e.patterns.rgb=/^rgb\(([0-9]+)\s*,\s*([0-9]+)\s*,\s*([0-9]+)\)$/i;e.patterns.hex=/^#?([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})$/i;e.patterns.hex3=/^#?([0-9A-F]{1})([0-9A-F]{1})([0-9A-F]{1})$/i;e.patterns.transparent=/^transparent|rgba\(0, 0, 0, 0\)$/;e.parseColor=function(h){if(h.length==3){return h}var i=this.patterns.hex.exec(h);if(i&&i.length==4){return[parseInt(i[1],16),parseInt(i[2],16),parseInt(i[3],16)]}i=this.patterns.rgb.exec(h);if(i&&i.length==4){return[parseInt(i[1],10),parseInt(i[2],10),parseInt(i[3],10)]}i=this.patterns.hex3.exec(h);if(i&&i.length==4){return[parseInt(i[1]+i[1],16),parseInt(i[2]+i[2],16),parseInt(i[3]+i[3],16)]}return null};e.getAttribute=function(h){var j=this.getEl();if(this.patterns.color.test(h)){var k=c(j).getStyle(h);if(this.patterns.transparent.test(k)){var i=j.parentNode;k=c(i).getStyle(h);while(i&&this.patterns.transparent.test(k)){i=i.parentNode;k=c(i).getStyle(h);if(i.tagName.toUpperCase()=="HTML"){k="#fff"}}}}else{k=g.getAttribute.call(this,h)}return k};e.doMethod=function(j,n,k){var m;if(this.patterns.color.test(j)){m=[];for(var l=0,h=n.length;l<h;++l){m[l]=g.doMethod.call(this,j,n[l],k[l])}m="rgb("+Math.floor(m[0])+","+Math.floor(m[1])+","+Math.floor(m[2])+")"}else{m=g.doMethod.call(this,j,n,k)}return m};e.setRuntimeAttribute=function(j){g.setRuntimeAttribute.call(this,j);if(this.patterns.color.test(j)){var l=this.attributes;var n=this.parseColor(this.runtimeAttributes[j].start);var k=this.parseColor(this.runtimeAttributes[j].end);if(typeof l[j]["to"]==="undefined"&&typeof l[j]["by"]!=="undefined"){k=this.parseColor(l[j].by);for(var m=0,h=n.length;m<h;++m){k[m]=n[m]+k[m]}}this.runtimeAttributes[j].start=n;this.runtimeAttributes[j].end=k}}})();Ext.lib.Easing={easeNone:function(f,e,h,g){return h*f/g+e},easeIn:function(f,e,h,g){return h*(f/=g)*f+e},easeOut:function(f,e,h,g){return -h*(f/=g)*(f-2)+e},easeBoth:function(f,e,h,g){if((f/=g/2)<1){return h/2*f*f+e}return -h/2*((--f)*(f-2)-1)+e},easeInStrong:function(f,e,h,g){return h*(f/=g)*f*f*f+e},easeOutStrong:function(f,e,h,g){return -h*((f=f/g-1)*f*f*f-1)+e},easeBothStrong:function(f,e,h,g){if((f/=g/2)<1){return h/2*f*f*f*f+e}return -h/2*((f-=2)*f*f*f-2)+e},elasticIn:function(g,e,k,j,f,i){if(g==0){return e}if((g/=j)==1){return e+k}if(!i){i=j*0.3}if(!f||f<Math.abs(k)){f=k;var h=i/4}else{var h=i/(2*Math.PI)*Math.asin(k/f)}return -(f*Math.pow(2,10*(g-=1))*Math.sin((g*j-h)*(2*Math.PI)/i))+e},elasticOut:function(g,e,k,j,f,i){if(g==0){return e}if((g/=j)==1){return e+k}if(!i){i=j*0.3}if(!f||f<Math.abs(k)){f=k;var h=i/4}else{var h=i/(2*Math.PI)*Math.asin(k/f)}return f*Math.pow(2,-10*g)*Math.sin((g*j-h)*(2*Math.PI)/i)+k+e},elasticBoth:function(g,e,k,j,f,i){if(g==0){return e}if((g/=j/2)==2){return e+k}if(!i){i=j*(0.3*1.5)}if(!f||f<Math.abs(k)){f=k;var h=i/4}else{var h=i/(2*Math.PI)*Math.asin(k/f)}if(g<1){return -0.5*(f*Math.pow(2,10*(g-=1))*Math.sin((g*j-h)*(2*Math.PI)/i))+e}return f*Math.pow(2,-10*(g-=1))*Math.sin((g*j-h)*(2*Math.PI)/i)*0.5+k+e},backIn:function(f,e,i,h,g){if(typeof g=="undefined"){g=1.70158}return i*(f/=h)*f*((g+1)*f-g)+e},backOut:function(f,e,i,h,g){if(typeof g=="undefined"){g=1.70158}return i*((f=f/h-1)*f*((g+1)*f+g)+1)+e},backBoth:function(f,e,i,h,g){if(typeof g=="undefined"){g=1.70158}if((f/=h/2)<1){return i/2*(f*f*(((g*=(1.525))+1)*f-g))+e}return i/2*((f-=2)*f*(((g*=(1.525))+1)*f+g)+2)+e},bounceIn:function(f,e,h,g){return h-Ext.lib.Easing.bounceOut(g-f,0,h,g)+e},bounceOut:function(f,e,h,g){if((f/=g)<(1/2.75)){return h*(7.5625*f*f)+e}else{if(f<(2/2.75)){return h*(7.5625*(f-=(1.5/2.75))*f+0.75)+e}else{if(f<(2.5/2.75)){return h*(7.5625*(f-=(2.25/2.75))*f+0.9375)+e}}}return h*(7.5625*(f-=(2.625/2.75))*f+0.984375)+e},bounceBoth:function(f,e,h,g){if(f<g/2){return Ext.lib.Easing.bounceIn(f*2,0,h,g)*0.5+e}return Ext.lib.Easing.bounceOut(f*2-g,0,h,g)*0.5+h*0.5+e}};(function(){Ext.lib.Motion=function(k,j,l,m){if(k){Ext.lib.Motion.superclass.constructor.call(this,k,j,l,m)}};Ext.extend(Ext.lib.Motion,Ext.lib.ColorAnim);var h=Ext.lib;var i=h.Motion.superclass;var f=h.Motion.prototype;f.toString=function(){var j=this.getEl();var k=j.id||j.tagName;return("Motion "+k)};f.patterns.points=/^points$/i;f.setAttribute=function(j,l,k){if(this.patterns.points.test(j)){k=k||"px";i.setAttribute.call(this,"left",l[0],k);i.setAttribute.call(this,"top",l[1],k)}else{i.setAttribute.call(this,j,l,k)}};f.getAttribute=function(j){if(this.patterns.points.test(j)){var k=[i.getAttribute.call(this,"left"),i.getAttribute.call(this,"top")]}else{k=i.getAttribute.call(this,j)}return k};f.doMethod=function(j,n,k){var m=null;if(this.patterns.points.test(j)){var l=this.method(this.currentFrame,0,100,this.totalFrames)/100;m=h.Bezier.getPosition(this.runtimeAttributes[j],l)}else{m=i.doMethod.call(this,j,n,k)}return m};f.setRuntimeAttribute=function(s){if(this.patterns.points.test(s)){var k=this.getEl();var m=this.attributes;var j;var o=m.points["control"]||[];var l;var p,r;if(o.length>0&&!Ext.isArray(o[0])){o=[o]}else{var n=[];for(p=0,r=o.length;p<r;++p){n[p]=o[p]}o=n}Ext.fly(k,"_anim").position();if(g(m.points["from"])){Ext.lib.Dom.setXY(k,m.points["from"])}else{Ext.lib.Dom.setXY(k,Ext.lib.Dom.getXY(k))}j=this.getAttribute("points");if(g(m.points["to"])){l=e.call(this,m.points["to"],j);var q=Ext.lib.Dom.getXY(this.getEl());for(p=0,r=o.length;p<r;++p){o[p]=e.call(this,o[p],j)}}else{if(g(m.points["by"])){l=[j[0]+m.points["by"][0],j[1]+m.points["by"][1]];for(p=0,r=o.length;p<r;++p){o[p]=[j[0]+o[p][0],j[1]+o[p][1]]}}}this.runtimeAttributes[s]=[j];if(o.length>0){this.runtimeAttributes[s]=this.runtimeAttributes[s].concat(o)}this.runtimeAttributes[s][this.runtimeAttributes[s].length]=l}else{i.setRuntimeAttribute.call(this,s)}};var e=function(j,l){var k=Ext.lib.Dom.getXY(this.getEl());j=[j[0]-k[0]+l[0],j[1]-k[1]+l[1]];return j};var g=function(j){return(typeof j!=="undefined")}})();(function(){Ext.lib.Scroll=function(i,h,j,k){if(i){Ext.lib.Scroll.superclass.constructor.call(this,i,h,j,k)}};Ext.extend(Ext.lib.Scroll,Ext.lib.ColorAnim);var f=Ext.lib;var g=f.Scroll.superclass;var e=f.Scroll.prototype;e.toString=function(){var h=this.getEl();var i=h.id||h.tagName;return("Scroll "+i)};e.doMethod=function(h,k,i){var j=null;if(h=="scroll"){j=[this.method(this.currentFrame,k[0],i[0]-k[0],this.totalFrames),this.method(this.currentFrame,k[1],i[1]-k[1],this.totalFrames)]}else{j=g.doMethod.call(this,h,k,i)}return j};e.getAttribute=function(h){var j=null;var i=this.getEl();if(h=="scroll"){j=[i.scrollLeft,i.scrollTop]}else{j=g.getAttribute.call(this,h)}return j};e.setAttribute=function(h,k,j){var i=this.getEl();if(h=="scroll"){i.scrollLeft=k[0];i.scrollTop=k[1]}else{g.setAttribute.call(this,h,k,j)}}})()})();
 
 Ext.DomHelper=function(){var tempTableEl=null;var emptyTags=/^(?:br|frame|hr|img|input|link|meta|range|spacer|wbr|area|param|col)$/i;var tableRe=/^table|tbody|tr|td$/i;var createHtml=function(o){if(typeof o=='string'){return o;}
@@ -4688,841 +4688,960 @@ Ext.ux.TabCloseMenu = function(){
 */
 
 
-(function(){
+(function() {
 
 
     /*
-    * Base Media Class
-    */
+     * Base Media Class
+     */
 
-    Ext.ux.Media = function(config){
-        Ext.apply(this,config||{});
+    Ext.ux.Media = function(config) {
+        Ext.apply(this, config || {});
         this.toString = this.mediaMarkup;
         this.initMedia();
-        };
+    };
 
     var ux = Ext.ux.Media;
 
-    ux.mediaTypes =
-     {
-       "PDF" : Ext.apply({  //Acrobat plugin thru release 8.0 all crash FF3
-                tag     :'object'
-               ,cls     : 'x-media x-media-pdf'
-               ,type    : "application/pdf"
-               ,data    : "@url"
-               ,autoSize:true
-               ,params  : { src : "@url" }
+    ux.mediaTypes = {
+        "PDF": Ext.apply({ //Acrobat plugin thru release 8.0 all crash FF3
+            tag: 'object',
+            cls: 'x-media x-media-pdf',
+            type: "application/pdf",
+            data: "@url",
+            autoSize: true,
+            params: {
+                src: "@url"
+            }
 
-               },Ext.isIE?{
-                   classid :"CLSID:CA8A9780-280D-11CF-A24D-444553540000"
-                   }:false)
+        }, Ext.isIE ? {
+            classid: "CLSID:CA8A9780-280D-11CF-A24D-444553540000"
+        } : false)
 
-      ,"PDFFRAME" : {  //Most reliable method for all browsers!!
-                  tag      : 'iframe'
-                 ,cls      : 'x-media x-media-pdf-frame'
-                 ,frameBorder : 0
-                 ,style    : {overflow:'none',width:'100%',height:'100%'}
-                 ,src      : "@url"
-                 ,autoSize :true
+        ,
+        "PDFFRAME": { //Most reliable method for all browsers!!
+            tag: 'iframe',
+            cls: 'x-media x-media-pdf-frame',
+            frameBorder: 0,
+            style: {
+                overflow: 'none',
+                width: '100%',
+                height: '100%'
+            },
+            src: "@url",
+            autoSize: true
         }
 
-      ,"WMV" : Ext.apply(
-              {tag      :'object'
-              ,cls      : 'x-media x-media-wmv'
-              ,type     : 'application/x-mplayer2'
-              ,data     : "@url"
-              ,autoSize : false
-              ,params  : {
+        ,
+        "WMV": Ext.apply({
+            tag: 'object',
+            cls: 'x-media x-media-wmv',
+            type: 'application/x-mplayer2',
+            data: "@url",
+            autoSize: false,
+            params: {
 
-                  filename     : "@url"
-                 ,displaysize  : 0
-                 ,autostart    : "@start"
-                 ,showControls : "@controls"
-                 ,showStatusBar: "@status"
-                 ,showaudiocontrols : true
-                 ,stretchToFit  : true
-                 ,Volume        :"@volume"
-                 ,PlayCount     : 1
+                filename: "@url",
+                displaysize: 0,
+                autostart: "@start",
+                showControls: "@controls",
+                showStatusBar: "@status",
+                showaudiocontrols: true,
+                stretchToFit: true,
+                Volume: "@volume",
+                PlayCount: 1
 
-               }
-               },Ext.isIE?{
-                   classid :"CLSID:22d6f312-b0f6-11d0-94ab-0080c74c7e95" //default for WMP installed w/Windows
-                   ,codebase:"http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=5,1,52,701"
-                   ,type:'application/x-oleobject'
-                   }:
-                   {src:"@url"})
+            }
+        }, Ext.isIE ? {
+            classid: "CLSID:22d6f312-b0f6-11d0-94ab-0080c74c7e95" //default for WMP installed w/Windows
+                ,
+            codebase: "http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=5,1,52,701",
+            type: 'application/x-oleobject'
+        } : {
+            src: "@url"
+        })
 
-       /* WMV Interface Notes
-        * On IE only, to retrieve the object interface (for controlling player via JS)
-        * use mediaComp.getInterface().object.controls
-        *
-        * For all other browsers use: mediaComp.getInterface().controls
-        Related DOM attributes for WMV:
-        DataFormatAs :
-        Name :
-        URL :
-        OpenState:6
-        PlayState:0
-        Controls :
-        Settings :
-        CurrentMedia:null
-        MediaCollection :
-        PlaylistCollection :
-        VersionInfo:9.0.0.3008
-        Network :
-        CurrentPlaylist :
-        CdromCollection :
-        ClosedCaption :
-        IsOnline:false
-        Error :
-        Status :
-        Dvd :
-        Enabled:true
-        FullScreen:false
-        EnableContextMenu:true
-        UiMode:full
-        StretchToFit:false
-        WindowlessVideo:false
-        IsRemote:false
-        */
+        /* WMV Interface Notes
+         * On IE only, to retrieve the object interface (for controlling player via JS)
+         * use mediaComp.getInterface().object.controls
+         *
+         * For all other browsers use: mediaComp.getInterface().controls
+         Related DOM attributes for WMV:
+         DataFormatAs :
+         Name :
+         URL :
+         OpenState:6
+         PlayState:0
+         Controls :
+         Settings :
+         CurrentMedia:null
+         MediaCollection :
+         PlaylistCollection :
+         VersionInfo:9.0.0.3008
+         Network :
+         CurrentPlaylist :
+         CdromCollection :
+         ClosedCaption :
+         IsOnline:false
+         Error :
+         Status :
+         Dvd :
+         Enabled:true
+         FullScreen:false
+         EnableContextMenu:true
+         UiMode:full
+         StretchToFit:false
+         WindowlessVideo:false
+         IsRemote:false
+         */
 
-       ,"SWF" :  Ext.apply({
-                  tag      :'object'
-                 ,cls      : 'x-media x-media-swf'
-                 ,type     : 'application/x-shockwave-flash'
-                 ,scripting: 'sameDomain'
-                 ,standby  : 'Loading..'
-                 ,loop     :  true
-                 ,start    :  false
-                 ,unsupportedText : {cn:['The Adobe Flash Player is required.',{tag:'br'},{tag:'a',cn:[{tag:'img',src:'http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif'}],href:'http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash',target:'_flash'}]}
-                 ,params   : {
-                      movie     : "@url"
-                     ,menu      : "@controls"
-                     ,play      : "@start"
-                     ,quality   : "high"
-                     ,allowscriptaccess : "@scripting"
-//                     ,allownetworking : 'all'
-//                     ,allowfullScreen : false
-                     ,bgcolor   : "#FFFFFF"
-                     ,wmode     : "opaque"
-                     ,loop      : "@loop"
-                    }
+        ,
+        "SWF": Ext.apply({
+            tag: 'object',
+            cls: 'x-media x-media-swf',
+            type: 'application/x-shockwave-flash',
+            scripting: 'sameDomain',
+            standby: 'Loading..',
+            loop: true,
+            start: false,
+            unsupportedText: {
+                cn: ['The Adobe Flash Player is required.', {
+                    tag: 'br'
+                }, {
+                    tag: 'a',
+                    cn: [{
+                        tag: 'img',
+                        src: '/bundles/opensteammokodesk/images/get_flash_player.gif'
+                    }],
+                    href: 'http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash',
+                    target: '_flash'
+                }]
+            },
+            params: {
+                movie: "@url",
+                menu: "@controls",
+                play: "@start",
+                quality: "high",
+                allowscriptaccess: "@scripting"
+                    //                     ,allownetworking : 'all'
+                    //                     ,allowfullScreen : false
+                    ,
+                bgcolor: "#FFFFFF",
+                wmode: "opaque",
+                loop: "@loop"
+            }
 
-                },Ext.isIE?
-                    {classid :"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000",
-                     codebase:"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"
-                    }:
-                    {data     : "@url"})
+        }, Ext.isIE ? {
+            classid: "clsid:D27CDB6E-AE6D-11cf-96B8-444553540000",
+            codebase: "http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"
+        } : {
+            data: "@url"
+        })
 
 
-        ,"JWP" :  Ext.apply({
-              tag      :'object'
-             ,cls      : 'x-media x-media-swf x-media-flv'
-             ,type     : 'application/x-shockwave-flash'
-             ,data     : "@url"
-             ,loop     :  false
-             ,start    :  false
-             ,params   : {
-                 movie     : "@url"
-                ,flashVars : {
-                               autostart:'@start'
-                              ,repeat   :'@loop'
-                              ,height   :'@height'
-                              ,width    :'@width'
-                              ,id       : '@id'
-                              }
+        ,
+        "JWP": Ext.apply({
+            tag: 'object',
+            cls: 'x-media x-media-swf x-media-flv',
+            type: 'application/x-shockwave-flash',
+            data: "@url",
+            loop: false,
+            start: false,
+            params: {
+                movie: "@url",
+                flashVars: {
+                    autostart: '@start',
+                    repeat: '@loop',
+                    height: '@height',
+                    width: '@width',
+                    id: '@id'
                 }
+            }
 
-        },Ext.isIE?{
-             classid :"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
-            ,codebase:"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0"
-            }:false)
+        }, Ext.isIE ? {
+            classid: "clsid:D27CDB6E-AE6D-11cf-96B8-444553540000",
+            codebase: "http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0"
+        } : false)
 
-         /* QT references:
-          * http://developer.apple.com/documentation/quicktime/Conceptual/QTScripting_JavaScript/aQTScripting_Javascro_AIntro/chapter_1_section_1.html
-          */
-        ,"QT" : Ext.apply({
-                       tag      : 'object'
-                      ,cls      : 'x-media x-media-quicktime'
-                      ,type     : "video/quicktime"
-                      ,style    : {position:'relative',"z-index":1 ,behavior:'url(#qt_event_source)'}
-                      ,scale    : 'aspect'  // ( .5, 1, 2 , ToFit, Aspect )
-                      ,unsupportedText : '<a href="http://www.apple.com/quicktime/download/">Get QuickTime</a>'
-                      ,scripting : true
-                      ,volume   : '50%'
-                      ,data     : '@url'
-                      ,params   : {
-                           src          : Ext.isIE?'@url': null
-                          ,href        : "http://quicktime.com"
-                          ,target      : "_blank"
-                          ,autoplay     : "@start"
-                          ,targetcache  : true
-                          ,cache        : true
-                          ,wmode        : 'transparent'
-                          ,controller   : "@controls"
-                      ,enablejavascript : "@scripting"
-                          ,loop         : '@loop'
-                          ,scale        : '@scale'
-                          ,volume       : '@volume'
-                          ,QTSRC        : '@url'
+        /* QT references:
+         * http://developer.apple.com/documentation/quicktime/Conceptual/QTScripting_JavaScript/aQTScripting_Javascro_AIntro/chapter_1_section_1.html
+         */
+        ,
+        "QT": Ext.apply({
+            tag: 'object',
+            cls: 'x-media x-media-quicktime',
+            type: "video/quicktime",
+            style: {
+                position: 'relative',
+                "z-index": 1,
+                behavior: 'url(#qt_event_source)'
+            },
+            scale: 'aspect' // ( .5, 1, 2 , ToFit, Aspect )
+                ,
+            unsupportedText: '<a href="http://www.apple.com/quicktime/download/">Get QuickTime</a>',
+            scripting: true,
+            volume: '50%',
+            data: '@url',
+            params: {
+                src: Ext.isIE ? '@url' : null,
+                href: "http://quicktime.com",
+                target: "_blank",
+                autoplay: "@start",
+                targetcache: true,
+                cache: true,
+                wmode: 'transparent',
+                controller: "@controls",
+                enablejavascript: "@scripting",
+                loop: '@loop',
+                scale: '@scale',
+                volume: '@volume',
+                QTSRC: '@url'
 
-                       }
+            }
 
-                     },Ext.isIE?
-                          { classid      :'clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B'
-                           ,codebase     :'http://www.apple.com/qtactivex/qtplugin.cab#version=7,2,1,0'
+        }, Ext.isIE ? {
+            classid: 'clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B',
+            codebase: 'http://www.apple.com/qtactivex/qtplugin.cab#version=7,2,1,0'
 
-                       }:
-                       {
-                         PLUGINSPAGE  : "http://www.apple.com/quicktime/download/"
+        } : {
+            PLUGINSPAGE: "http://www.apple.com/quicktime/download/"
 
-                    })
+        })
 
         //For QuickTime DOM event support include this <object> tag structure in the <head> section
-        ,"QTEVENTS" : {
-                   tag      : 'object'
-                  ,id       : 'qt_event_source'
-                  ,cls      : 'x-media x-media-qtevents'
-                  ,type     : "video/quicktime"
-                  ,params   : {}
-                  ,classid      :'clsid:CB927D12-4FF7-4a9e-A169-56E4B8A75598'
-                  ,codebase     :'http://www.apple.com/qtactivex/qtplugin.cab#version=7,2,1,0'
-                 }
+        ,
+        "QTEVENTS": {
+            tag: 'object',
+            id: 'qt_event_source',
+            cls: 'x-media x-media-qtevents',
+            type: "video/quicktime",
+            params: {},
+            classid: 'clsid:CB927D12-4FF7-4a9e-A169-56E4B8A75598',
+            codebase: 'http://www.apple.com/qtactivex/qtplugin.cab#version=7,2,1,0'
+        }
 
         //WordPress Audio Player : http://wpaudioplayer.com/
-        ,"WPMP3" : Ext.apply({
-                       tag      : 'object'
-                      ,cls      : 'x-media x-media-audio x-media-wordpress'
-                      ,type     : 'application/x-shockwave-flash'
-                      ,data     : '@url'
-                      ,start    : true
-                      ,loop     : false
-                      ,params   : {
-                           movie        : "@url"
-                          ,width        :'@width'  //required
-                          ,flashVars : {
-                               autostart    : "@start"
-                              ,controller   : "@controls"
-                              ,enablejavascript : "@scripting"
-                              ,loop         :'@loop'
-                              ,scale        :'@scale'
-                              ,initialvolume:'@volume'
-                              ,width        :'@width'  //required
-                              ,encode       : 'no'  //mp3 urls will be encoded
-                              ,soundFile    : ''   //required
-                          }
-                       }
-                    },Ext.isIE?{classid :"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"}:false)
-
-
-        ,"REAL" : Ext.apply({
-                tag     :'object'
-               ,cls     : 'x-media x-media-real'
-               ,type    : "audio/x-pn-realaudio"
-               ,data    : "@url"
-               ,controls: 'imagewindow,all'
-               ,start   : false
-               ,standby : "Loading Real Media Player components..."
-               ,params   : {
-                          src        : "@url"
-                         ,autostart  : "@start"
-                         ,center     : false
-                         ,maintainaspect : true
-                         ,controller : "@controls"
-                         ,controls   : "@controls"
-                         ,volume     :'@volume'
-                         ,loop       : "@loop"
-                         ,console    : "_master"
-                         ,backgroundcolor : '#000000'
-                         }
-
-                },Ext.isIE?{classid :"clsid:CFCDAA03-8BE4-11CF-B84B-0020AFBBCCFA"}:false)
-
-        ,"SVG" : {
-                  tag      : 'object'
-                 ,cls      : 'x-media x-media-img x-media-svg'
-                 ,type     : "image/svg+xml"
-                 ,data     : "@url"
-                 ,params   : { src : "@url"}
-        }
-        ,"GIF" : {
-                  tag      : 'img'
-                 ,cls      : 'x-media x-media-img x-media-gif'
-                 ,src     : "@url"
-        }
-        ,"JPEG" : {
-                  tag      : 'img'
-                 ,cls      : 'x-media x-media-img x-media-jpeg'
-                 ,src     : "@url"
-        }
-        ,"JP2" :{
-                  tag      : 'object'
-                 ,cls      : 'x-media x-media-img x-media-jp2'
-                 ,type     : "image/jpeg2000-image"
-                 ,data     : "@url"
+        ,
+        "WPMP3": Ext.apply({
+            tag: 'object',
+            cls: 'x-media x-media-audio x-media-wordpress',
+            type: 'application/x-shockwave-flash',
+            data: '@url',
+            start: true,
+            loop: false,
+            params: {
+                movie: "@url",
+                width: '@width' //required
+                    ,
+                flashVars: {
+                    autostart: "@start",
+                    controller: "@controls",
+                    enablejavascript: "@scripting",
+                    loop: '@loop',
+                    scale: '@scale',
+                    initialvolume: '@volume',
+                    width: '@width' //required
+                        ,
+                    encode: 'no' //mp3 urls will be encoded
+                        ,
+                    soundFile: '' //required
                 }
+            }
+        }, Ext.isIE ? {
+            classid: "clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+        } : false)
 
-        ,"PNG" : {
-                  tag      : 'img'
-                 ,cls      : 'x-media x-media-img x-media-png'
-                 ,src     : "@url"
-        }
-        ,"HTM" : {
-                  tag      : 'iframe'
-                 ,cls      : 'x-media x-media-html'
-                 ,frameBorder : 0
-                 ,style    : {overflow:'auto',width:'100%',height:'100%'}
-                 ,src     : "@url"
-        }
-        ,"TXT" : {
-                  tag      : 'object'
-                 ,cls      : 'x-media x-media-text'
-                 ,type     : "text/plain"
-                 ,style    : {overflow:'auto',width:'100%',height:'100%'}
-                 ,data     : "@url"
-        }
-        ,"RTF" : {
-                  tag      : 'object'
-                 ,cls      : 'x-media x-media-rtf'
-                 ,type     : "application/rtf"
-                 ,style    : {overflow:'auto',width:'100%',height:'100%'}
-                 ,data     : "@url"
-        }
-        ,"JS" : {
-                  tag      : 'object'
-                 ,cls      : 'x-media x-media-js'
-                 ,type     : "text/javascript"
-                 ,style    : {overflow:'auto',width:'100%',height:'100%'}
-                 ,data     : "@url"
-        }
-        ,"CSS" : {
-                  tag      : 'object'
-                 ,cls      : 'x-media x-media-css'
-                 ,type     : "text/css"
-                 ,style    : {overflow:'auto',width:'100%',height:'100%'}
-                 ,data     : "@url"
-        }
-        ,"SILVERLIGHT" : {
-              tag      : 'object'
-             ,cls      : 'x-media x-media-silverlight'
-             ,type      :"application/ag-plugin"
-             ,data     : "@url"
-             ,params  : { MinRuntimeVersion: "1.0" , source : "@url" }
-        }
-        ,"SILVERLIGHT2" : {
-              tag      : 'object'
-             ,cls      : 'x-media x-media-silverlight'
-             ,type      :"application/x-silverlight-2-b2"
-             ,data     : "data:application/x-silverlight-2-b2,"
-             ,params  : { MinRuntimeVersion: "2.0" }
-             ,unsupportedText: '<a href="http://go2.microsoft.com/fwlink/?LinkID=114576&v=2.0"><img style="border-width: 0pt;" alt="Get Microsoft Silverlight" src="http://go2.microsoft.com/fwlink/?LinkID=108181"/></a>'
-        }
-        ,"DATAVIEW" : {
-              tag      : 'object'
-             ,cls      : 'x-media x-media-dataview'
-             ,classid  : 'CLSID:0ECD9B64-23AA-11D0-B351-00A0C9055D8E'
-             ,type     : 'application/x-oleobject'
-             ,unsupportedText: 'MS Dataview Control is not installed'
 
+        ,
+        "REAL": Ext.apply({
+            tag: 'object',
+            cls: 'x-media x-media-real',
+            type: "audio/x-pn-realaudio",
+            data: "@url",
+            controls: 'imagewindow,all',
+            start: false,
+            standby: "Loading Real Media Player components...",
+            params: {
+                src: "@url",
+                autostart: "@start",
+                center: false,
+                maintainaspect: true,
+                controller: "@controls",
+                controls: "@controls",
+                volume: '@volume',
+                loop: "@loop",
+                console: "_master",
+                backgroundcolor: '#000000'
+            }
+
+        }, Ext.isIE ? {
+            classid: "clsid:CFCDAA03-8BE4-11CF-B84B-0020AFBBCCFA"
+        } : false)
+
+        ,
+        "SVG": {
+            tag: 'object',
+            cls: 'x-media x-media-img x-media-svg',
+            type: "image/svg+xml",
+            data: "@url",
+            params: {
+                src: "@url"
+            }
+        },
+        "GIF": {
+            tag: 'img',
+            cls: 'x-media x-media-img x-media-gif',
+            src: "@url"
+        },
+        "JPEG": {
+            tag: 'img',
+            cls: 'x-media x-media-img x-media-jpeg',
+            src: "@url"
+        },
+        "JP2": {
+            tag: 'object',
+            cls: 'x-media x-media-img x-media-jp2',
+            type: "image/jpeg2000-image",
+            data: "@url"
         }
 
+        ,
+        "PNG": {
+            tag: 'img',
+            cls: 'x-media x-media-img x-media-png',
+            src: "@url"
+        },
+        "HTM": {
+            tag: 'iframe',
+            cls: 'x-media x-media-html',
+            frameBorder: 0,
+            style: {
+                overflow: 'auto',
+                width: '100%',
+                height: '100%'
+            },
+            src: "@url"
+        },
+        "TXT": {
+            tag: 'object',
+            cls: 'x-media x-media-text',
+            type: "text/plain",
+            style: {
+                overflow: 'auto',
+                width: '100%',
+                height: '100%'
+            },
+            data: "@url"
+        },
+        "RTF": {
+            tag: 'object',
+            cls: 'x-media x-media-rtf',
+            type: "application/rtf",
+            style: {
+                overflow: 'auto',
+                width: '100%',
+                height: '100%'
+            },
+            data: "@url"
+        },
+        "JS": {
+            tag: 'object',
+            cls: 'x-media x-media-js',
+            type: "text/javascript",
+            style: {
+                overflow: 'auto',
+                width: '100%',
+                height: '100%'
+            },
+            data: "@url"
+        },
+        "CSS": {
+            tag: 'object',
+            cls: 'x-media x-media-css',
+            type: "text/css",
+            style: {
+                overflow: 'auto',
+                width: '100%',
+                height: '100%'
+            },
+            data: "@url"
+        },
+        "SILVERLIGHT": {
+            tag: 'object',
+            cls: 'x-media x-media-silverlight',
+            type: "application/ag-plugin",
+            data: "@url",
+            params: {
+                MinRuntimeVersion: "1.0",
+                source: "@url"
+            }
+        },
+        "SILVERLIGHT2": {
+            tag: 'object',
+            cls: 'x-media x-media-silverlight',
+            type: "application/x-silverlight-2-b2",
+            data: "data:application/x-silverlight-2-b2,",
+            params: {
+                MinRuntimeVersion: "2.0"
+            },
+            unsupportedText: '<a href="http://go2.microsoft.com/fwlink/?LinkID=114576&v=2.0"><img style="border-width: 0pt;" alt="Get Microsoft Silverlight" src="http://go2.microsoft.com/fwlink/?LinkID=108181"/></a>'
+        },
+        "DATAVIEW": {
+            tag: 'object',
+            cls: 'x-media x-media-dataview',
+            classid: 'CLSID:0ECD9B64-23AA-11D0-B351-00A0C9055D8E',
+            type: 'application/x-oleobject',
+            unsupportedText: 'MS Dataview Control is not installed'
 
-        ,"OWC:XLS" : Ext.apply({     //experimental IE only
-              tag      : 'object'
-             ,cls      : 'x-media x-media-xls'
-             ,type      :"application/vnd.ms-excel"
-             ,controltype: "excel"
-             ,params  : { DataType : "CSVURL"
-                        ,CSVURL : '@url'
-                        ,DisplayTitleBar : true
-                        ,AutoFit         : true
-                     }
-             },Ext.isIE?{
-                   codebase: "file:msowc.cab"
-                  ,classid :"CLSID:0002E510-0000-0000-C000-000000000046" //owc9
-                 //classid :"CLSID:0002E550-0000-0000-C000-000000000046" //owc10
-                 //classid :"CLSID:0002E559-0000-0000-C000-000000000046" //owc11
-
-                 }:false)
-
-        ,"OWC:CHART" : Ext.apply({     //experimental
-              tag      : 'object'
-             ,cls      : 'x-media x-media-xls'
-             ,type      :"application/vnd.ms-excel"
-             ,data     : "@url"
-             ,params  : { DataType : "CSVURL" }
-             },Ext.isIE?{
-                    classid :"CLSID:0002E500-0000-0000-C000-000000000046" //owc9
-                  //classid :"CLSID:0002E556-0000-0000-C000-000000000046" //owc10
-                  //classid :"CLSID:0002E55D-0000-0000-C000-000000000046" //owc11
-                 }:false)
-
-        ,"OFFICE" : {
-              tag      : 'object'
-             ,cls      : 'x-media x-media-office'
-             ,type      :"application/x-msoffice"
-             ,data     : "@url"
         }
-        ,"POWERPOINT" : Ext.apply({     //experimental
-                      tag      : 'object'
-                     ,cls      : 'x-media x-media-ppt'
-                     ,type     :"application/vnd.ms-powerpoint"
-                     ,file     : "@url"
-                     },Ext.isIE?{classid :"CLSID:EFBD14F0-6BFB-11CF-9177-00805F8813FF"}:false)
-
-        ,"XML" : {
-              tag      : 'iframe'
-             ,cls      : 'x-media x-media-xml'
-             ,style    : {overflow:'auto'}
-             ,src     : "@url"
-        }
-        ,"VLC" : {
-              tag      : 'object'
-             ,cls      : 'x-media x-media-vlc'
-             ,type     : "application/x-vlc-plugin"
-             ,version  : "VideoLAN.VLCPlugin.2"
-             ,pluginspage:"http://www.videolan.org"
-             ,data     : "@url"
-         }
-         ,"RDP" : Ext.apply({
-              tag      : 'object'
-             ,cls      : 'x-media x-media-rdp'
-             ,type     : "application/rds"
-             ,unsupportedText: "Remote Desktop Web Connection ActiveX control is required. <a target=\"_msd\" href=\"http://go.microsoft.com/fwlink/?linkid=44333\">Download it here</a>."
-             ,params:{
-                  Server : '@url'
-                 ,Fullscreen : false
-                 ,StartConnected : false
-                 ,DesktopWidth : '@width'
-                 ,DesktopHeight : '@height'
 
 
-             }
-         },Ext.isIE?{
-             classid :"CLSID:9059f30f-4eb1-4bd2-9fdc-36f43a218f4a"
-            ,CODEBASE :"msrdp.cab#version=5,2,3790,0"
+        ,
+        "OWC:XLS": Ext.apply({ //experimental IE only
+            tag: 'object',
+            cls: 'x-media x-media-xls',
+            type: "application/vnd.ms-excel",
+            controltype: "excel",
+            params: {
+                DataType: "CSVURL",
+                CSVURL: '@url',
+                DisplayTitleBar: true,
+                AutoFit: true
+            }
+        }, Ext.isIE ? {
+            codebase: "file:msowc.cab",
+            classid: "CLSID:0002E510-0000-0000-C000-000000000046" //owc9
+                //classid :"CLSID:0002E550-0000-0000-C000-000000000046" //owc10
+                //classid :"CLSID:0002E559-0000-0000-C000-000000000046" //owc11
+
+        } : false)
+
+        ,
+        "OWC:CHART": Ext.apply({ //experimental
+            tag: 'object',
+            cls: 'x-media x-media-xls',
+            type: "application/vnd.ms-excel",
+            data: "@url",
+            params: {
+                DataType: "CSVURL"
+            }
+        }, Ext.isIE ? {
+            classid: "CLSID:0002E500-0000-0000-C000-000000000046" //owc9
+                //classid :"CLSID:0002E556-0000-0000-C000-000000000046" //owc10
+                //classid :"CLSID:0002E55D-0000-0000-C000-000000000046" //owc11
+        } : false)
+
+        ,
+        "OFFICE": {
+            tag: 'object',
+            cls: 'x-media x-media-office',
+            type: "application/x-msoffice",
+            data: "@url"
+        },
+        "POWERPOINT": Ext.apply({ //experimental
+            tag: 'object',
+            cls: 'x-media x-media-ppt',
+            type: "application/vnd.ms-powerpoint",
+            file: "@url"
+        }, Ext.isIE ? {
+            classid: "CLSID:EFBD14F0-6BFB-11CF-9177-00805F8813FF"
+        } : false)
+
+        ,
+        "XML": {
+            tag: 'iframe',
+            cls: 'x-media x-media-xml',
+            style: {
+                overflow: 'auto'
+            },
+            src: "@url"
+        },
+        "VLC": {
+            tag: 'object',
+            cls: 'x-media x-media-vlc',
+            type: "application/x-vlc-plugin",
+            version: "VideoLAN.VLCPlugin.2",
+            pluginspage: "http://www.videolan.org",
+            data: "@url"
+        },
+        "RDP": Ext.apply({
+            tag: 'object',
+            cls: 'x-media x-media-rdp',
+            type: "application/rds",
+            unsupportedText: "Remote Desktop Web Connection ActiveX control is required. <a target=\"_msd\" href=\"http://go.microsoft.com/fwlink/?linkid=44333\">Download it here</a>.",
+            params: {
+                Server: '@url',
+                Fullscreen: false,
+                StartConnected: false,
+                DesktopWidth: '@width',
+                DesktopHeight: '@height'
 
 
-         }:false)
+            }
+        }, Ext.isIE ? {
+            classid: "CLSID:9059f30f-4eb1-4bd2-9fdc-36f43a218f4a",
+            CODEBASE: "msrdp.cab#version=5,2,3790,0"
+
+
+        } : false)
 
     };
 
     var stateRE = /4$/i;
-    var pollReadyState = function(media, cb, readyRE){
+    var pollReadyState = function(media, cb, readyRE) {
         //synthesize a load event for DOMs that support object.readyState
-        if(media && typeof media.readyState != 'undefined'){
-            (readyRE || stateRE).test(media.readyState) ? cb({type:'load'}) : pollReadyState.defer(10,null,[media,cb]);
+        if (media && typeof media.readyState != 'undefined') {
+            (readyRE || stateRE).test(media.readyState) ? cb({
+                type: 'load'
+            }) : pollReadyState.defer(10, null, [media, cb]);
         }
     };
 
-    if(parseFloat(Ext.version) < 2.1){ throw "Ext.ux.Media and sub-classes are not License-Compatible with your Ext release.";}
+    if (parseFloat(Ext.version) < 2.1) {
+        throw "Ext.ux.Media and sub-classes are not License-Compatible with your Ext release.";
+    }
 
-    Ext.extend(ux, Object , {
+    Ext.extend(ux, Object, {
 
-         mediaObject     : null,
-         mediaCfg        : null,
-         mediaVersion    : null,
-         requiredVersion : null,
-         unsupportedText : null,
+        mediaObject: null,
+        mediaCfg: null,
+        mediaVersion: null,
+        requiredVersion: null,
+        unsupportedText: null,
 
 
-         /* Component Plugins Interface
-           extends the Component instance with ux.Media.* interfaces
-         */
-         init        : function(component){
+        /* Component Plugins Interface
+          extends the Component instance with ux.Media.* interfaces
+        */
+        init: function(component) {
 
-            if(component && this.getEl === undefined){
-                Ext.applyIf(component,this);
+            if (component && this.getEl === undefined) {
+                Ext.applyIf(component, this);
             }
 
-         },
+        },
 
-         // private (called once by initComponent)
-         initMedia      : function(){
+        // private (called once by initComponent)
+        initMedia: function() {
 
-            if(!Ext.isIE && this.initialConfig){
-               //Attach the Visibility Fix to the current class Component
-               new ux.VisibilityFix({
-                 mode: this.visibilityCls,
-                 hideMode: this.hideMode,
-                 elements:this.visModeTargets || null }
-               ).init(this);
-             }
-
-
-             /* mediarender Event is raised when the media has been inserted into the DOM.
-              * The media however, may NOT be in a usable state when the event is raised.
-              */
-             if(this.events){
-                 this.addEvents(
-                      /**
-                      * @event mediarender
-                      * Fires immediately after the markup has been rendered.
-                      * @param {Object} This Media Class object instance.
-                      * @param {Object} mediaObject The {@link Ext.Element} object rendered.
-                      */
-
-                     'mediarender',
-                      /**
-                      * @event mediarender
-                      * Fires when the mediaObject has reported a loaded state (IE, Opera Only)
-                      * @param {Object} This Media Class object instance.
-                      * @param {Object} mediaObject The {@link Ext.Element} object loaded.
-                      */
-                     'mediaload'
-
-                     );
-              }
-         },
-
-         getMediaType: function(type){
-             return ux.mediaTypes[type];
-         },
-
-         //Assert default values and exec as functions
-         assert : function(v,def){
-              v= typeof v === 'function'?v.call(v.scope||null):v;
-              return Ext.value(v ,def);
-         },
-
-         mediaMarkup : function(mediaCfg, width, height, ct){
-
-             mediaCfg = mediaCfg ||this.mediaCfg;
-
-             if(!mediaCfg){return '';}
-
-             var m= Ext.apply({url:false,autoSize:false}, mediaCfg); //make a copy
-
-             m.url = this.assert(m.url,false);
-
-             if( m.mediaType){
-
-                 var value,p, El = Ext.Element;
-
-                 var media = Ext.apply({}, this.getMediaType(this.assert(m.mediaType,false)) || false );
-
-                 var params = Ext.apply(media.params||{},m.params || {});
-
-
-                 for(var key in params){
-
-                    if(params.hasOwnProperty(key)){
-                      m.children || (m.children = []);
-                      p = this.assert(params[key],null);
-                      if(p !== null){
-                         m.children.push({tag:'param'
-                                         ,name:key
-                                         ,value: typeof p === 'object'?Ext.urlEncode(p):encodeURI(p)
-                                         });
-                      }
-                    }
-                 }
-                 delete   media.params;
-
-                 //childNode Text if plugin/object is not installed.
-                 var unsup = this.assert(m.unsupportedText|| this.unsupportedText || media.unsupportedText,null);
-                 if(unsup){
-                     m.children || (m.children = []);
-                     m.children.push(unsup);
-                 }
-
-                 if(m.style && typeof m.style != "object") { throw 'Style must be JSON formatted'; }
-
-                 m.style = this.assert(Ext.apply(media.style || {}, m.style || {}) , {});
-                 delete media.style;
-
-                 m.height = this.assert(height || m.height || media.height || m.style.height, null);
-                 m.width  = this.assert(width  || m.width  || media.width || m.style.width , null);
-
-
-
-                 m = Ext.apply({tag:'object'},m,media);
-
-
-                 //Convert element height and width to inline style to avoid issues with display:none;
-                 if(m.height || m.autoSize)
-                 {
-                    Ext.apply(m.style, {
-                      height:El.addUnits( m.autoSize ? '100%' : m.height ,El.prototype.defaultUnit)});
-                 }
-                 if(m.width || m.autoSize)
-                 {
-                    Ext.apply(m.style, {
-                      width :El.addUnits( m.autoSize ? '100%' : m.width ,El.prototype.defaultUnit)});
-                 }
-
-                 m.id || (m.id = Ext.id());
-                 m.name = this.assert(m.name, m.id);
-
-                 var _macros= {
-                   url       : m.url || ''
-                  ,height    : (/%$/.test(m.height)) ? m.height : parseInt(m.height,10)||100
-                  ,width     : (/%$/.test(m.width)) ? m.width : parseInt(m.width,10)||100
-                  ,scripting : this.assert(m.scripting,false)
-                  ,controls  : this.assert(m.controls,false)
-                  ,scale     : this.assert(m.scale,1)
-                  ,status    : this.assert(m.status,false)
-                  ,start     : this.assert(m.start, false)
-                  ,loop      : this.assert(m.loop, false)
-                  ,volume    : this.assert(m.volume, 20)
-                  ,id        : m.id
-                 };
-
-                 delete   m.url;
-                 delete   m.mediaType;
-                 delete   m.controls;
-                 delete   m.status;
-                 delete   m.start;
-                 delete   m.loop;
-                 delete   m.scale;
-                 delete   m.scripting;
-                 delete   m.volume;
-                 delete   m.autoSize;
-                 delete   m.params;
-                 delete   m.unsupportedText;
-                 delete   m.renderOnResize;
-                 delete   m.listeners;
-                 delete   m.height;
-                 delete   m.width;
-
-
-                 return Ext.DomHelper.markup(m)
-                   .replace(/(%40url|@url)/g          ,_macros.url)
-                   .replace(/(%40start|@start)/g      ,_macros.start+'')
-                   .replace(/(%40controls|@controls)/g,_macros.controls+'')
-                   .replace(/(%40scale|@scale)/g      ,_macros.scale+'')
-                   .replace(/(%40status|@status)/g    ,_macros.status+'')
-                   .replace(/(%40id|@id)/g            ,_macros.id+'')
-                   .replace(/(%40loop|@loop)/g        ,_macros.loop+'')
-                   .replace(/(%40volume|@volume)/g    ,_macros.volume+'')
-                   .replace(/(%40scripting|@scripting)/g ,_macros.scripting+'')
-                   .replace(/(%40width|@width)/g      ,_macros.width+'')
-                   .replace(/(%40height|@height)/g    ,_macros.height+'');
-
-             }else{
-                 var unsup = this.assert(m.unsupportedText|| this.unsupportedText || media.unsupportedText,null);
-                 unsup = unsup ? Ext.DomHelper.markup(unsup): null;
-                 return String.format(unsup || 'Media Configuration/Plugin Error',' ',' ');
-             }
-
-         }
-         //Private
-         ,setMask  : function(el) {
-
-             if(this.mediaMask && !this.mediaMask.enable){
-                    el = Ext.get(el);
-                    if(this.mediaMask = new Ext.ux.IntelliMask(el || this[this.mediaEl],
-                       Ext.apply({fixElementForMedia:true},this.mediaMask))){
-                            this.mediaMask.el.addClass('x-media-mask');
-                      }
-
+            if (!Ext.isIE && this.initialConfig) {
+                //Attach the Visibility Fix to the current class Component
+                new ux.VisibilityFix({
+                    mode: this.visibilityCls,
+                    hideMode: this.hideMode,
+                    elements: this.visModeTargets || null
+                }).init(this);
             }
 
 
-         }
-          /*
-          *  This method updates the target Element with a new mediaCfg object,
-          *  or supports a refresh of the target based on the current mediaCfg object
-          *  This method may be invoked inline (in Markup) before the DOM is ready
-          *  param position indicate the DomHeper position for Element insertion (ie 'afterbegin' the default)
-          */
-          ,renderMedia : function(mediaCfg, ct, domPosition , w , h){
-              if(!Ext.isReady){
-                  Ext.onReady(this.renderMedia.createDelegate(this,Array.prototype.slice.call(arguments,0)));
-                  return;
-              }
-              var mc = (this.mediaCfg = mediaCfg || this.mediaCfg) ;
-              ct = Ext.get(ct || this.lastCt || (this.mediaObject?this.mediaObject.dom.parentNode:null));
+            /* mediarender Event is raised when the media has been inserted into the DOM.
+             * The media however, may NOT be in a usable state when the event is raised.
+             */
+            if (this.events) {
+                this.addEvents(
+                    /**
+                     * @event mediarender
+                     * Fires immediately after the markup has been rendered.
+                     * @param {Object} This Media Class object instance.
+                     * @param {Object} mediaObject The {@link Ext.Element} object rendered.
+                     */
 
-              this.onBeforeMedia.call(this, mc, ct, domPosition , w , h);
+                    'mediarender',
+                    /**
+                     * @event mediarender
+                     * Fires when the mediaObject has reported a loaded state (IE, Opera Only)
+                     * @param {Object} This Media Class object instance.
+                     * @param {Object} mediaObject The {@link Ext.Element} object loaded.
+                     */
+                    'mediaload'
 
-              if(ct){
-                  this.lastCt = ct;
-                  var markup;
-
-                  if(mc && (markup = this.mediaMarkup(mc, w, h, ct))){
-                     this.setMask(ct);
-                     this.clearMedia();
-
-                     ct.update(markup);
-                     if(this.mediaMask && this.autoMask){
-                          this.mediaMask.show();
-                     }
-
-                  }
-              }
-              this.onAfterMedia(ct);
-
-
-          }
-          //Remove an existing mediaObject from the DOM.
-          ,clearMedia : function(){
-            if(Ext.isReady && this.mediaObject){
-              try{
-                this.mediaObject.removeAllListeners();
-                this.mediaObject.remove();
-              }catch(er){}
+                );
             }
-            this.mediaObject = null;
-          }
+        },
 
-          ,onBeforeMedia  : function(mediaCfg, ct, domPosition ){
+        getMediaType: function(type) {
+            return ux.mediaTypes[type];
+        },
 
-            var m = mediaCfg || this.mediaCfg, mt;
+        //Assert default values and exec as functions
+        assert: function(v, def) {
+            v = typeof v === 'function' ? v.call(v.scope || null) : v;
+            return Ext.value(v, def);
+        },
 
-            if( m && (mt = this.getMediaType(m.mediaType)) ){
-                m.autoSize = m.autoSize || mt.autoSize===true;
+        mediaMarkup: function(mediaCfg, width, height, ct) {
 
-                //Calculate parent container size for macros (if available)
-                if(m.autoSize && (ct = Ext.isReady?Ext.get(ct||this.lastCt):null)){
-                  m.height = ct.getHeight(true) || this.assert(m.height,'auto');
-                  m.width  = ct.getWidth(true)  || this.assert(m.width ,'auto');
+                mediaCfg = mediaCfg || this.mediaCfg;
+
+                if (!mediaCfg) {
+                    return '';
                 }
 
-             }
+                var m = Ext.apply({
+                    url: false,
+                    autoSize: false
+                }, mediaCfg); //make a copy
+
+                m.url = this.assert(m.url, false);
+
+                if (m.mediaType) {
+
+                    var value, p, El = Ext.Element;
+
+                    var media = Ext.apply({}, this.getMediaType(this.assert(m.mediaType, false)) || false);
+
+                    var params = Ext.apply(media.params || {}, m.params || {});
 
 
-          },
-          // Private
-          // Media Load Handler, called when a mediaObject reports a loaded readystate
-          onMediaLoad : function(e){
-               if(e && e.type == 'load'){
-                  this.fireEvent('mediaload',this, this.mediaObject);
-                  if(this.mediaMask && this.autoMask){ this.mediaMask.hide(); }
-               }
-          },
-          onAfterMedia   : function(ct){
+                    for (var key in params) {
 
-               if(this.mediaCfg && ct && (this.mediaObject = ct.child('.x-media') )){
-                   this.mediaObject.ownerCt = this;
+                        if (params.hasOwnProperty(key)) {
+                            m.children || (m.children = []);
+                            p = this.assert(params[key], null);
+                            if (p !== null) {
+                                m.children.push({
+                                    tag: 'param',
+                                    name: key,
+                                    value: typeof p === 'object' ? Ext.urlEncode(p) : encodeURI(p)
+                                });
+                            }
+                        }
+                    }
+                    delete media.params;
 
-                    //Load detection for non-<object> media (iframe, img)
-                   if(this.mediaCfg.tag !== 'object'){
-                      this.mediaObject.on({
-                       load  :this.onMediaLoad
-                      ,scope:this
-                      ,single:true
-                     });
-                   }
+                    //childNode Text if plugin/object is not installed.
+                    var unsup = this.assert(m.unsupportedText || this.unsupportedText || media.unsupportedText, null);
+                    if (unsup) {
+                        m.children || (m.children = []);
+                        m.children.push(unsup);
+                    }
 
-                   //IE, Opera possibly others, support a readyState on <object>s
-                   pollReadyState(this.mediaObject.dom, this.onMediaLoad.createDelegate(this));
+                    if (m.style && typeof m.style != "object") {
+                        throw 'Style must be JSON formatted';
+                    }
 
-                   var L; //Reattach any DOM Listeners after rendering.
-                   if(L = this.mediaCfg.listeners ||null){
-                       this.mediaObject.on(L);  //set any DOM listeners
-                     }
-                   this.fireEvent('mediarender',this, this.mediaObject);
+                    m.style = this.assert(Ext.apply(media.style || {}, m.style || {}), {});
+                    delete media.style;
 
-
-               }
-           }
-
-         ,getInterface  : function(){
-              return this.mediaObject?this.mediaObject.dom||null:null;
-          }
-
-         ,detectVersion  : Ext.emptyFn
+                    m.height = this.assert(height || m.height || media.height || m.style.height, null);
+                    m.width = this.assert(width || m.width || media.width || m.style.width, null);
 
 
-         /* Class default: IE provides sufficient DOM readyState for object tags to manage mediaMasks automatically
-            (No other browser does), so masking must either be directed manually or use the autoHide option
-            of the Ext.ux.IntelliMask.
-          * if true the Component attempts to manage the mediaMask based on events/media status
-          * false to control mask visibility manually.
-          */
 
-         ,autoMask   : Ext.isIE
+                    m = Ext.apply({
+                        tag: 'object'
+                    }, m, media);
+
+
+                    //Convert element height and width to inline style to avoid issues with display:none;
+                    if (m.height || m.autoSize) {
+                        Ext.apply(m.style, {
+                            height: El.addUnits(m.autoSize ? '100%' : m.height, El.prototype.defaultUnit)
+                        });
+                    }
+                    if (m.width || m.autoSize) {
+                        Ext.apply(m.style, {
+                            width: El.addUnits(m.autoSize ? '100%' : m.width, El.prototype.defaultUnit)
+                        });
+                    }
+
+                    m.id || (m.id = Ext.id());
+                    m.name = this.assert(m.name, m.id);
+
+                    var _macros = {
+                        url: m.url || '',
+                        height: (/%$/.test(m.height)) ? m.height : parseInt(m.height, 10) || 100,
+                        width: (/%$/.test(m.width)) ? m.width : parseInt(m.width, 10) || 100,
+                        scripting: this.assert(m.scripting, false),
+                        controls: this.assert(m.controls, false),
+                        scale: this.assert(m.scale, 1),
+                        status: this.assert(m.status, false),
+                        start: this.assert(m.start, false),
+                        loop: this.assert(m.loop, false),
+                        volume: this.assert(m.volume, 20),
+                        id: m.id
+                    };
+
+                    delete m.url;
+                    delete m.mediaType;
+                    delete m.controls;
+                    delete m.status;
+                    delete m.start;
+                    delete m.loop;
+                    delete m.scale;
+                    delete m.scripting;
+                    delete m.volume;
+                    delete m.autoSize;
+                    delete m.params;
+                    delete m.unsupportedText;
+                    delete m.renderOnResize;
+                    delete m.listeners;
+                    delete m.height;
+                    delete m.width;
+
+
+                    return Ext.DomHelper.markup(m)
+                        .replace(/(%40url|@url)/g, _macros.url)
+                        .replace(/(%40start|@start)/g, _macros.start + '')
+                        .replace(/(%40controls|@controls)/g, _macros.controls + '')
+                        .replace(/(%40scale|@scale)/g, _macros.scale + '')
+                        .replace(/(%40status|@status)/g, _macros.status + '')
+                        .replace(/(%40id|@id)/g, _macros.id + '')
+                        .replace(/(%40loop|@loop)/g, _macros.loop + '')
+                        .replace(/(%40volume|@volume)/g, _macros.volume + '')
+                        .replace(/(%40scripting|@scripting)/g, _macros.scripting + '')
+                        .replace(/(%40width|@width)/g, _macros.width + '')
+                        .replace(/(%40height|@height)/g, _macros.height + '');
+
+                } else {
+                    var unsup = this.assert(m.unsupportedText || this.unsupportedText || media.unsupportedText, null);
+                    unsup = unsup ? Ext.DomHelper.markup(unsup) : null;
+                    return String.format(unsup || 'Media Configuration/Plugin Error', ' ', ' ');
+                }
+
+            }
+            //Private
+            ,
+        setMask: function(el) {
+
+                if (this.mediaMask && !this.mediaMask.enable) {
+                    el = Ext.get(el);
+                    if (this.mediaMask = new Ext.ux.IntelliMask(el || this[this.mediaEl],
+                            Ext.apply({
+                                fixElementForMedia: true
+                            }, this.mediaMask))) {
+                        this.mediaMask.el.addClass('x-media-mask');
+                    }
+
+                }
+
+
+            }
+            /*
+             *  This method updates the target Element with a new mediaCfg object,
+             *  or supports a refresh of the target based on the current mediaCfg object
+             *  This method may be invoked inline (in Markup) before the DOM is ready
+             *  param position indicate the DomHeper position for Element insertion (ie 'afterbegin' the default)
+             */
+            ,
+        renderMedia: function(mediaCfg, ct, domPosition, w, h) {
+                if (!Ext.isReady) {
+                    Ext.onReady(this.renderMedia.createDelegate(this, Array.prototype.slice.call(arguments, 0)));
+                    return;
+                }
+                var mc = (this.mediaCfg = mediaCfg || this.mediaCfg);
+                ct = Ext.get(ct || this.lastCt || (this.mediaObject ? this.mediaObject.dom.parentNode : null));
+
+                this.onBeforeMedia.call(this, mc, ct, domPosition, w, h);
+
+                if (ct) {
+                    this.lastCt = ct;
+                    var markup;
+
+                    if (mc && (markup = this.mediaMarkup(mc, w, h, ct))) {
+                        this.setMask(ct);
+                        this.clearMedia();
+
+                        ct.update(markup);
+                        if (this.mediaMask && this.autoMask) {
+                            this.mediaMask.show();
+                        }
+
+                    }
+                }
+                this.onAfterMedia(ct);
+
+
+            }
+            //Remove an existing mediaObject from the DOM.
+            ,
+        clearMedia: function() {
+            if (Ext.isReady && this.mediaObject) {
+                try {
+                    this.mediaObject.removeAllListeners();
+                    this.mediaObject.remove();
+                } catch (er) {}
+            }
+            this.mediaObject = null;
+        }
+
+        ,
+        onBeforeMedia: function(mediaCfg, ct, domPosition) {
+
+            var m = mediaCfg || this.mediaCfg,
+                mt;
+
+            if (m && (mt = this.getMediaType(m.mediaType))) {
+                m.autoSize = m.autoSize || mt.autoSize === true;
+
+                //Calculate parent container size for macros (if available)
+                if (m.autoSize && (ct = Ext.isReady ? Ext.get(ct || this.lastCt) : null)) {
+                    m.height = ct.getHeight(true) || this.assert(m.height, 'auto');
+                    m.width = ct.getWidth(true) || this.assert(m.width, 'auto');
+                }
+
+            }
+
+
+        },
+        // Private
+        // Media Load Handler, called when a mediaObject reports a loaded readystate
+        onMediaLoad: function(e) {
+            if (e && e.type == 'load') {
+                this.fireEvent('mediaload', this, this.mediaObject);
+                if (this.mediaMask && this.autoMask) {
+                    this.mediaMask.hide();
+                }
+            }
+        },
+        onAfterMedia: function(ct) {
+
+            if (this.mediaCfg && ct && (this.mediaObject = ct.child('.x-media'))) {
+                this.mediaObject.ownerCt = this;
+
+                //Load detection for non-<object> media (iframe, img)
+                if (this.mediaCfg.tag !== 'object') {
+                    this.mediaObject.on({
+                        load: this.onMediaLoad,
+                        scope: this,
+                        single: true
+                    });
+                }
+
+                //IE, Opera possibly others, support a readyState on <object>s
+                pollReadyState(this.mediaObject.dom, this.onMediaLoad.createDelegate(this));
+
+                var L; //Reattach any DOM Listeners after rendering.
+                if (L = this.mediaCfg.listeners || null) {
+                    this.mediaObject.on(L); //set any DOM listeners
+                }
+                this.fireEvent('mediarender', this, this.mediaObject);
+
+
+            }
+        }
+
+        ,
+        getInterface: function() {
+            return this.mediaObject ? this.mediaObject.dom || null : null;
+        }
+
+        ,
+        detectVersion: Ext.emptyFn
+
+
+        /* Class default: IE provides sufficient DOM readyState for object tags to manage mediaMasks automatically
+           (No other browser does), so masking must either be directed manually or use the autoHide option
+           of the Ext.ux.IntelliMask.
+         * if true the Component attempts to manage the mediaMask based on events/media status
+         * false to control mask visibility manually.
+         */
+
+        ,
+        autoMask: Ext.isIE
 
     });
 
     //Private adapter class
-    var mediaComponentAdapter = function(){};
+    var mediaComponentAdapter = function() {};
 
     Ext.extend(mediaComponentAdapter, Object, {
 
-         hideMode      : !Ext.isIE?'nosize':'display'
+        hideMode: !Ext.isIE ? 'nosize' : 'display'
 
-        ,animCollapse  : false
+        ,
+        animCollapse: false
 
-        ,visibilityCls : !Ext.isIE ?'x-hide-nosize':null
+        ,
+        visibilityCls: !Ext.isIE ? 'x-hide-nosize' : null
 
-        ,autoScroll    : true
+        ,
+        autoScroll: true
 
-        ,shadow        : false
+        ,
+        shadow: false
 
-        ,bodyStyle     : {position: 'relative'}
+        ,
+        bodyStyle: {
+            position: 'relative'
+        }
 
-        ,resizeMedia   : function(comp, w, h){
+        ,
+        resizeMedia: function(comp, w, h) {
             var mc = this.mediaCfg;
 
-            if(mc && this.boxReady){
+            if (mc && this.boxReady) {
 
                 // Ext.Window.resizer fires this event a second time
-                if(arguments.length > 3 && (!this.mediaObject || mc.renderOnResize )){
+                if (arguments.length > 3 && (!this.mediaObject || mc.renderOnResize)) {
                     this.refreshMedia(this[this.mediaEl]);
                 }
             }
 
-         }
+        }
 
-        ,onAfterRender: function(visModeTargets){
+        ,
+        onAfterRender: function(visModeTargets) {
 
-            if(this.mediaCfg.renderOnResize ){
+            if (this.mediaCfg.renderOnResize) {
                 this.on('resize', this.resizeMedia, this);
-            }else{
-                this.renderMedia(this.mediaCfg,this[this.mediaEl] || this.getEl());
+            } else {
+                this.renderMedia(this.mediaCfg, this[this.mediaEl] || this.getEl());
             }
         }
 
-        ,doAutoLoad : Ext.emptyFn
+        ,
+        doAutoLoad: Ext.emptyFn
 
-        ,refreshMedia  : function(target){
-            if(this.mediaCfg) {this.renderMedia(null,target);}
-        }
-        ,mediaMask  : false
+        ,
+        refreshMedia: function(target) {
+            if (this.mediaCfg) {
+                this.renderMedia(null, target);
+            }
+        },
+        mediaMask: false
 
     });
 
     /* Generic Media BoxComponent */
     Ext.ux.MediaComponent = Ext.extend(Ext.BoxComponent, {
-        ctype           : "Ext.ux.MediaComponent",
-        autoEl          : 'div',
-        cls             : "x-media-comp",
-        mediaEl         : 'el',   //the containing target element for the media,
+        ctype: "Ext.ux.MediaComponent",
+        autoEl: 'div',
+        cls: "x-media-comp",
+        mediaEl: 'el', //the containing target element for the media,
 
-        getId           : function(){
+        getId: function() {
             return this.id || (this.id = "media-comp" + (++Ext.Component.AUTO_ID));
         },
-        initComponent   : function(){
-            this.visModeTargets  = [this.actionMode];
+        initComponent: function() {
+            this.visModeTargets = [this.actionMode];
             this.initMedia();
 
-            Ext.ux.MediaComponent.superclass.initComponent.apply(this,arguments);
+            Ext.ux.MediaComponent.superclass.initComponent.apply(this, arguments);
         },
 
-        onRender  : function(){
+        onRender: function() {
 
-              Ext.ux.MediaComponent.superclass.onRender.apply(this, arguments);
-              this.onAfterRender();
+            Ext.ux.MediaComponent.superclass.onRender.apply(this, arguments);
+            this.onAfterRender();
 
         },
 
-        afterRender     :  function(ct){
+        afterRender: function(ct) {
 
             this.setAutoScroll();
-            Ext.ux.MediaComponent.superclass.afterRender.apply(this,arguments);
+            Ext.ux.MediaComponent.superclass.afterRender.apply(this, arguments);
 
 
         },
-        beforeDestroy   : function(){
+        beforeDestroy: function() {
             this.clearMedia();
-            Ext.destroy(this.mediaMask,this.loadMask);
+            Ext.destroy(this.mediaMask, this.loadMask);
             Ext.ux.MediaComponent.superclass.beforeDestroy.call(this);
-         },
-         //private
-        setAutoScroll   : function(){
-            if(this.rendered && this.autoScroll){
+        },
+        //private
+        setAutoScroll: function() {
+            if (this.rendered && this.autoScroll) {
                 this.getEl().setOverflow('auto');
             }
         }
@@ -5534,58 +5653,61 @@ Ext.ux.TabCloseMenu = function(){
     Ext.apply(Ext.ux.MediaComponent.prototype, mediaComponentAdapter.prototype);
     Ext.reg('media', Ext.ux.MediaComponent);
 
-    ux.Panel = Ext.extend( Ext.Panel, {
+    ux.Panel = Ext.extend(Ext.Panel, {
 
-         ctype         : "Ext.ux.Media.Panel"
-        ,cls           : "x-media-panel"
-        ,mediaEl       : 'body'   //the containing target element for the media
+        ctype: "Ext.ux.Media.Panel",
+        cls: "x-media-panel",
+        mediaEl: 'body' //the containing target element for the media
 
-        ,initComponent : function(){
-            this.visModeTargets  = [this.collapseEl,this.floating? null: this.actionMode];
+        ,
+        initComponent: function() {
+            this.visModeTargets = [this.collapseEl, this.floating ? null : this.actionMode];
             this.initMedia();
             this.html = this.contentEl = this.items = null;
 
             ux.Panel.superclass.initComponent.call(this);
-        }
-        ,onRender  : function(){
+        },
+        onRender: function() {
 
-              ux.Panel.superclass.onRender.apply(this, arguments);
-              this.onAfterRender();
+            ux.Panel.superclass.onRender.apply(this, arguments);
+            this.onAfterRender();
 
-         }
-        ,beforeDestroy : function(){
+        },
+        beforeDestroy: function() {
             this.clearMedia();
             ux.Panel.superclass.beforeDestroy.call(this);
-         }
+        }
     });
 
     //Inherit the Media class interface
-    Ext.apply(ux.Panel.prototype,ux.prototype);
+    Ext.apply(ux.Panel.prototype, ux.prototype);
     Ext.apply(ux.Panel.prototype, mediaComponentAdapter.prototype);
     Ext.reg('mediapanel', Ext.ux.MediaPanel = ux.Panel);
 
-    ux.Window = Ext.extend( Ext.Window ,{
+    ux.Window = Ext.extend(Ext.Window, {
 
-         cls           : "x-media-window"
-        ,ctype         : "Ext.ux.Media.Window"
-        ,mediaEl       : 'body'   //the containing target element for the media
-        ,initComponent : function(){
+        cls: "x-media-window",
+        ctype: "Ext.ux.Media.Window",
+        mediaEl: 'body' //the containing target element for the media
+            ,
+        initComponent: function() {
 
-            this.visModeTargets  = [this.collapseEl,this.floating? null: this.actionMode];
+            this.visModeTargets = [this.collapseEl, this.floating ? null : this.actionMode];
             this.initMedia();
             this.html = this.contentEl = this.items = null;
 
             ux.Window.superclass.initComponent.call(this);
         }
 
-        ,onRender  : function(){
-           ux.Window.superclass.onRender.apply(this, arguments);
-           this.onAfterRender();
-         }
-         ,beforeDestroy : function(){
+        ,
+        onRender: function() {
+            ux.Window.superclass.onRender.apply(this, arguments);
+            this.onAfterRender();
+        },
+        beforeDestroy: function() {
             this.clearMedia();
             ux.Window.superclass.beforeDestroy.call(this);
-         }
+        }
 
     });
 
@@ -5596,9 +5718,10 @@ Ext.ux.TabCloseMenu = function(){
     Ext.reg('mediawindow', Ext.ux.MediaWindow = ux.Window);
 
 
-    Ext.onReady(function(){
+    Ext.onReady(function() {
         //Generate CSS Rules if not defined in markup
-        var CSS = Ext.util.CSS, rules=[];
+        var CSS = Ext.util.CSS,
+            rules = [];
         CSS.getRule('.x-media') || (rules.push('.x-media{width:100%;height:100%;display:block;overflow:none;outline:none;}'));
         CSS.getRule('.x-media-mask') || (rules.push('.x-media-mask{width:100%;height:100%;position:relative;zoom:1;}'));
 
@@ -5614,53 +5737,58 @@ Ext.ux.TabCloseMenu = function(){
          */
         CSS.getRule('.x-hide-nosize') || (rules.push('.x-hide-nosize,.x-hide-nosize *{height:0px!important;width:0px!important;border:none!important;}'));
 
-        if(!!rules.length){
-             CSS.createStyleSheet(rules.join(''));
+        if (!!rules.length) {
+            CSS.createStyleSheet(rules.join(''));
         }
 
     });
 
-  /* overrides add a third visibility feature to Ext.Element:
-    * Now an elements' visibility may be handled by application of a custom (hiding) CSS className.
-    * The class is removed to make the Element visible again
-    */
+    /* overrides add a third visibility feature to Ext.Element:
+     * Now an elements' visibility may be handled by application of a custom (hiding) CSS className.
+     * The class is removed to make the Element visible again
+     */
 
     Ext.apply(Ext.Element.prototype, {
-      setVisible : function(visible, animate){
-            if(!animate || !Ext.lib.Anim){
-                if(this.visibilityMode === Ext.Element.DISPLAY){
+        setVisible: function(visible, animate) {
+            if (!animate || !Ext.lib.Anim) {
+                if (this.visibilityMode === Ext.Element.DISPLAY) {
                     this.setDisplayed(visible);
-                }else if(this.visibilityMode === Ext.Element.VISIBILITY){
+                } else if (this.visibilityMode === Ext.Element.VISIBILITY) {
                     this.fixDisplay();
                     this.dom.style.visibility = visible ? "visible" : "hidden";
-                }else {
-                    this[visible?'removeClass':'addClass'](String(this.visibilityMode));
+                } else {
+                    this[visible ? 'removeClass' : 'addClass'](String(this.visibilityMode));
                 }
 
-            }else{
+            } else {
                 // closure for composites
                 var dom = this.dom;
                 var visMode = this.visibilityMode;
 
-                if(visible){
+                if (visible) {
                     this.setOpacity(.01);
                     this.setVisible(true);
                 }
-                this.anim({opacity: { to: (visible?1:0) }},
-                      this.preanim(arguments, 1),
-                      null, .35, 'easeIn', function(){
+                this.anim({
+                        opacity: {
+                            to: (visible ? 1 : 0)
+                        }
+                    },
+                    this.preanim(arguments, 1),
+                    null, .35, 'easeIn',
+                    function() {
 
-                         if(!visible){
-                             if(visMode === Ext.Element.DISPLAY){
-                                 dom.style.display = "none";
-                             }else if(visMode === Ext.Element.VISIBILITY){
-                                 dom.style.visibility = "hidden";
-                             }else {
-                                 Ext.get(dom).addClass(String(visMode));
-                             }
-                             Ext.get(dom).setOpacity(1);
-                         }
-                     });
+                        if (!visible) {
+                            if (visMode === Ext.Element.DISPLAY) {
+                                dom.style.display = "none";
+                            } else if (visMode === Ext.Element.VISIBILITY) {
+                                dom.style.visibility = "hidden";
+                            } else {
+                                Ext.get(dom).addClass(String(visMode));
+                            }
+                            Ext.get(dom).setOpacity(1);
+                        }
+                    });
             }
             return this;
         },
@@ -5669,34 +5797,37 @@ Ext.ux.TabCloseMenu = function(){
          * @param {Boolean} deep (optional) True to walk the dom and see if parent elements are hidden (defaults to false)
          * @return {Boolean} True if the element is currently visible, else false
          */
-        isVisible : function(deep) {
+        isVisible: function(deep) {
             var vis = !(this.getStyle("visibility") === "hidden" || this.getStyle("display") === "none" || this.hasClass(this.visibilityMode));
-            if(deep !== true || !vis){
+            if (deep !== true || !vis) {
                 return vis;
             }
             var p = this.dom.parentNode;
-            while(p && p.tagName.toLowerCase() !== "body"){
-                if(!Ext.fly(p, '_isVisible').isVisible()){
+            while (p && p.tagName.toLowerCase() !== "body") {
+                if (!Ext.fly(p, '_isVisible').isVisible()) {
                     return false;
                 }
                 p = p.parentNode;
             }
             return true;
-        } });
+        }
+    });
 
-        var ElementMaskFixes = {
-          mask : function(msg, msgCls,maskCls){
-            if(this.getStyle("position") == "static"){
+    var ElementMaskFixes = {
+        mask: function(msg, msgCls, maskCls) {
+            if (this.getStyle("position") == "static") {
                 this.setStyle("position", "relative");
             }
-            if(this._maskMsg){
+            if (this._maskMsg) {
                 this._maskMsg.remove();
             }
-            if(this._mask){
+            if (this._mask) {
                 //this._mask.remove();
             }
 
-            this._mask || (this._mask = Ext.DomHelper.append(this.dom, {cls:maskCls || "ext-el-mask"}, true));
+            this._mask || (this._mask = Ext.DomHelper.append(this.dom, {
+                cls: maskCls || "ext-el-mask"
+            }, true));
 
             //removed, causes DOM reflow on non-IE browsers when
             //overflow:hidden is applied to <object>'s parent Element
@@ -5706,43 +5837,47 @@ Ext.ux.TabCloseMenu = function(){
 
             this._mask.setVisible(true);
 
-            if(typeof msg == 'string'){
+            if (typeof msg == 'string') {
 
-                var mm = this._maskMsg = Ext.DomHelper.append(this.dom,
-                 {
-                     cls:"ext-el-mask-msg " + msgCls || ''
-                    ,style:{
-                        visibility:'hidden'
-                     }
-                     ,cn:{tag:'div',html:msg }
-                    }, true);
+                var mm = this._maskMsg = Ext.DomHelper.append(this.dom, {
+                    cls: "ext-el-mask-msg " + msgCls || '',
+                    style: {
+                        visibility: 'hidden'
+                    },
+                    cn: {
+                        tag: 'div',
+                        html: msg
+                    }
+                }, true);
 
-                 var el = this.dom;
-                 (function(){
-                    try{ mm.center(el).setVisible(true); } catch(e){}
-                 }).defer(4);
+                var el = this.dom;
+                (function() {
+                    try {
+                        mm.center(el).setVisible(true);
+                    } catch (e) {}
+                }).defer(4);
 
             }
-            if(Ext.isIE && !(Ext.isIE7 && Ext.isStrict) && this.getStyle('height') == 'auto'){ // ie will not expand full height automatically
-                   this._mask.setSize(this.dom.clientWidth, this.getHeight());
+            if (Ext.isIE && !(Ext.isIE7 && Ext.isStrict) && this.getStyle('height') == 'auto') { // ie will not expand full height automatically
+                this._mask.setSize(this.dom.clientWidth, this.getHeight());
             }
             return this._mask;
         },
         /**
          * Removes a previously applied mask.
          */
-        unmask : function(remove){
+        unmask: function(remove) {
 
-            if(this._maskMsg){
-                if(remove){
+            if (this._maskMsg) {
+                if (remove) {
                     this._maskMsg.remove();
                     delete this._maskMsg;
                 } else {
-                    this._maskMsg.setVisible.defer(4,this._maskMsg,[false]);
+                    this._maskMsg.setVisible.defer(4, this._maskMsg, [false]);
                 }
             }
-            if(this._mask){
-                 if(remove){
+            if (this._mask) {
+                if (remove) {
                     this._mask.remove();
                     delete this._mask;
                 } else {
@@ -5751,8 +5886,8 @@ Ext.ux.TabCloseMenu = function(){
             }
 
             this.removeClass("x-masked");
-       }
-     };
+        }
+    };
 
 
 
@@ -5787,29 +5922,32 @@ Ext.ux.TabCloseMenu = function(){
     */
 
     ux.VisibilityFix = function(opt) {
-        opt||(opt={});
+        opt || (opt = {});
 
         this.init = function(c) {
 
-               c.hideMode = opt.hideMode || c.hideMode;
+            c.hideMode = opt.hideMode || c.hideMode;
 
-               c.on('render',
-                 function(co){
+            c.on('render',
+                function(co) {
 
-                    var els = [co.collapseEl, (co.floating? null: co.actionMode)].concat(opt.elements||[]);
+                    var els = [co.collapseEl, (co.floating ? null : co.actionMode)].concat(opt.elements || []);
                     var El = Ext.Element;
 
                     var mode = opt.mode || co.visibilityCls || El[co.hideMode.toUpperCase()] || El.VISIBILITY;
 
-                    Ext.each(els, function(el){
+                    Ext.each(els, function(el) {
                         var e = co[el] || el;
-                        if(e && e.setVisibilityMode){e.setVisibilityMode(mode);}
+                        if (e && e.setVisibilityMode) {
+                            e.setVisibilityMode(mode);
+                        }
                     });
 
-                 },
-                 c,
-                 {single:true}
-               );
+                },
+                c, {
+                    single: true
+                }
+            );
 
         };
 
@@ -5824,14 +5962,14 @@ Ext.ux.TabCloseMenu = function(){
      * @param {Mixed} el The element or DOM node, or its id
      * @param {Object} config The config object
      */
-    Ext.ux.IntelliMask = function(el, config){
+    Ext.ux.IntelliMask = function(el, config) {
 
         Ext.apply(this, config);
         this.el = Ext.get(el);
         this.removeMask = Ext.value(this.removeMask, true);
 
-        if(el && this.fixElementForMedia){
-            Ext.apply(el, ElementMaskFixes );
+        if (el && this.fixElementForMedia) {
+            Ext.apply(el, ElementMaskFixes);
         }
 
     };
@@ -5847,18 +5985,18 @@ Ext.ux.TabCloseMenu = function(){
          * @cfg {String} msg
          * The text to display in a centered loading message box (defaults to 'Loading Media...')
          */
-        msg : 'Loading Media...',
+        msg: 'Loading Media...',
         /**
          * @cfg {String} msgCls
          * The CSS class to apply to the loading message element (defaults to "x-mask-loading")
          */
-        msgCls : 'x-mask-loading',
+        msgCls: 'x-mask-loading',
 
 
         /** @cfg {Number} zIndex
          * the optional zIndex applied to the masking Elements
          */
-        zIndex : null,
+        zIndex: null,
 
         /**
          * Read-only. True if the mask is currently disabled so that it will not be displayed (defaults to false)
@@ -5881,14 +6019,14 @@ Ext.ux.TabCloseMenu = function(){
         /**
          * Disables the mask to prevent it from being displayed
          */
-        disable : function(){
-           this.disabled = true;
+        disable: function() {
+            this.disabled = true;
         },
 
         /**
          * Enables the mask so that it can be displayed
          */
-        enable : function(){
+        enable: function() {
             this.disabled = false;
         },
 
@@ -5909,49 +6047,55 @@ Ext.ux.TabCloseMenu = function(){
                autoHide : 2000   //remove the mask after two seconds.
            });
          */
-        show: function(msg, msgCls, fn, fnDelay ){
-            if(this.disabled || !this.el){
+        show: function(msg, msgCls, fn, fnDelay) {
+            if (this.disabled || !this.el) {
                 return null;
             }
-            var opt={}, autoHide = this.autoHide;
-            fnDelay = parseInt(fnDelay,10) || 20; //ms delay to allow mask to quiesce if fn specified
+            var opt = {},
+                autoHide = this.autoHide;
+            fnDelay = parseInt(fnDelay, 10) || 20; //ms delay to allow mask to quiesce if fn specified
 
-            if(typeof msg == 'object'){
+            if (typeof msg == 'object') {
                 opt = msg;
                 msg = opt.msg;
                 msgCls = opt.msgCls;
                 fn = opt.fn;
-                autoHide = typeof opt.autoHide != 'undefined' ?  opt.autoHide : autoHide;
-                fnDelay = opt.fnDelay || fnDelay ;
+                autoHide = typeof opt.autoHide != 'undefined' ? opt.autoHide : autoHide;
+                fnDelay = opt.fnDelay || fnDelay;
             }
 
             var mask = this.el.mask(msg || this.msg, msgCls || this.msgCls);
 
             this.active = !!this.el._mask;
-            if(this.active){
-                if(this.zIndex){
+            if (this.active) {
+                if (this.zIndex) {
                     this.el._mask.setStyle("z-index", this.zIndex);
-                    if(this.el._maskMsg){
-                        this.el._maskMsg.setStyle("z-index", this.zIndex+1);
+                    if (this.el._maskMsg) {
+                        this.el._maskMsg.setStyle("z-index", this.zIndex + 1);
                     }
                 }
             }
-            if(typeof fn === 'function'){
-                fn.defer(fnDelay ,opt.scope || null);
-            } else { fnDelay = 0; }
-
-            if(autoHide && (autoHide = parseInt(autoHide , 10)||2000)){
-                this.hide.defer(autoHide+(fnDelay ||0),this);
+            if (typeof fn === 'function') {
+                fn.defer(fnDelay, opt.scope || null);
+            } else {
+                fnDelay = 0;
             }
 
-            return this.active? {mask: this.el._mask , maskMsg: this.el._maskMsg} : null;
+            if (autoHide && (autoHide = parseInt(autoHide, 10) || 2000)) {
+                this.hide.defer(autoHide + (fnDelay || 0), this);
+            }
+
+            return this.active ? {
+                mask: this.el._mask,
+                maskMsg: this.el._maskMsg
+            } : null;
         },
 
         /**
          * Hide this mediaMask.
          */
-        hide: function(remove){
-            if(this.el){
+        hide: function(remove) {
+            if (this.el) {
                 this.el.unmask(remove || this.removeMask);
             }
             this.active = false;
@@ -5959,10 +6103,14 @@ Ext.ux.TabCloseMenu = function(){
         },
 
         // private
-        destroy : function(){this.hide(true); this.el = null; }
-     };
+        destroy: function() {
+            this.hide(true);
+            this.el = null;
+        }
+    };
 
 })();
+
 /*
  * @class
  *        Ext.ux.Media.Flash,
@@ -6030,102 +6178,116 @@ Ext.ux.TabCloseMenu = function(){
          }
     */
 
-(function(){
+(function() {
 
-   var ux = Ext.ux.Media;
+    var ux = Ext.ux.Media;
 
-    ux.Flash = Ext.extend( ux, {
+    ux.Flash = Ext.extend(ux, {
         constructor: function() {
             ux.Flash.superclass.constructor.apply(this, arguments);
         },
 
-        SWFObject      : null,
+        SWFObject: null,
 
-        varsName       :'flashVars',
+        varsName: 'flashVars',
 
-        hideMode       : 'nosize',
+        hideMode: 'nosize',
 
         mediaType: Ext.apply({
-              tag      : 'object'
-             ,cls      : 'x-media x-media-swf'
-             ,type     : 'application/x-shockwave-flash'
-             ,loop     : null
-             ,scripting: "sameDomain"
-             ,start    : true
-             ,unsupportedText : {cn:['The Adobe Flash Player{0}is required.',{tag:'br'},{tag:'a',cn:[{tag:'img',src:'http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif'}],href:'http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash',target:'_flash'}]}
-             ,params   : {
-                  movie     : "@url"
-                 ,play      : "@start"
-                 ,loop      : "@loop"
-//                 ,menu      : "@controls"
-                 ,quality   : "high"
-                 ,bgcolor   : "#FFFFFF"
-//                 ,wmode     : "opaque"
-                 ,allowscriptaccess : "@scripting"
-//                 ,allowfullscreen : false
-//                 ,allownetworking : 'all'
-                }
-             },Ext.isIE?
-                    {classid :"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000",
-                     codebase:"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"
-                    }:
-                    {data     : "@url"}),
+            tag: 'object',
+            cls: 'x-media x-media-swf',
+            type: 'application/x-shockwave-flash',
+            loop: null,
+            scripting: "sameDomain",
+            start: true,
+            unsupportedText: {
+                cn: ['The Adobe Flash Player{0}is required.', {
+                    tag: 'br'
+                }, {
+                    tag: 'a',
+                    cn: [{
+                        tag: 'img',
+                        src: '/bundles/opensteammokodesk/images/get_flash_player.gif'
+                    }],
+                    href: 'http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash',
+                    target: '_flash'
+                }]
+            },
+            params: {
+                movie: "@url",
+                play: "@start",
+                loop: "@loop"
+                    //                 ,menu      : "@controls"
+                    ,
+                quality: "high",
+                bgcolor: "#FFFFFF"
+                    //                 ,wmode     : "opaque"
+                    ,
+                allowscriptaccess: "@scripting"
+                    //                 ,allowfullscreen : false
+                    //                 ,allownetworking : 'all'
+            }
+        }, Ext.isIE ? {
+            classid: "clsid:D27CDB6E-AE6D-11cf-96B8-444553540000",
+            codebase: "http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"
+        } : {
+            data: "@url"
+        }),
 
-        getMediaType: function(){
-             return this.mediaType;
+        getMediaType: function() {
+            return this.mediaType;
         },
         // private (called once by initComponent)
-        initMedia : function(){
+        initMedia: function() {
 
-            var mc = Ext.apply({}, this.mediaCfg||{});
-            var requiredVersion = (this.requiredVersion = mc.requiredVersion || this.requiredVersion|| false ) ;
-            var hasFlash  = !!(this.playerVersion = this.detectVersion());
-            var hasRequired = hasFlash && (requiredVersion?this.assertVersion(requiredVersion):true);
+            var mc = Ext.apply({}, this.mediaCfg || {});
+            var requiredVersion = (this.requiredVersion = mc.requiredVersion || this.requiredVersion || false);
+            var hasFlash = !!(this.playerVersion = this.detectVersion());
+            var hasRequired = hasFlash && (requiredVersion ? this.assertVersion(requiredVersion) : true);
 
-            var unsupportedText = this.assert(mc.unsupportedText || this.unsupportedText || (this.getMediaType()||{}).unsupportedText,null);
-            if(unsupportedText){
-                 unsupportedText = Ext.DomHelper.markup(unsupportedText);
-                 unsupportedText = mc.unsupportedText = String.format(unsupportedText,
-                     (requiredVersion?' '+requiredVersion+' ':' '),
-                     (this.playerVersion?' '+this.playerVersion+' ':' Not installed.'));
+            var unsupportedText = this.assert(mc.unsupportedText || this.unsupportedText || (this.getMediaType() || {}).unsupportedText, null);
+            if (unsupportedText) {
+                unsupportedText = Ext.DomHelper.markup(unsupportedText);
+                unsupportedText = mc.unsupportedText = String.format(unsupportedText, (requiredVersion ? ' ' + requiredVersion + ' ' : ' '), (this.playerVersion ? ' ' + this.playerVersion + ' ' : ' Not installed.'));
             }
 
-            if(!hasRequired ){
+            if (!hasRequired) {
                 this.autoMask = false;
 
                 //Version check for the Flash Player that has the ability to start Player Product Install (6.0r65)
                 var canInstall = hasFlash && this.assertVersion('6.0.65');
 
-                if(canInstall && mc.installUrl){
+                if (canInstall && mc.installUrl) {
 
-                       mc =  mc.installDescriptor || {
-                             tag      : 'object'
-                            ,cls      : 'x-media x-media-swf x-media-swfinstaller'
-                            ,id       : 'SWFInstaller'
-                            ,type     : 'application/x-shockwave-flash'
-                            ,data     : "@url"
-                            ,url              : mc.installUrl
+                    mc = mc.installDescriptor || {
+                        tag: 'object',
+                        cls: 'x-media x-media-swf x-media-swfinstaller',
+                        id: 'SWFInstaller',
+                        type: 'application/x-shockwave-flash',
+                        data: "@url",
+                        url: mc.installUrl
                             //The dimensions of playerProductInstall.swf must be at least 310 x 138 pixels,
-                            ,width            : (/%$/.test(mc.width)) ? mc.width : ((parseInt(mc.width,10) || 0) < 310 ? 310 :mc.width)
-                            ,height           : (/%$/.test(mc.height))? mc.height :((parseInt(mc.height,10) || 0) < 138 ? 138 :mc.height)
-                            ,loop             : false
-                            ,start            : true
-                            ,unsupportedText  : unsupportedText
-                            ,params:{
-                                      quality          : "high"
-                                     ,movie            : '@url'
-                                     ,allowscriptacess : "always"
-                                     ,align            : "middle"
-                                     ,bgcolor          : "#3A6EA5"
-                                     ,pluginspage      : mc.pluginsPage || this.pluginsPage || "http://www.adobe.com/go/getflashplayer"
-                                   }
-                        };
-                        mc.params[this.varsName] = "MMredirectURL="+( mc.installRedirect || window.location)+
-                                            "&MMplayerType="+(Ext.isIE?"ActiveX":"Plugin")+
-                                            "&MMdoctitle="+(document.title = document.title.slice(0, 47) + " - Flash Player Installation");
+                            ,
+                        width: (/%$/.test(mc.width)) ? mc.width : ((parseInt(mc.width, 10) || 0) < 310 ? 310 : mc.width),
+                        height: (/%$/.test(mc.height)) ? mc.height : ((parseInt(mc.height, 10) || 0) < 138 ? 138 : mc.height),
+                        loop: false,
+                        start: true,
+                        unsupportedText: unsupportedText,
+                        params: {
+                            quality: "high",
+                            movie: '@url',
+                            allowscriptacess: "always",
+                            align: "middle",
+                            bgcolor: "#3A6EA5",
+                            pluginspage: mc.pluginsPage || this.pluginsPage || "http://www.adobe.com/go/getflashplayer"
+                        }
+                    };
+                    mc.params[this.varsName] = "MMredirectURL=" + (mc.installRedirect || window.location) +
+                        "&MMplayerType=" + (Ext.isIE ? "ActiveX" : "Plugin") +
+                        "&MMdoctitle=" + (document.title = document.title.slice(0, 47) + " - Flash Player Installation");
                 } else {
                     //Let superclass handle with unsupportedText property
-                    mc.mediaType=null;
+                    mc.mediaType = null;
                 }
             }
 
@@ -6148,19 +6310,21 @@ Ext.ux.TabCloseMenu = function(){
             *  ActionScript ExternalInterface definition.
             */
 
-            if(mc.eventSynch){
+            if (mc.eventSynch) {
                 mc.params || (mc.params = {});
                 var vars = mc.params[this.varsName] || (mc.params[this.varsName] = {});
-                if(typeof vars === 'string'){ vars = Ext.urlDecode(vars,true); }
+                if (typeof vars === 'string') {
+                    vars = Ext.urlDecode(vars, true);
+                }
                 var eventVars = (mc.eventSynch === true ? {
-                         allowedDomain  : vars.allowedDomain || document.location.hostname
-                        ,elementID      : mc.id || (mc.id = Ext.id())
-                        ,eventHandler   : 'Ext.ux.Media.Flash.eventSynch'
-                        }: mc.eventSynch );
+                    allowedDomain: vars.allowedDomain || document.location.hostname,
+                    elementID: mc.id || (mc.id = Ext.id()),
+                    eventHandler: 'Ext.ux.Media.Flash.eventSynch'
+                } : mc.eventSynch);
 
-                Ext.apply(mc.params,{
-                     allowscriptaccess  : 'always'
-                })[this.varsName] = Ext.applyIf(vars,eventVars);
+                Ext.apply(mc.params, {
+                    allowscriptaccess: 'always'
+                })[this.varsName] = Ext.applyIf(vars, eventVars);
             }
 
             delete mc.requiredVersion;
@@ -6173,27 +6337,27 @@ Ext.ux.TabCloseMenu = function(){
             mc.mediaType = "SWF";
             this.mediaCfg = mc;
 
-            if(this.events){
+            if (this.events) {
                 this.addEvents(
-                     /**
-                     * @event flashinit
-                     * Fires when the Flash Object reports an initialized state via a public callback function.
-                     * this callback must implemented to be useful.  Example:
-                     *
-                     * //YouTube Global ready handler
-                       var onYouTubePlayerReady = function(playerId) {
+                    /**
+                    * @event flashinit
+                    * Fires when the Flash Object reports an initialized state via a public callback function.
+                    * this callback must implemented to be useful.  Example:
+                    *
+                    * //YouTube Global ready handler
+                      var onYouTubePlayerReady = function(playerId) {
 
-                           //Search for a ux.Flash-managed player.
-                           var flashComp, el = Ext.get(playerId);
-                           if(flashComp = (el?el.ownerCt:null)){
-                              flashComp.onFlashInit();
-                           }
+                          //Search for a ux.Flash-managed player.
+                          var flashComp, el = Ext.get(playerId);
+                          if(flashComp = (el?el.ownerCt:null)){
+                             flashComp.onFlashInit();
+                          }
 
-                       };
-                     *
-                     * @param {Ext.ux.Flash} this
-                     * @param {Element} the SWFObject interface
-                     */
+                      };
+                    *
+                    * @param {Ext.ux.Flash} this
+                    * @param {Element} the SWFObject interface
+                    */
                     'flashinit',
 
                     /**
@@ -6204,7 +6368,7 @@ Ext.ux.TabCloseMenu = function(){
                      * @param args {string} the arguments string
                      */
                     'fscommand'
-               );
+                );
             }
             ux.Flash.superclass.initMedia.call(this);
 
@@ -6212,104 +6376,113 @@ Ext.ux.TabCloseMenu = function(){
 
 
         /*
-        * Asserts the desired version against the installed Flash Object version.
-        * Acceptable parameter formats for versionMap:
-        *
-        *  '9.0.40' (string)
-        *   9  or 9.1  (number)
-        *   [9,0,43]  (array)
-        *
-        *  Returns true if the desired version is => installed version
-        *  and false for all other conditions
-        */
-        ,assertVersion : function(versionMap){
+         * Asserts the desired version against the installed Flash Object version.
+         * Acceptable parameter formats for versionMap:
+         *
+         *  '9.0.40' (string)
+         *   9  or 9.1  (number)
+         *   [9,0,43]  (array)
+         *
+         *  Returns true if the desired version is => installed version
+         *  and false for all other conditions
+         */
+        ,
+        assertVersion: function(versionMap) {
 
             var compare;
             versionMap || (versionMap = []);
 
-            if(Ext.isArray(versionMap)){
+            if (Ext.isArray(versionMap)) {
                 compare = versionMap;
             } else {
                 compare = String(versionMap).split('.');
             }
-            compare = (compare.concat([0,0,0,0])).slice(0,3); //normalize
+            compare = (compare.concat([0, 0, 0, 0])).slice(0, 3); //normalize
 
             var tpv;
-            if(!(tpv = this.playerVersion || (this.playerVersion = this.detectVersion()) )){ return false; }
+            if (!(tpv = this.playerVersion || (this.playerVersion = this.detectVersion()))) {
+                return false;
+            }
 
             if (tpv.major > parseFloat(compare[0])) {
-                        return true;
+                return true;
             } else if (tpv.major == parseFloat(compare[0])) {
-                   if (tpv.minor > parseFloat(compare[1]))
-                            {return true;}
-                   else if (tpv.minor == parseFloat(compare[1])) {
-                        if (tpv.rev >= parseFloat(compare[2])) { return true;}
-                        }
-                   }
+                if (tpv.minor > parseFloat(compare[1])) {
+                    return true;
+                } else if (tpv.minor == parseFloat(compare[1])) {
+                    if (tpv.rev >= parseFloat(compare[2])) {
+                        return true;
+                    }
+                }
+            }
             return false;
         },
         /*
-        * Flash version detection function
-        * Modifed version of the detection strategy of SWFObject library : http://blog.deconcept.com/swfobject/
-        * returns a {major,minor,rev} version object or
-        * false if Flash is not installed or detection failed.
-        */
-        detectVersion : function(){
-            if(this.mediaVersion){
-                return this.mediaVersion;
-            }
-            var version=false;
-            var formatVersion = function(version){
-              return version && !!version.length?
-                {major:version[0] !== null? parseInt(version[0],10): 0
-                ,minor:version[1] !== null? parseInt(version[1],10): 0
-                ,rev  :version[2] !== null? parseInt(version[2],10): 0
-                ,toString : function(){return this.major+'.'+this.minor+'.'+this.rev;}
-                }:false;
-            };
-            var sfo= null;
-            if(Ext.isIE){
-
-                try{
-                    sfo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash.7");
-                }catch(e){
-                    try {
-                        sfo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash.6");
-                        version = [6,0,21];
-                        // error if player version < 6.0.47 (thanks to Michael Williams @ Adobe for this solution)
-                        sfo.allowscriptaccess = "always";
-                    } catch(ex) {
-                        if(version && version[0] === 6)
-                            {return formatVersion(version); }
+         * Flash version detection function
+         * Modifed version of the detection strategy of SWFObject library : http://blog.deconcept.com/swfobject/
+         * returns a {major,minor,rev} version object or
+         * false if Flash is not installed or detection failed.
+         */
+        detectVersion: function() {
+                if (this.mediaVersion) {
+                    return this.mediaVersion;
+                }
+                var version = false;
+                var formatVersion = function(version) {
+                    return version && !!version.length ? {
+                        major: version[0] !== null ? parseInt(version[0], 10) : 0,
+                        minor: version[1] !== null ? parseInt(version[1], 10) : 0,
+                        rev: version[2] !== null ? parseInt(version[2], 10) : 0,
+                        toString: function() {
+                            return this.major + '.' + this.minor + '.' + this.rev;
                         }
+                    } : false;
+                };
+                var sfo = null;
+                if (Ext.isIE) {
+
                     try {
-                        sfo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash");
-                    } catch(ex1) {}
+                        sfo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash.7");
+                    } catch (e) {
+                        try {
+                            sfo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash.6");
+                            version = [6, 0, 21];
+                            // error if player version < 6.0.47 (thanks to Michael Williams @ Adobe for this solution)
+                            sfo.allowscriptaccess = "always";
+                        } catch (ex) {
+                            if (version && version[0] === 6) {
+                                return formatVersion(version);
+                            }
+                        }
+                        try {
+                            sfo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash");
+                        } catch (ex1) {}
+                    }
+                    if (sfo) {
+                        version = sfo.GetVariable("$version").split(" ")[1].split(",");
+                    }
+                } else if (navigator.plugins && navigator.mimeTypes.length) {
+                    sfo = navigator.plugins["Shockwave Flash"];
+                    if (sfo && sfo.description) {
+                        version = sfo.description.replace(/([a-zA-Z]|\s)+/, "").replace(/(\s+r|\s+b[0-9]+)/, ".").split(".");
+                    }
                 }
-                if (sfo) {
-                    version = sfo.GetVariable("$version").split(" ")[1].split(",");
-                }
-             }else if(navigator.plugins && navigator.mimeTypes.length){
-                sfo = navigator.plugins["Shockwave Flash"];
-                if(sfo && sfo.description) {
-                    version = sfo.description.replace(/([a-zA-Z]|\s)+/, "").replace(/(\s+r|\s+b[0-9]+)/, ".").split(".");
-                }
+                return (this.mediaVersion = formatVersion(version));
+
             }
-            return (this.mediaVersion = formatVersion(version));
+            //Private
+            ,
+        _applyFixes: function() {
+            var o;
+            // Fix streaming media troubles for IE
+            // IE has issues with loose references when removing an <object>
+            // before the onload event fires (all <object>s should have readyState == 4 after browsers onload)
 
-        }
-        //Private
-        ,_applyFixes : function() {
-            var o ;
-             // Fix streaming media troubles for IE
-             // IE has issues with loose references when removing an <object>
-             // before the onload event fires (all <object>s should have readyState == 4 after browsers onload)
+            // Advice: do not attempt to remove the Component before onload has fired on IE/Win.
 
-             // Advice: do not attempt to remove the Component before onload has fired on IE/Win.
-
-            if(Ext.isIE && Ext.isWindows && (o =this.SWFObject)){
+            if (Ext.isIE && Ext.isWindows && (o = this.SWFObject)) {
                 o.style.display = 'none'; //hide it regardless of state
-                if(o.readyState == 4){
+                if (o.readyState == 4) {
                     for (var x in o) {
                         if (typeof o[x] == 'function') {
                             o[x] = null;
@@ -6319,69 +6492,71 @@ Ext.ux.TabCloseMenu = function(){
 
             }
 
-        }
-        ,onAfterMedia : function(ct){
+        },
+        onAfterMedia: function(ct) {
 
-              ux.Flash.superclass.onAfterMedia.apply(this,arguments);
-              this.SWFObject = this.getInterface();
-              if(this.mediaObject){
-                  var id = this.mediaObject.id;
-                  if(Ext.isIE ){
+            ux.Flash.superclass.onAfterMedia.apply(this, arguments);
+            this.SWFObject = this.getInterface();
+            if (this.mediaObject) {
+                var id = this.mediaObject.id;
+                if (Ext.isIE) {
 
                     //fscommand bindings
                     //implement a fsCommand event interface since its not supported on IE when writing innerHTML
 
-                    if(!(Ext.query('script[for='+id+']').length)){
-                      writeScript('var c;if(c=Ext.getCmp("'+this.id+'")){c.onfsCommand.apply(c,arguments);}',
-                                  {event:"FSCommand", htmlFor:id});
+                    if (!(Ext.query('script[for=' + id + ']').length)) {
+                        writeScript('var c;if(c=Ext.getCmp("' + this.id + '")){c.onfsCommand.apply(c,arguments);}', {
+                            event: "FSCommand",
+                            htmlFor: id
+                        });
                     }
-                  }else{
-                      window[id+'_DoFSCommand'] || (window[id+'_DoFSCommand']= this.onfsCommand.createDelegate(this));
+                } else {
+                    window[id + '_DoFSCommand'] || (window[id + '_DoFSCommand'] = this.onfsCommand.createDelegate(this));
 
-                  }
+                }
 
-              }
+            }
 
-         },
+        },
         //Remove (safely) an existing mediaObject from the Component.
-        clearMedia  : function(){
+        clearMedia: function() {
 
-           //de-register fscommand hooks
-           if(this.mediaObject){
-               var id = this.mediaObject.id;
-               if(Ext.isIE){
-                    Ext.select('script[for='+id+']',true).remove();
-               } else {
-                    window[id+'_DoFSCommand']= null;
-                    delete window[id+'_DoFSCommand'];
-               }
-               this._applyFixes();
-           }
+            //de-register fscommand hooks
+            if (this.mediaObject) {
+                var id = this.mediaObject.id;
+                if (Ext.isIE) {
+                    Ext.select('script[for=' + id + ']', true).remove();
+                } else {
+                    window[id + '_DoFSCommand'] = null;
+                    delete window[id + '_DoFSCommand'];
+                }
+                this._applyFixes();
+            }
 
-           ux.Flash.superclass.clearMedia.call(this);
-           this.SWFObject = null;
+            ux.Flash.superclass.clearMedia.call(this);
+            this.SWFObject = null;
         },
 
-        getSWFObject : function() {
+        getSWFObject: function() {
             return this.getInterface();
         },
 
 
         //http://www.northcode.com/blog.php/2007/09/11/FSCommand-and-getURL-Bug-in-Flash-Player-9
-        onfsCommand : function( command, args){
+        onfsCommand: function(command, args) {
 
-            if(this.events){
-                this.fireEvent('fscommand', this, command ,args );
+            if (this.events) {
+                this.fireEvent('fscommand', this, command, args);
             }
 
         },
 
         //Use Flash's SetVariable method if available
         //returns false if the function is not supported.
-        setVariable : function(vName, value){
+        setVariable: function(vName, value) {
             var fo = this.getInterface();
-            if(fo && typeof fo.SetVariable != 'undefined'){
-                fo.SetVariable(vName,value);
+            if (fo && typeof fo.SetVariable != 'undefined') {
+                fo.SetVariable(vName, value);
                 return true;
             }
             return false;
@@ -6390,9 +6565,9 @@ Ext.ux.TabCloseMenu = function(){
 
         //Use Flash's SetVariable method if available
         //returns false if the function is not supported.
-        getVariable : function(vName){
+        getVariable: function(vName) {
             var fo = this.getInterface();
-            if(fo && typeof fo.GetVariable != 'undefined'){
+            if (fo && typeof fo.GetVariable != 'undefined') {
                 return fo.GetVariable(vName);
             }
             return undefined;
@@ -6402,11 +6577,13 @@ Ext.ux.TabCloseMenu = function(){
         /* this function is designed to be used when a player object notifies the browser
          * if its initialization state
          */
-        onFlashInit  :  function(){
+        onFlashInit: function() {
 
 
-            if(this.mediaMask && this.autoMask){this.mediaMask.hide();}
-            this.fireEvent.defer(10,this,['flashinit',this, this.getInterface()]);
+            if (this.mediaMask && this.autoMask) {
+                this.mediaMask.hide();
+            }
+            this.fireEvent.defer(10, this, ['flashinit', this, this.getInterface()]);
 
         },
         /**
@@ -6415,75 +6592,82 @@ Ext.ux.TabCloseMenu = function(){
          * @method _handleSWFEvent
          * @private
          */
-        _handleSWFEvent: function(event)
-        {
-            var type = event.type||event||false;
-            if(type){
-                 if(this.events && !this.events[String(type)])
-                     { this.addEvents(String(type));}
+        _handleSWFEvent: function(event) {
+            var type = event.type || event || false;
+            if (type) {
+                if (this.events && !this.events[String(type)]) {
+                    this.addEvents(String(type));
+                }
 
-                 return this.fireEvent.apply(this, [String(type), this].concat(Array.prototype.slice.call(arguments,0)));
+                return this.fireEvent.apply(this, [String(type), this].concat(Array.prototype.slice.call(arguments, 0)));
             }
         }
 
     });
     // Class Method to handle defined Flash interface events
-    ux.Flash.eventSynch = function(elementID, event /* additional arguments optional */ ){
-            var SWF = Ext.get(elementID);
-            if(SWF && SWF.ownerCt){
-                return SWF.ownerCt._handleSWFEvent.apply(SWF.ownerCt, Array.prototype.slice.call(arguments,1));
-            }
-        };
+    ux.Flash.eventSynch = function(elementID, event /* additional arguments optional */ ) {
+        var SWF = Ext.get(elementID);
+        if (SWF && SWF.ownerCt) {
+            return SWF.ownerCt._handleSWFEvent.apply(SWF.ownerCt, Array.prototype.slice.call(arguments, 1));
+        }
+    };
 
     /* Generic Flash BoxComponent */
-   Ext.ux.FlashComponent = Ext.extend(Ext.ux.MediaComponent,{
-           ctype : "Ext.ux.FlashComponent",
-           getId : function(){
-                 return this.id || (this.id = "flash-comp" + (++Ext.Component.AUTO_ID));
-           }
+    Ext.ux.FlashComponent = Ext.extend(Ext.ux.MediaComponent, {
+        ctype: "Ext.ux.FlashComponent",
+        getId: function() {
+            return this.id || (this.id = "flash-comp" + (++Ext.Component.AUTO_ID));
+        }
 
-   });
+    });
 
-   //Inherit the Media.Flash class interface
-   Ext.apply(Ext.ux.FlashComponent.prototype, ux.Flash.prototype);
-   Ext.reg('uxflash', Ext.ux.FlashComponent);
+    //Inherit the Media.Flash class interface
+    Ext.apply(Ext.ux.FlashComponent.prototype, ux.Flash.prototype);
+    Ext.reg('uxflash', Ext.ux.FlashComponent);
 
-   ux.Panel.Flash = Ext.extend(ux.Panel,{
-          ctype : "Ext.ux.Media.Panel.Flash"
-   });
+    ux.Panel.Flash = Ext.extend(ux.Panel, {
+        ctype: "Ext.ux.Media.Panel.Flash"
+    });
 
-   Ext.apply(ux.Panel.Flash.prototype, ux.Flash.prototype);
+    Ext.apply(ux.Panel.Flash.prototype, ux.Flash.prototype);
 
-   Ext.reg('flashpanel', Ext.ux.MediaPanel.Flash = Ext.ux.FlashPanel = ux.Panel.Flash);
-   Ext.reg('uxflashpanel', ux.Panel.Flash);
+    Ext.reg('flashpanel', Ext.ux.MediaPanel.Flash = Ext.ux.FlashPanel = ux.Panel.Flash);
+    Ext.reg('uxflashpanel', ux.Panel.Flash);
 
-   Ext.ux.FlashWindow = (ux.Window.Flash = Ext.extend(ux.Window, {ctype : "Ext.ux.FlashWindow", animCollpase:true}));
-   Ext.apply(ux.Window.Flash.prototype, ux.Flash.prototype);
+    Ext.ux.FlashWindow = (ux.Window.Flash = Ext.extend(ux.Window, {
+        ctype: "Ext.ux.FlashWindow",
+        animCollpase: true
+    }));
+    Ext.apply(ux.Window.Flash.prototype, ux.Flash.prototype);
 
-   var writeScript = function(block, attributes) {
-        attributes = Ext.apply({},attributes||{},{type :"text/javascript",text:block});
+    var writeScript = function(block, attributes) {
+        attributes = Ext.apply({}, attributes || {}, {
+            type: "text/javascript",
+            text: block
+        });
 
-         try{
-            var head,script, doc= document;
-            if(doc && doc.getElementsByTagName){
-                if(!(head = doc.getElementsByTagName("head")[0] )){
+        try {
+            var head, script, doc = document;
+            if (doc && doc.getElementsByTagName) {
+                if (!(head = doc.getElementsByTagName("head")[0])) {
 
-                    head =doc.createElement("head");
+                    head = doc.createElement("head");
                     doc.getElementsByTagName("html")[0].appendChild(head);
                 }
-                if(head && (script = doc.createElement("script"))){
-                    for(var attrib in attributes){
-                          if(attributes.hasOwnProperty(attrib) && attrib in script){
-                              script[attrib] = attributes[attrib];
-                          }
+                if (head && (script = doc.createElement("script"))) {
+                    for (var attrib in attributes) {
+                        if (attributes.hasOwnProperty(attrib) && attrib in script) {
+                            script[attrib] = attributes[attrib];
+                        }
                     }
                     return !!head.appendChild(script);
                 }
             }
-         }catch(ex){}
-         return false;
+        } catch (ex) {}
+        return false;
     }
 })();
+
 var AMTcgiloc = "/cgi-bin/mimetex.cgi"; //path to CGI script that
 var AScgiloc = '/bundles/opensteammokodesk/tools/asciisvg/svgimg.php'; //path to CGI script
 						//for editor graphs IMG fallback
@@ -12256,6 +12440,8 @@ var larsUpdaterInterval = 10000;
 var onlineStatusInterval = 30000;
 var timeoutUpdateConnection = 180000;
 
+Ext.BLANK_IMAGE_URL = '/bundles/opensteammokodesk/images/default/s.gif';
+
 LarsViewer = {};
 eastCollapsed = {};
 LarsGridConfig = {};
@@ -12274,353 +12460,316 @@ var fileRecordToCopy = false;
 task = {};
 var AScgiloc = '/bundles/opensteammokodesk/tools/asciisvg/svgimg.php';
 var AMTcgiloc = "/cgi-bin/mimetex.cgi";
-var larsNews = '<font size="3">'
-		+ '<b>Version 1.5.23:<br></b>'
-		+ '<ul><li>- div. Fehlerkorrekturen</li></ul>'
-		+ '<b>Version 1.5.9:<br></b>'
-		+ '<ul><li>- neue Anmeldeseite</li><li>- Virtuelle Tafel hinzugefügt</li><li>- Datenbackend neu geschreiben</li></ul>'
-		+ '<b>Version 1.0.2:<br></b>'
-		+ '<ul><li>- fehlerhafte Links korrigiert</li></ul>'
-		+ '<b>Version 1.0.1:<br></b>'
-		+ '<ul><li>- Textannotationen für den Editor</li>'
-		+ '<li>- Fehlerbehandlung verbessert</li>'
-		+ '<li>- Fehlende Sprachdateien hinzugefügt</li>'
-		+ '<li>- Fehlerkorrekturen beim Datenabgleich</li>'
-		+ '<li>- Quellcode umstrukturiert</li></ul>'
-		+ '<b>Version 0.986:<br></b>'
-		+ '<ul><li>- Französisch.<br>'
-		+ '<b>Version 0.983:<br></b>'
-		+ '<ul><li>- Fehlerkorrekturen.<br>'
-		+ '<b>Version 0.972:<br></b>'
-		+ '<ul><li>- Neuer Login zum MokoDesk.<br>'
-		+ '<b>Version 0.970:<br></b>'
-		+ '<ul><li>- Englischer MokoDesk verfügbar.<br>'
-		+ '<b>Version 0.969:<br></b>'
-		+ '<ul><li>- Benachrichtigungen für "Eigene Mitteilungen" werden erst ausgeblendet, wenn mit dem Mauszeiger über die Nachricht bewegt wurde.<br>'
-		+ '<li>- Benachrichtigungen werden nicht angezeigt, wenn die "Eigenen Mitteilungen" geöffnet sind.<br>'
-		+ '<b>Version 0.967:<br></b>'
-		+ '<li>- Überarbeitung der Benachrichtigung bei neuen Mitteilungen auf der eigenen Seite.<br>'
-		+ '<b>Version 0.955:<br></b>'
-		+ '<li>- Überarbeitung der Oberfläche. Neue Icons auf der Hauptseite.<br>'
-		+ '<li>- Zwischen neuen Dokumenten und Nachrichten auf dem eigenen MokoDesk und anderen MokoDesks wird unterschieden<br>'
-		+ '<li>- Es werden nicht mehr standardmäßig Dokumente aller eingebundenen Schreibtische angezeigt. Hierzu muss der eigebundene Schreibtisch in einem Dialog ausgewählt werden. (Zusätzliches Icon unter "Andere MokoDesks")<br>'
-		+ '<li>- Weitere Änderungen sind demnächst in der Hilfe zu finden<br>'
-		+ '</ul>';
+var larsNews = '<font size="3">' + '<b>Version 1.5.23:<br></b>' + '<ul><li>- div. Fehlerkorrekturen</li></ul>' + '<b>Version 1.5.9:<br></b>' + '<ul><li>- neue Anmeldeseite</li><li>- Virtuelle Tafel hinzugefügt</li><li>- Datenbackend neu geschreiben</li></ul>' + '<b>Version 1.0.2:<br></b>' + '<ul><li>- fehlerhafte Links korrigiert</li></ul>' + '<b>Version 1.0.1:<br></b>' + '<ul><li>- Textannotationen für den Editor</li>' + '<li>- Fehlerbehandlung verbessert</li>' + '<li>- Fehlende Sprachdateien hinzugefügt</li>' + '<li>- Fehlerkorrekturen beim Datenabgleich</li>' + '<li>- Quellcode umstrukturiert</li></ul>' + '<b>Version 0.986:<br></b>' + '<ul><li>- Französisch.<br>' + '<b>Version 0.983:<br></b>' + '<ul><li>- Fehlerkorrekturen.<br>' + '<b>Version 0.972:<br></b>' + '<ul><li>- Neuer Login zum MokoDesk.<br>' + '<b>Version 0.970:<br></b>' + '<ul><li>- Englischer MokoDesk verfügbar.<br>' + '<b>Version 0.969:<br></b>' + '<ul><li>- Benachrichtigungen für "Eigene Mitteilungen" werden erst ausgeblendet, wenn mit dem Mauszeiger über die Nachricht bewegt wurde.<br>' + '<li>- Benachrichtigungen werden nicht angezeigt, wenn die "Eigenen Mitteilungen" geöffnet sind.<br>' + '<b>Version 0.967:<br></b>' + '<li>- Überarbeitung der Benachrichtigung bei neuen Mitteilungen auf der eigenen Seite.<br>' + '<b>Version 0.955:<br></b>' + '<li>- Überarbeitung der Oberfläche. Neue Icons auf der Hauptseite.<br>' + '<li>- Zwischen neuen Dokumenten und Nachrichten auf dem eigenen MokoDesk und anderen MokoDesks wird unterschieden<br>' + '<li>- Es werden nicht mehr standardmäßig Dokumente aller eingebundenen Schreibtische angezeigt. Hierzu muss der eigebundene Schreibtisch in einem Dialog ausgewählt werden. (Zusätzliches Icon unter "Andere MokoDesks")<br>' + '<li>- Weitere Änderungen sind demnächst in der Hilfe zu finden<br>' + '</ul>';
 
 Ext.onReady(function() {
-	Ext.QuickTips.init();
-	var choice = 0;
-	Ext.Ajax.timeout = 90000;
-	if (choice) {
-	} else {
-		this.doLoginBid = function() {
-			Ext.Ajax.request({
-						url : 'login/',
-						params : {
-							version : version
-						},
-						success : function(response, options) {
-							var responseData = Ext.util.JSON
-									.decode(response.responseText);
-							title = responseData.title;
-							imageHeight = responseData.imageHeight
-									? responseData.imageHeight
-									: 120;
-							eastCollapsed = responseData.eastCollapsed
-									? responseData.eastCollapsed
-									: 1;
-							larsDesktopId = responseData.larsDesktop;
-							larsArchivId = responseData.larsArchiv;
-							larsBinId = responseData.larsBin;
-							larsVoiceChatAllowed = responseData.vc;
-							isTeacher = responseData.isTeacher;
-							loginTime = responseData.loginTime;
-							lastLoginUnix = responseData.lastLoginUnix;
-							lastLogin = responseData.loginTimeLast;
-							loginInfo = Lars.main.logged_in_since + loginTime +"<br>" + Lars.main.last_login + lastLogin;
-							user = responseData.user;
-							pass = responseData.pass; //used for voice chat
-							if (responseData.success) {
-								log_in()
-							} else if (responseData.version) {
-								Ext.Msg.show({
-											title : Lars.msg.failure,
-											msg : responseData.name,
-											icon : Ext.MessageBox.ERROR,
-											buttons : Ext.Msg.OK
-										});
-							}
-						},
-						failure : function(form, action) {
-							if (action.failureType === 'server') {
-								obj = Ext.util.JSON
-										.decode(action.response.responseText);
-								Ext.Msg.alert(Lars.msg.failure,
-										obj.errors.reason);
-							} else {
-								Ext.Msg.alert(Lars.msg.failure,
-										Lars.msg.failure_redirect);
-							}
-						},
-						scope : this
-					});
-		};
-		this.doLoginBid.defer(10, this);
-		var checkBrowser = function() {
-			if ((!Ext.isGecko2 && !Ext.isGecko3)
-					|| (Ext.isSafari || Ext.isSafari2 || Ext.isSafari3)) {
-		    	Ext.ux.ToastLars.msg('<font color="#DD0000">'+Lars.msg.attention, Lars.msg.attention_firefox, 7);
-			}
-		}
-		checkBrowser.defer(1000, this);
+    Ext.QuickTips.init();
+    var choice = 0;
+    Ext.Ajax.timeout = 90000;
+    if (choice) {} else {
+        this.doLoginBid = function() {
+            Ext.Ajax.request({
+                url: 'login/',
+                params: {
+                    version: version
+                },
+                success: function(response, options) {
+                    var responseData = Ext.util.JSON
+                        .decode(response.responseText);
+                    title = responseData.title;
+                    imageHeight = responseData.imageHeight ? responseData.imageHeight : 120;
+                    eastCollapsed = responseData.eastCollapsed ? responseData.eastCollapsed : 1;
+                    larsDesktopId = responseData.larsDesktop;
+                    larsArchivId = responseData.larsArchiv;
+                    larsBinId = responseData.larsBin;
+                    larsVoiceChatAllowed = responseData.vc;
+                    isTeacher = responseData.isTeacher;
+                    loginTime = responseData.loginTime;
+                    lastLoginUnix = responseData.lastLoginUnix;
+                    lastLogin = responseData.loginTimeLast;
+                    loginInfo = Lars.main.logged_in_since + loginTime + "<br>" + Lars.main.last_login + lastLogin;
+                    user = responseData.user;
+                    pass = responseData.pass; //used for voice chat
+                    if (responseData.success) {
+                        log_in()
+                    } else if (responseData.version) {
+                        Ext.Msg.show({
+                            title: Lars.msg.failure,
+                            msg: responseData.name,
+                            icon: Ext.MessageBox.ERROR,
+                            buttons: Ext.Msg.OK
+                        });
+                    }
+                },
+                failure: function(form, action) {
+                    if (action.failureType === 'server') {
+                        obj = Ext.util.JSON
+                            .decode(action.response.responseText);
+                        Ext.Msg.alert(Lars.msg.failure,
+                            obj.errors.reason);
+                    } else {
+                        Ext.Msg.alert(Lars.msg.failure,
+                            Lars.msg.failure_redirect);
+                    }
+                },
+                scope: this
+            });
+        };
+        this.doLoginBid.defer(10, this);
+        var checkBrowser = function() {
+            if ((!Ext.isGecko2 && !Ext.isGecko3) || (Ext.isSafari || Ext.isSafari2 || Ext.isSafari3)) {
+                Ext.ux.ToastLars.msg('<font color="#DD0000">' + Lars.msg.attention, Lars.msg.attention_firefox, 7);
+            }
+        }
+        checkBrowser.defer(1000, this);
 
-		var win = new Ext.Window({
-					id : 'login-window',
-					width : 400,
-					height : 134,
-					closable : false,
-					animate : true,
-					title : Lars.dialog.login.title + version + ')</i>',
-					keys : [{
-								key : [10, 13],
-								scope : this,
-								fn : this.doLogin
-							}],
-					//items : login
-				});
-		setTimeout(function() {
-					Ext.get('loading').remove();
-					Ext.get('loading-mask').fadeOut({
-								remove : true
-							});
-				}, 100);
-		//win.show();
-		//login.items.items[0].focus(false, 1250);
-	}
+        var win = new Ext.Window({
+            id: 'login-window',
+            width: 400,
+            height: 134,
+            closable: false,
+            animate: true,
+            title: Lars.dialog.login.title + version + ')</i>',
+            keys: [{
+                key: [10, 13],
+                scope: this,
+                fn: this.doLogin
+            }],
+            //items : login
+        });
+        setTimeout(function() {
+            Ext.get('loading').remove();
+            Ext.get('loading-mask').fadeOut({
+                remove: true
+            });
+        }, 100);
+        //win.show();
+        //login.items.items[0].focus(false, 1250);
+    }
 
-	function log_in() {
-		if (this.started) {
-			return;
-		}
-		this.started = true;
-		Ext.ux.ToastLars.msg(Lars.msg.success_login, Lars.msg.loading_data, 2);
+    function log_in() {
+        if (this.started) {
+            return;
+        }
+        this.started = true;
+        Ext.ux.ToastLars.msg(Lars.msg.success_login, Lars.msg.loading_data, 2);
 
-		/*
-		 * TreePanel
-		 */
-		var linksFolderTree = new LarsTreePanelFolderLinks();
-		var linksTree = new LarsTreePanelLinks();
-		var folderResources = new LarsResourcesPanel(linksFolderTree, 'center',
-				'resource-panel', '8 8 4 0', Lars.main.tree.resources_title);
-		var linkResources = new LarsResourcesPanel(linksTree, 'south',
-				'links-panel', '0 8 8 0', Lars.main.tree.internet_links_title);
-		var eastPanel = new Ext.Panel({
-					id : 'main-east',
-					region : 'east',
-					layout : 'border',
-					split : true,
-					width : 204,
-					minSize : 175,
-					maxSize : 400,
-					border : false,
-					layoutConfig : {
-						animate : true
-					},
-					margins : '0 0 0 0',
-					cmargins : '8 0 8 0',
-					collapsible : true,
-					items : [folderResources, linkResources]
-				});
-		eastPanel.on('beforeexpand', LarsGridConfig.onCollapseExpand, this);
-		eastPanel.on('beforecollapse', LarsGridConfig.onCollapseExpand, this);
+        /*
+         * TreePanel
+         */
+        var linksFolderTree = new LarsTreePanelFolderLinks();
+        var linksTree = new LarsTreePanelLinks();
+        var folderResources = new LarsResourcesPanel(linksFolderTree, 'center',
+            'resource-panel', '8 8 4 0', Lars.main.tree.resources_title);
+        var linkResources = new LarsResourcesPanel(linksTree, 'south',
+            'links-panel', '0 8 8 0', Lars.main.tree.internet_links_title);
+        var eastPanel = new Ext.Panel({
+            id: 'main-east',
+            region: 'east',
+            layout: 'border',
+            split: true,
+            width: 204,
+            minSize: 175,
+            maxSize: 400,
+            border: false,
+            layoutConfig: {
+                animate: true
+            },
+            margins: '0 0 0 0',
+            cmargins: '8 0 8 0',
+            collapsible: true,
+            items: [folderResources, linkResources]
+        });
+        eastPanel.on('beforeexpand', LarsGridConfig.onCollapseExpand, this);
+        eastPanel.on('beforecollapse', LarsGridConfig.onCollapseExpand, this);
 
-		/*
-		 * MainPanel
-		 */
-		var desktopNode = {
-			id : larsDesktopId
-		};
-		var mainPanel = new MainPanel();
+        /*
+         * MainPanel
+         */
+        var desktopNode = {
+            id: larsDesktopId
+        };
+        var mainPanel = new MainPanel();
 
-		var larsDesktopGrid = new LarsDesktopGrid('');
-		var larsDesktop = new LarsDesktop();
-		var larsDesktopDiscussion = new LarsDesktopDiscussion(desktopNode);
-		var larsDesktopNotes = new LarsDesktopNotes();
+        var larsDesktopGrid = new LarsDesktopGrid('');
+        var larsDesktop = new LarsDesktop();
+        var larsDesktopDiscussion = new LarsDesktopDiscussion(desktopNode);
+        var larsDesktopNotes = new LarsDesktopNotes();
 
-		var larsDesktopNorth = new LarsDesktopNorth();
-		larsDesktopNorth.add(larsDesktopNotes);
+        var larsDesktopNorth = new LarsDesktopNorth();
+        larsDesktopNorth.add(larsDesktopNotes);
 
-		var larsDesktopCenter = new Ext.TabPanel({
-					id: "lars-desktop-tab-panel",
-					frame : false,
-					region : "center",
-					activeTab : 1,
-					margins : '0 0 0 0',
-					frame : false,
-					hideBorders: true,
-					hideLabel: true,
-					bodyBorder : false,
-					border: false,
-					resizeTabs : true,
-					tabWidth : 150,
-					minTabWidth : 90,
-					enableTabScroll : true,
-					viewConfig : {
-						forceFit : true
-					},
-					listeners : LarsViewer.LinkInterceptor
-				});
-		larsDesktopCenter.add({
-			xtype : 'panel',
-			id: 'about-panel',
-			title : Lars.main.about,
-			iconCls : 'wand',
-			layout : 'accordion',
-			items : [{
-						title : Lars.main.help,
-						iconCls: 'help',
-						xtype : 'iframepanel',
-						id : 'moko_about',
-						tbar : ['->', {
-									iconCls : 'error',
-									text : Lars.main.send_bug.text,
-									tooltip : Lars.main.send_bug.text_tt,
-									handler : function() {
-										this.win = new LarsDesktopErrorWindow();
-										this.win.show();
-										this.win.setZIndex(90001);
-									},
-									scope : this
-								}],
-						edit : false,
-						layout : "fit",
-						autoScroll : true,
-						defaultSrc : '/bundles/opensteammokodesk/MokoDeskHelp/index.htm',
-						listeners : {
-							domready : LarsViewer.LinkInterceptorIFrame
-						}
-					},{
-						collapsible : true,
-						iconCls: 'about',
-						xtype : 'panel',
-						title : Lars.main.news,
-						listeners : LarsViewer.LinkInterceptor,
-						layout : 'fit',
-						split : true,
-						autoScroll : true,
-						html : larsNews
-					}]
-		});
-		larsDesktopCenter.add(larsDesktopDiscussion);
-		larsDesktopCenter.add(larsDesktopGrid);
+        var larsDesktopCenter = new Ext.TabPanel({
+            id: "lars-desktop-tab-panel",
+            frame: false,
+            region: "center",
+            activeTab: 1,
+            margins: '0 0 0 0',
+            frame: false,
+            hideBorders: true,
+            hideLabel: true,
+            bodyBorder: false,
+            border: false,
+            resizeTabs: true,
+            tabWidth: 150,
+            minTabWidth: 90,
+            enableTabScroll: true,
+            viewConfig: {
+                forceFit: true
+            },
+            listeners: LarsViewer.LinkInterceptor
+        });
+        larsDesktopCenter.add({
+            xtype: 'panel',
+            id: 'about-panel',
+            title: Lars.main.about,
+            iconCls: 'wand',
+            layout: 'accordion',
+            items: [{
+                title: Lars.main.help,
+                iconCls: 'help',
+                xtype: 'iframepanel',
+                id: 'moko_about',
+                tbar: ['->', {
+                    iconCls: 'error',
+                    text: Lars.main.send_bug.text,
+                    tooltip: Lars.main.send_bug.text_tt,
+                    handler: function() {
+                        this.win = new LarsDesktopErrorWindow();
+                        this.win.show();
+                        this.win.setZIndex(90001);
+                    },
+                    scope: this
+                }],
+                edit: false,
+                layout: "fit",
+                autoScroll: true,
+                defaultSrc: '/bundles/opensteammokodesk/MokoDeskHelp/index.htm',
+                listeners: {
+                    domready: LarsViewer.LinkInterceptorIFrame
+                }
+            }, {
+                collapsible: true,
+                iconCls: 'about',
+                xtype: 'panel',
+                title: Lars.main.news,
+                listeners: LarsViewer.LinkInterceptor,
+                layout: 'fit',
+                split: true,
+                autoScroll: true,
+                html: larsNews
+            }]
+        });
+        larsDesktopCenter.add(larsDesktopDiscussion);
+        larsDesktopCenter.add(larsDesktopGrid);
 
-		larsDesktop.add(larsDesktopCenter);
-		larsDesktop.add(larsDesktopNorth);
-		larsDesktopWrapper = new Ext.Panel({
-	        title: Lars.main.desktop_title,
-	        id: 'lars-desktop',
-	        margins: '0 0 0 0',
-			layout:'border',
-			hideMode  : !Ext.isIE?'nosize':'display',
-//	        split: true,
-	    	iconCls: 'application-home',
-			closable: false,
-			autoScroll: false,
-//			items: []
-		});
-		larsDesktopWrapper.add(larsDesktop);
-		if (larsVoiceChatAllowed && larsVoiceChatEnabled) {
-			larsDesktopWrapper.add(larsVoiceChat);
-		}
-		larsDesktopGrid.getView().getRowClass = LarsGridConfig.applyRowClassWithout;
-		mainPanel.add(larsDesktopWrapper);
-		var innerPanel = new Ext.Panel({
-					id : 'main-center',
-					frame : true,
-					header : true,
-					layout : 'fit',
-					region : 'center',
-					margins : '8 5 8 0',
-					autoScroll : false,
-					items : mainPanel
-				});
-		var centerPanel = new Ext.Panel({
-					id : 'center',
-					header : false,
-					layout : 'border',
-					region : 'center',
-					border : false,
-					autoScroll : false,
-					margins : '0 0 0 0',
-					items : [innerPanel]
-				});
-		/*
-		 * TopicsPanelLars
-		 */
-		var topicsPanelLars = new LarsTopicsPanel();
-		var customImagePanel = new LarsCustomImagePanel(title, imageHeight);
-		var westPanel = new Ext.Panel({
-					id : 'main-west',
-					region : 'west',
-					layout : 'border',
-					split : true,
-					width : 204,
-					minSize : 175,
-					maxSize : 400,
-					border : false,
-					layoutConfig : {
-						animate : true
-					},
-					margins : '0 0 0 0',
-					cmargins : '8 5 8 0',
-					collapsible : true,
-					items : [customImagePanel, topicsPanelLars]
-				});
+        larsDesktop.add(larsDesktopCenter);
+        larsDesktop.add(larsDesktopNorth);
+        larsDesktopWrapper = new Ext.Panel({
+            title: Lars.main.desktop_title,
+            id: 'lars-desktop',
+            margins: '0 0 0 0',
+            layout: 'border',
+            hideMode: !Ext.isIE ? 'nosize' : 'display',
+            //	        split: true,
+            iconCls: 'application-home',
+            closable: false,
+            autoScroll: false,
+            //			items: []
+        });
+        larsDesktopWrapper.add(larsDesktop);
+        if (larsVoiceChatAllowed && larsVoiceChatEnabled) {
+            larsDesktopWrapper.add(larsVoiceChat);
+        }
+        larsDesktopGrid.getView().getRowClass = LarsGridConfig.applyRowClassWithout;
+        mainPanel.add(larsDesktopWrapper);
+        var innerPanel = new Ext.Panel({
+            id: 'main-center',
+            frame: true,
+            header: true,
+            layout: 'fit',
+            region: 'center',
+            margins: '8 5 8 0',
+            autoScroll: false,
+            items: mainPanel
+        });
+        var centerPanel = new Ext.Panel({
+            id: 'center',
+            header: false,
+            layout: 'border',
+            region: 'center',
+            border: false,
+            autoScroll: false,
+            margins: '0 0 0 0',
+            items: [innerPanel]
+        });
+        /*
+         * TopicsPanelLars
+         */
+        var topicsPanelLars = new LarsTopicsPanel();
+        var customImagePanel = new LarsCustomImagePanel(title, imageHeight);
+        var westPanel = new Ext.Panel({
+            id: 'main-west',
+            region: 'west',
+            layout: 'border',
+            split: true,
+            width: 204,
+            minSize: 175,
+            maxSize: 400,
+            border: false,
+            layoutConfig: {
+                animate: true
+            },
+            margins: '0 0 0 0',
+            cmargins: '8 5 8 0',
+            collapsible: true,
+            items: [customImagePanel, topicsPanelLars]
+        });
 
-		var viewport = new Ext.Viewport({
-					layout : 'border',
-					items : [eastPanel, centerPanel, westPanel]
-				});
-		if (eastCollapsed == "1") {
-			eastPanel.collapse();
-		}
-		larsDesktopDiscussion.store.load({
-					params : {
-						start : 0,
-						limit : 10
-					}
-				});
-		larsDesktopGrid.store.load();
+        var viewport = new Ext.Viewport({
+            layout: 'border',
+            items: [eastPanel, centerPanel, westPanel]
+        });
+        if (eastCollapsed == "1") {
+            eastPanel.collapse();
+        }
+        larsDesktopDiscussion.store.load({
+            params: {
+                start: 0,
+                limit: 10
+            }
+        });
+        larsDesktopGrid.store.load();
 
-		larsUpdater = new LarsUpdater();
+        larsUpdater = new LarsUpdater();
 
-		function load_updates() {
-			larsUpdater.store.load({
-						params : {
-							task : "getUpdates",
-							id : Ext.util.JSON.encode(larsUpdater.updateIds)
-						}
-					});
-		}
-		larsUpdater.store.proxy.on("loadexception", function(a, b, response) {
-					if (response.responseText) {
-						var responseData = Ext.util.JSON
-								.decode(response.responseText);// passed back
-																// from server
-						Ext.ux.ToastLars.msg(Lars.msg.failure_connection,
-								responseData.name, 5);
-					}
-					load_updates.defer(larsUpdaterInterval, this, []);
-				}, this);
-		larsUpdater.store.on("load", function(a, b, c) {
-					load_updates.defer(larsUpdaterInterval, this, []);
-				}, this);
+        function load_updates() {
+            larsUpdater.store.load({
+                params: {
+                    task: "getUpdates",
+                    id: Ext.util.JSON.encode(larsUpdater.updateIds)
+                }
+            });
+        }
+        larsUpdater.store.proxy.on("loadexception", function(a, b, response) {
+            if (response.responseText) {
+                var responseData = Ext.util.JSON
+                    .decode(response.responseText); // passed back
+                // from server
+                Ext.ux.ToastLars.msg(Lars.msg.failure_connection,
+                    responseData.name, 5);
+            }
+            load_updates.defer(larsUpdaterInterval, this, []);
+        }, this);
+        larsUpdater.store.on("load", function(a, b, c) {
+            load_updates.defer(larsUpdaterInterval, this, []);
+        }, this);
 
-		load_updates.defer(10000, this, []);
-		LarsUpdaterUsers.defer(30000, this, []);
+        load_updates.defer(10000, this, []);
+        LarsUpdaterUsers.defer(30000, this, []);
 
-		larsDesktopDiscussion.startAutoUpdate("d" + larsDesktopId);
-	};
+        larsDesktopDiscussion.startAutoUpdate("d" + larsDesktopId);
+    };
 });
 
 /*
@@ -12630,368 +12779,367 @@ Ext.onReady(function() {
 // This is a custom event handler passed to some panels so link open in a new
 // windw
 LarsViewer.LinkInterceptor = {
-	render : function(p) {
-		p.body.on({
-					'mousedown' : function(e, t) { // try to intercept the easy
-													// way
-						t.target = '_blank';
-					},
-					'click' : function(e, t) { // if they tab + enter a link,
-												// need to do it old fashioned
-												// way
-						if (String(t.target).toLowerCase() != '_blank') {
-							e.stopEvent();
-							window.open(t.href);
-						}
-					},
-					delegate : 'a'
-				});
-	}
+    render: function(p) {
+        p.body.on({
+            'mousedown': function(e, t) { // try to intercept the easy
+                // way
+                t.target = '_blank';
+            },
+            'click': function(e, t) { // if they tab + enter a link,
+                // need to do it old fashioned
+                // way
+                if (String(t.target).toLowerCase() != '_blank') {
+                    e.stopEvent();
+                    window.open(t.href);
+                }
+            },
+            delegate: 'a'
+        });
+    }
 };
 LarsViewer.LinkInterceptorIFrame = function(frame) {
-	frame.getDoc().on({
-				'mousedown' : function(e, t) { // try to intercept the easy way
-					if (t.href.match(window.location.host)) {
-						frame.setSrc(t.href);
-					} else {
-						t.target = '_blank';
-					}
-				},
-				'click' : function(e, t) { // if they tab + enter a link, need
-											// to do it old fashioned way
-					if (String(t.target).toLowerCase() != '_blank') {
-						e.stopEvent();
-						if (t.href.match(window.location.host)) {
-							frame.setSrc(t.href);
-						} else {
-							window.open(t.href);
-						}
-					}
-				},
-				delegate : 'a'
-			});
+    frame.getDoc().on({
+        'mousedown': function(e, t) { // try to intercept the easy way
+            if (t.href.match(window.location.host)) {
+                frame.setSrc(t.href);
+            } else {
+                t.target = '_blank';
+            }
+        },
+        'click': function(e, t) { // if they tab + enter a link, need
+            // to do it old fashioned way
+            if (String(t.target).toLowerCase() != '_blank') {
+                e.stopEvent();
+                if (t.href.match(window.location.host)) {
+                    frame.setSrc(t.href);
+                } else {
+                    window.open(t.href);
+                }
+            }
+        },
+        delegate: 'a'
+    });
 }
 LarsViewer.getKeyMap = function(fn, scope) {
-	// var enterKeyMap = new Ext.KeyMap(scope.form, {
-	var enterKeyMap = {
-		key : Ext.EventObject.ENTER,
-		fn : fn,
-		scope : scope
-	};
-	// });
-	return enterKeyMap;
+    // var enterKeyMap = new Ext.KeyMap(scope.form, {
+    var enterKeyMap = {
+        key: Ext.EventObject.ENTER,
+        fn: fn,
+        scope: scope
+    };
+    // });
+    return enterKeyMap;
 }
 LarsViewer.onLoadException = function(a, b, c) {
-	Ext.ux.ToastLars.msg(Lars.msg.failure_response, '', 5);
+    Ext.ux.ToastLars.msg(Lars.msg.failure_response, '', 5);
 };
 
 LarsViewer.QuestionTabOrBrowserOpen = function(node) {
-	Ext.Msg.show({
-				title : node.attributes.lars_ref,
-				msg : Lars.dialog.link.open_both + "<br><i>"
-						+ node.attributes.lars_ref + '</i>',
-				buttons : {
-					ok : Lars.dialog.link.button_app,
-					no : Lars.dialog.link.button_browser,
-					cancel : Ext.MessageBox.buttonText.cancel
-				},
-				icon : Ext.MessageBox.QUESTION,
-				animEl : 'elId',
-				fn : function(btn) {
-					if (btn == 'ok') {
-						Ext.getCmp('main-tabs').fireEvent('viewIFrameTabAll',
-								node);
-					} else if (btn == 'no') {
-						window.open(node.attributes.lars_ref);
-					}
-				}
-			})
+    Ext.Msg.show({
+        title: node.attributes.lars_ref,
+        msg: Lars.dialog.link.open_both + "<br><i>" + node.attributes.lars_ref + '</i>',
+        buttons: {
+            ok: Lars.dialog.link.button_app,
+            no: Lars.dialog.link.button_browser,
+            cancel: Ext.MessageBox.buttonText.cancel
+        },
+        icon: Ext.MessageBox.QUESTION,
+        animEl: 'elId',
+        fn: function(btn) {
+            if (btn == 'ok') {
+                Ext.getCmp('main-tabs').fireEvent('viewIFrameTabAll',
+                    node);
+            } else if (btn == 'no') {
+                window.open(node.attributes.lars_ref);
+            }
+        }
+    })
 };
 
 LarsViewer.QuestionBrowserOpen = function(e) {
-	Ext.Msg.confirm(e.currentTarget.href, Lars.dialog.link.open_browser,
-			function(btn) {
-				if (btn == 'yes') {
-					window.open(e.currentTarget.href);
-				}
-			}, this)
+    Ext.Msg.confirm(e.currentTarget.href, Lars.dialog.link.open_browser,
+        function(btn) {
+            if (btn == 'yes') {
+                window.open(e.currentTarget.href);
+            }
+        }, this)
 };
 LarsViewer.QuestionBrowserOpenNode = function(node) {
-	Ext.Msg.confirm(node.attributes.lars_ref, Lars.dialog.link.open_browser,
-			function(btn) {
-				if (btn == 'yes') {
-					window.open(node.attributes.lars_ref);
-				}
-			}, this)
+    Ext.Msg.confirm(node.attributes.lars_ref, Lars.dialog.link.open_browser,
+        function(btn) {
+            if (btn == 'yes') {
+                window.open(node.attributes.lars_ref);
+            }
+        }, this)
 };
 LarsViewer.QuestionBrowserOpenPDF = function(node) {
-	Ext.Msg.show({
-				title : node.attributes.lars_ref,
-				msg : Lars.dialog.link.open_both + "<br><i>"
-						+ node.attributes.lars_ref + '</i>',
-				buttons : {
-					ok : Lars.dialog.link.button_app,
-					no : Lars.dialog.link.button_browser,
-					cancel : Ext.MessageBox.buttonText.cancel
-				},
-				icon : Ext.MessageBox.QUESTION,
-				animEl : 'elId',
-				fn : function(btn) {
-					if (btn == 'ok') {
-						Ext.getCmp('main-tabs').fireEvent('viewIFrameTabAll',
-								node);
-					} else if (btn == 'no') {
-						window.open(node.attributes.lars_ref);
-					}
-				}
-			})
+    Ext.Msg.show({
+        title: node.attributes.lars_ref,
+        msg: Lars.dialog.link.open_both + "<br><i>" + node.attributes.lars_ref + '</i>',
+        buttons: {
+            ok: Lars.dialog.link.button_app,
+            no: Lars.dialog.link.button_browser,
+            cancel: Ext.MessageBox.buttonText.cancel
+        },
+        icon: Ext.MessageBox.QUESTION,
+        animEl: 'elId',
+        fn: function(btn) {
+            if (btn == 'ok') {
+                Ext.getCmp('main-tabs').fireEvent('viewIFrameTabAll',
+                    node);
+            } else if (btn == 'no') {
+                window.open(node.attributes.lars_ref);
+            }
+        }
+    })
 };
 
 LarsGridConfig = {
-	larsObj : Ext.data.Record.create([{
-				name : "id"
-			}, {
-				name : 'OBJ_NAME',
-				type : 'string'
-			}, {
-				name : 'LARS_CONTENT',
-				type : 'string'
-			}, {
-				name : 'LARS_COMMENT',
-				type : 'string'
-			}, {
-				name : 'OBJ_CREATION_TIME',
-				type : 'date',
-				dateFormat : 'U'
-			}, {
-				name : 'OBJ_LAST_CHANGED',
-				type : 'date',
-				dateFormat : 'U'
-			}, {
-				name : 'DOC_LAST_MODIFIED',
-				type : 'date',
-				dateFormat : 'U'
-			}, {
-				name : 'OBJ_DESC',
-				type : 'string'
-			}, {
-				name : 'OBJ_AUTHOR',
-				type : 'string'
-			}, {
-				name : 'type',
-				type : 'string'
-			}, {
-				name : 'LARS_TYPE',
-				type : 'string'
-			},
-			{
-				name : 'OBJ_TYPE',
-				type : 'string'
-			}, {
-				name : 'is_home',
-				type : 'boolean'
-			}, {
-				name : 'OBJ_PATH',
-				type : 'string'
-			}, {
-				name : 'LARS_FOLDER',
-				type : 'string'
-			}, {
-				name : 'action0',
-				type : 'string'
-			}, {
-				name : 'action1',
-				type : 'string'
-			}, {
-				name : 'action2',
-				type : 'string'
-			}, {
-				name : 'action3',
-				type : 'string'
-			}, {
-				name : 'action4',
-				type : 'string'
-			}, {
-				name : 'action5',
-				type : 'string'
-			}, {
-				name : 'qtip0',
-				type : 'string'
-			}, {
-				name : 'qtip1',
-				type : 'string'
-			}, {
-				name : 'qtip2',
-				type : 'string'
-			}, {
-				name : 'qtip3',
-				type : 'string'
-			}, {
-				name : 'qtip4',
-				type : 'string'
-			}, {
-				name : 'qtip5',
-				type : 'string'
-			}, {
-				name : 'hide1',
-				type : 'boolean'
-			}, {
-				name : 'hide2',
-				type : 'boolean'
-			}, {
-				name : 'hide3',
-				type : 'boolean'
-			}, {
-				name : 'hide4',
-				type : 'boolean'
-			}, {
-				name : 'hide5',
-				type : 'boolean'
-			}, {
-				name : 'container',
-				type : 'string'
-			}]),
+    larsObj: Ext.data.Record.create([{
+        name: "id"
+    }, {
+        name: 'OBJ_NAME',
+        type: 'string'
+    }, {
+        name: 'LARS_CONTENT',
+        type: 'string'
+    }, {
+        name: 'LARS_COMMENT',
+        type: 'string'
+    }, {
+        name: 'OBJ_CREATION_TIME',
+        type: 'date',
+        dateFormat: 'U'
+    }, {
+        name: 'OBJ_LAST_CHANGED',
+        type: 'date',
+        dateFormat: 'U'
+    }, {
+        name: 'DOC_LAST_MODIFIED',
+        type: 'date',
+        dateFormat: 'U'
+    }, {
+        name: 'OBJ_DESC',
+        type: 'string'
+    }, {
+        name: 'OBJ_AUTHOR',
+        type: 'string'
+    }, {
+        name: 'type',
+        type: 'string'
+    }, {
+        name: 'LARS_TYPE',
+        type: 'string'
+    }, {
+        name: 'OBJ_TYPE',
+        type: 'string'
+    }, {
+        name: 'is_home',
+        type: 'boolean'
+    }, {
+        name: 'OBJ_PATH',
+        type: 'string'
+    }, {
+        name: 'LARS_FOLDER',
+        type: 'string'
+    }, {
+        name: 'action0',
+        type: 'string'
+    }, {
+        name: 'action1',
+        type: 'string'
+    }, {
+        name: 'action2',
+        type: 'string'
+    }, {
+        name: 'action3',
+        type: 'string'
+    }, {
+        name: 'action4',
+        type: 'string'
+    }, {
+        name: 'action5',
+        type: 'string'
+    }, {
+        name: 'qtip0',
+        type: 'string'
+    }, {
+        name: 'qtip1',
+        type: 'string'
+    }, {
+        name: 'qtip2',
+        type: 'string'
+    }, {
+        name: 'qtip3',
+        type: 'string'
+    }, {
+        name: 'qtip4',
+        type: 'string'
+    }, {
+        name: 'qtip5',
+        type: 'string'
+    }, {
+        name: 'hide1',
+        type: 'boolean'
+    }, {
+        name: 'hide2',
+        type: 'boolean'
+    }, {
+        name: 'hide3',
+        type: 'boolean'
+    }, {
+        name: 'hide4',
+        type: 'boolean'
+    }, {
+        name: 'hide5',
+        type: 'boolean'
+    }, {
+        name: 'container',
+        type: 'string'
+    }]),
 
-	dsType : new Ext.data.SimpleStore({
-				id : 0,
-				fields : ['id', 'text'],
-				data : [[0, '-'], [1, 'Aufgabe'], [2, 'Lösung'],
-						[3, 'Info']]
-			}),
-	expander : new Ext.grid.RowExpander({
-				tpl : new Ext.Template('<p><b>Inhalt:</b><br>{LARS_CONTENT}<br></p>'),
-				lazyRender : true,
-				enableCaching : false
-			}),
-	applyRowClass : function(record, rowIndex, p, ds) {
-		switch (record.data.LARS_TYPE) {
-			case '0' :
-				return "x-grid3-row-collapsed"
-				break
-			case '1' :
-				return "pinkrow x-grid3-row-expanded"
-				break
-			case '2' :
-				return "greenrow x-grid3-row-collapsed"
-				break
-			case '3' :
-				return "x-grid3-row-expanded"
-				break
-			default :
-				return "x-grid3-row-collapsed"
-				break
-		}
-	},
-	applyRowClassWithout : function(record, rowIndex, p, ds) {
-		switch (record.data.LARS_TYPE) {
-			case '0' :
-				return "x-grid3-row-collapsed"
-				break
-			case '1' :
-				return "pinkrow x-grid3-row-collapsed"
-				break
-			case '2' :
-				return "greenrow x-grid3-row-collapsed"
-				break
-			case '3' :
-				return "x-grid3-row-collapsed"
-				break
-			default :
-				return "x-grid3-row-collapsed"
-				break
-		}
-	},
-	renderType : function(data, cell, record, rowIndex, columnIndex, store) {
-		switch (data) {
-			case "Text" :
-				cell.css = "type-text";
-				return;
-			case "Bild" :
-				cell.css = "type-picture";
-				return;
-			case "Download" :
-				cell.css = "type-download";
-				return;
-			case "Link" :
-				cell.css = "type-link";
-				return;
-		}
-	},
-	renderCell : function(data) {
-		switch (data) {
-			case 0 :
-				break
-			case 1 :
-				return "pinkrow"
-				break
-			case 2 :
-				return "greenrow"
-				break
-			default :
-		}
-	},
-	downloadFile : function(path) {
+    dsType: new Ext.data.SimpleStore({
+        id: 0,
+        fields: ['id', 'text'],
+        data: [
+            [0, '-'],
+            [1, 'Aufgabe'],
+            [2, 'Lösung'],
+            [3, 'Info']
+        ]
+    }),
+    expander: new Ext.grid.RowExpander({
+        tpl: new Ext.Template('<p><b>Inhalt:</b><br>{LARS_CONTENT}<br></p>'),
+        lazyRender: true,
+        enableCaching: false
+    }),
+    applyRowClass: function(record, rowIndex, p, ds) {
+        switch (record.data.LARS_TYPE) {
+            case '0':
+                return "x-grid3-row-collapsed"
+                break
+            case '1':
+                return "pinkrow x-grid3-row-expanded"
+                break
+            case '2':
+                return "greenrow x-grid3-row-collapsed"
+                break
+            case '3':
+                return "x-grid3-row-expanded"
+                break
+            default:
+                return "x-grid3-row-collapsed"
+                break
+        }
+    },
+    applyRowClassWithout: function(record, rowIndex, p, ds) {
+        switch (record.data.LARS_TYPE) {
+            case '0':
+                return "x-grid3-row-collapsed"
+                break
+            case '1':
+                return "pinkrow x-grid3-row-collapsed"
+                break
+            case '2':
+                return "greenrow x-grid3-row-collapsed"
+                break
+            case '3':
+                return "x-grid3-row-collapsed"
+                break
+            default:
+                return "x-grid3-row-collapsed"
+                break
+        }
+    },
+    renderType: function(data, cell, record, rowIndex, columnIndex, store) {
+        switch (data) {
+            case "Text":
+                cell.css = "type-text";
+                return;
+            case "Bild":
+                cell.css = "type-picture";
+                return;
+            case "Download":
+                cell.css = "type-download";
+                return;
+            case "Link":
+                cell.css = "type-link";
+                return;
+        }
+    },
+    renderCell: function(data) {
+        switch (data) {
+            case 0:
+                break
+            case 1:
+                return "pinkrow"
+                break
+            case 2:
+                return "greenrow"
+                break
+            default:
+        }
+    },
+    downloadFile: function(path) {
 
-		var id = Ext.id();
-		var frame = document.createElement('iframe');
-		frame.id = id;
-		frame.name = id;
-		frame.className = 'x-hidden';
-		frame.src = path;
-		document.body.appendChild(frame);
-	},
-	changeAttribute : function(id, attribute, value, orignalValue) {
-		Ext.Ajax.request({
-			scope : this,
-			url : 'data/',
-			params : {
-				task : "update",
-				key : 'id',
-				keyValue : id,
-				id : id,
-				field : attribute,
-				fieldValue : value,
-				originalValue : orignalValue
-			},
-			failure : function(response, options) {
-				Ext.MessageBox.alert(Lars.msg.failure_connection, '');
-			},// end failure block
-			success : function(response, options) {
-				var responseData = Ext.util.JSON.decode(response.responseText);
-				if (responseData.success == true) {
-					Ext.ux.ToastLars.msg(Lars.msg.success_changed_data,
-							responseData.name ? responseData.name : " ", 3);
-				} else {
-					Ext.ux.ToastLars.msg(LArs.msg.failure,
-							Lars.msg.failure_nothing_changed + '<br>'
-									+ responseData.name, 4);
-				}
-			}// end success block
-		}		// end request config
-		); // end request
+        var id = Ext.id();
+        var frame = document.createElement('iframe');
+        frame.id = id;
+        frame.name = id;
+        frame.className = 'x-hidden';
+        frame.src = path;
+        document.body.appendChild(frame);
+    },
+    changeAttribute: function(id, attribute, value, orignalValue) {
+        Ext.Ajax.request({
+                scope: this,
+                url: 'data/',
+                params: {
+                    task: "update",
+                    key: 'id',
+                    keyValue: id,
+                    id: id,
+                    field: attribute,
+                    fieldValue: value,
+                    originalValue: orignalValue
+                },
+                failure: function(response, options) {
+                    Ext.MessageBox.alert(Lars.msg.failure_connection, '');
+                }, // end failure block
+                success: function(response, options) {
+                        var responseData = Ext.util.JSON.decode(response.responseText);
+                        if (responseData.success == true) {
+                            Ext.ux.ToastLars.msg(Lars.msg.success_changed_data,
+                                responseData.name ? responseData.name : " ", 3);
+                        } else {
+                            Ext.ux.ToastLars.msg(LArs.msg.failure,
+                                Lars.msg.failure_nothing_changed + '<br>' + responseData.name, 4);
+                        }
+                    } // end success block
+            } // end request config
+        ); // end request
 
-	},
-	onCollapseExpand : function(p) {
-		Ext.Ajax.request({
-			scope : this,
-			url : 'data/',
-			params : {
-				task : "update",
-				key : 123,
-				keyValue : 123,
-				id : 123,
-				field : "LARS_EAST_COLLAPSED",// the column name
-				fieldValue : p.collapsed ? 0 : 1,// the updated value
-				originalValue : p.collapsed ? 1 : 0
-			},
-			failure : function(response, options) {
-			},// end failure block
-			success : function(response, options) {
-				var responseData = Ext.util.JSON.decode(response.responseText);
-			}// end success block
-		}		// end request config
-		); // end request
-	} // end updateDB
+    },
+    onCollapseExpand: function(p) {
+            Ext.Ajax.request({
+                    scope: this,
+                    url: 'data/',
+                    params: {
+                        task: "update",
+                        key: 123,
+                        keyValue: 123,
+                        id: 123,
+                        field: "LARS_EAST_COLLAPSED", // the column name
+                        fieldValue: p.collapsed ? 0 : 1, // the updated value
+                        originalValue: p.collapsed ? 1 : 0
+                    },
+                    failure: function(response, options) {}, // end failure block
+                    success: function(response, options) {
+                            var responseData = Ext.util.JSON.decode(response.responseText);
+                        } // end success block
+                } // end request config
+            ); // end request
+        } // end updateDB
 }
 
 AssignmentWindow = function(node) {
