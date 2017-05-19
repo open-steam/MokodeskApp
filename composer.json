@@ -4,50 +4,75 @@
     "type": "project",
     "description": "",
     "autoload": {
-        "psr-0": { "": "src/" }
+        "psr-4": {
+            "": "src/"
+        },
+        "classmap": [
+            "app/AppKernel.php",
+            "app/AppCache.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        },
+        "files": [
+            "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php"
+        ]
     },
     "repositories": [
     {
-        "type" : "vcs",
-        "url" : "https://github.com/open-steam/phpsteam.git"
+        "type": "composer",
+        "url": "https://packages.coactum.de/",
+        "options": {
+            "http": {
+                "header": [
+                    "API-TOKEN: Xfn6QEN9eBmg"
+                ]
+            }
+        }
     }
     ],
     "require": {
-        "php": ">=5.3.3",
-        "symfony/symfony": "2.3.*",
-        "twig/extensions": "1.0.*",
-        "symfony/assetic-bundle": "2.3.*",
-        "symfony/swiftmailer-bundle": "2.3.*",
-        "symfony/monolog-bundle": "2.3.*",
-        "sensio/distribution-bundle": "2.3.*",
-        "sensio/generator-bundle": "2.3.*",
-        "monolog/monolog": "dev-master",
+        "php": ">=5.5.9",
+        "incenteev/composer-parameter-handler": "^2.0",
+        "sensio/distribution-bundle": "^5.0",
+        "sensio/framework-extra-bundle": "^3.0.2",
+        "symfony/monolog-bundle": "^3.0.2",
+        "symfony/polyfill-apcu": "^1.0",
+        "symfony/swiftmailer-bundle": "^2.3.10",
+        "symfony/symfony": "3.2.*",
+        "twig/twig": "^1.0",
         "open-steam/phpsteam" : "dev-master"
     },
     "scripts": {
-        "post-install-cmd": [
+        "symfony-scripts": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ],
+        "post-install-cmd": [
+            "@symfony-scripts"
         ],
         "post-update-cmd": [
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+            "@symfony-scripts"
         ]
     },
     "config": {
-        "bin-dir": "bin"
+        "sort-packages": true
     },
-    "minimum-stability": "stable",
     "extra": {
         "symfony-app-dir": "app",
+        "symfony-bin-dir": "bin",
+        "symfony-var-dir": "var",
         "symfony-web-dir": "web",
-        "symfony-assets-install": "symlink",
-        "branch-alias": {
-            "dev-master": "2.3-dev"
-        }
+        "symfony-assets-install": "relative",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        },
+        "branch-alias": null
     }
 }

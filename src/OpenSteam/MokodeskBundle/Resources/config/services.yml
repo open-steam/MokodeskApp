@@ -11,4 +11,4 @@ services:
             - {name: "monolog.logger", channel: "backtrace"}
             - {name: "kernel.event_listener", event: "kernel.exception", method: "onKernelException"}
         arguments:
-            - @logger
+            - "@logger"
