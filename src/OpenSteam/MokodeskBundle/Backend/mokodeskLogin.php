@@ -91,23 +91,11 @@
             print (json_encode(array("success" => false, "name"=>"Config error MOKODESK_ALLOWED_GROUP_NAME is missing.")));
             exit;
         }
-        $allowedGroupWorkroom = $allowedGroup->get_workroom();
-        $groupLinks = $allowedGroupWorkroom->get_inventory_filtered(
-            array(array( '+', 'class', CLASS_LINK))
-        );
         $allowed = false;
         if ($steam_user->get_name() === "root") {
             $allowed = true;
         } else {
-            foreach ($groupLinks as $key => $groupLink) {
-                $group = $groupLink->get_link_object();
-                if ($group instanceof steam_user) {
-                    $allowed = ($steam_user->get_name() == $group->get_name()) ? true : false;
-                } elseif ($group instanceof steam_group) {
-                    $allowed = $group->is_member($steam_user);
-                }
-                if ($allowed) {break;}
-            }
+            $allowed = $allowedGroup->is_member($steam_user);
         }
         if (!$allowed) {
             print (json_encode(array("success" => false, "name"=>msg('LOGIN_FAILED') . "<br>" . msg('NO_MOKODESK_PERMISSION'), "version"=>true)));
