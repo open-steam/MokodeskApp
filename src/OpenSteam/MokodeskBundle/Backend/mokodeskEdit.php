@@ -133,9 +133,6 @@ function setContentHtml($steam, $id)
             'success' => false,
             'message' => "Keine Berechtigung zum Schreiben des Dokuments"
         ));
-
-        break;
-
         exit;
     }
     $serverContent = $document->get_content();
